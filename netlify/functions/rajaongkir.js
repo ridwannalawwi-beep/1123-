@@ -1,15 +1,17 @@
 var https = require('https');
+var querystring = require('querystring');
 
-var RAJAONGRIR_URL = 'rajaongkir.komerce.id';
-var ORIGIN_ID = null;
+var BASE_URL = 'rajaongkir.komerce.id';
+var BASE_PATH = '/api/v1';
 
-function apiGet(path, apiKey) {
+function apiGet(path, query, apiKey) {
   return new Promise(function(resolve, reject) {
+    var qs = Object.keys(query).length ? '?' + querystring.stringify(query) : '';
     var opts = {
-      hostname: RAJAONGRIR_URL,
-      path: '/api/v1' + path,
+      hostname: BASE_URL,
+      path: BASE_PATH + path + qs,
       method: 'GET',
-      headers: { 'x-api-key': apiKey },
+      headers: { 'key': apiKey, 'Accept': 'application/json' },
       timeout: 10000
     };
     var req = https.request(opts, function(res) {
@@ -17,7 +19,7 @@ function apiGet(path, apiKey) {
       res.on('data', function(c) { body += c; });
       res.on('end', function() {
         try { resolve(JSON.parse(body)); }
-        catch(e) { resolve({ error: true, message: 'Parse error' }); }
+        catch(e) { resolve({ meta: { status: 'error', message: 'Parse error' }, data: null }); }
       });
     });
     req.on('error', function(e) { reject(new Error(e.message)); });
@@ -28,14 +30,15 @@ function apiGet(path, apiKey) {
 
 function apiPost(path, data, apiKey) {
   return new Promise(function(resolve, reject) {
-    var postData = JSON.stringify(data);
+    var postData = querystring.stringify(data);
     var opts = {
-      hostname: RAJAONGRIR_URL,
-      path: '/api/v1' + path,
+      hostname: BASE_URL,
+      path: BASE_PATH + path,
       method: 'POST',
       headers: {
-        'x-api-key': apiKey,
-        'Content-Type': 'application/json',
+        'key': apiKey,
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
         'Content-Length': Buffer.byteLength(postData)
       },
       timeout: 10000
@@ -45,7 +48,7 @@ function apiPost(path, data, apiKey) {
       res.on('data', function(c) { body += c; });
       res.on('end', function() {
         try { resolve(JSON.parse(body)); }
-        catch(e) { resolve({ error: true, message: 'Parse error: ' + body.substring(0,200) }); }
+        catch(e) { resolve({ meta: { status: 'error', message: 'Parse error' }, data: null }); }
       });
     });
     req.on('error', function(e) { reject(new Error(e.message)); });
@@ -80,49 +83,50 @@ exports.handler = async function(event) {
   }
 
   try {
-    // 1. Search origin (Jakarta) — cache ORIGIN_ID
-    if (!ORIGIN_ID) {
-      var originSearch = await apiGet('/destination/domestic-destination?q=jakarta', apiKey);
-      if (originSearch && originSearch.data && originSearch.data.length > 0) {
-        ORIGIN_ID = originSearch.data[0].id;
-      }
+    // Search origin (workshop: Bandung)
+    var originSearch = await apiGet('/destination/domestic-destination', { search: 'bandung', limit: 1 }, apiKey);
+    if (!originSearch || originSearch.meta.status !== 'success' || !originSearch.data || originSearch.data.length === 0) {
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'origin_not_found' }) };
     }
+    var originId = String(originSearch.data[0].id);
 
-    // 2. Search destination city
-    var destSearch = await apiGet('/destination/domestic-destination?q=' + encodeURIComponent(city), apiKey);
-    if (!destSearch || !destSearch.data || destSearch.data.length === 0) {
+    // Search destination city
+    var destSearch = await apiGet('/destination/domestic-destination', { search: city, limit: 5 }, apiKey);
+    if (!destSearch || destSearch.meta.status !== 'success' || !destSearch.data || destSearch.data.length === 0) {
       return { statusCode: 200, headers, body: JSON.stringify({ error: 'city_not_found' }) };
     }
 
-    var dest = destSearch.data[0];
+    // Use first result as destination
+    var destId = String(destSearch.data[0].id);
 
-    // 3. Calculate cost
-    var calcResult = await apiPost('/calculate/domestic-cost', {
-      origin_id: parseInt(ORIGIN_ID),
-      destination_id: parseInt(dest.id),
-      weight: weight,
-      courier: 'jne,tiki,pos'
-    }, apiKey);
+    // Calculate costs for multiple couriers
+    var couriers = ['jne', 'tiki', 'pos', 'sicepat', 'jnt'];
+    var results = [];
 
-    if (!calcResult || calcResult.error) {
-      return { statusCode: 200, headers, body: JSON.stringify({ error: calcResult ? calcResult.message : 'API error' }) };
+    for (var i = 0; i < couriers.length; i++) {
+      var calcResult = await apiPost('/calculate/domestic-cost', {
+        origin: originId,
+        destination: destId,
+        weight: weight * 1000,
+        courier: couriers[i],
+        price: 'lowest'
+      }, apiKey);
+
+      if (calcResult && calcResult.meta.status === 'success' && calcResult.data) {
+        calcResult.data.forEach(function(item) {
+          results.push({
+            courier: (item.code || '').toUpperCase(),
+            name: item.name || '',
+            service: item.service || '',
+            cost: item.cost || 0,
+            etd: (item.etd || '—').replace('day', 'hari').replace('days', 'hari')
+          });
+        });
+      }
     }
 
-    var results = [];
-    if (calcResult.data) {
-      calcResult.data.forEach(function(item) {
-        if (item.costs) {
-          item.costs.forEach(function(c) {
-            var costVal = c.cost ? (c.cost[0] ? c.cost[0].value : c.value) : c.total_fee || 0;
-            results.push({
-              courier: (item.code || item.name || '').toUpperCase(),
-              service: c.service || c.name || '',
-              cost: costVal,
-              etd: c.etd || c.estimation || c.duration || '—'
-            });
-          });
-        }
-      });
+    if (results.length === 0) {
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'no_courier_available' }) };
     }
 
     results.sort(function(a, b) { return a.cost - b.cost; });
