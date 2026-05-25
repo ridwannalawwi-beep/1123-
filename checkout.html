@@ -418,7 +418,54 @@ html {
 <footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop"><div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24"><div class="lg:col-span-6 flex flex-col items-start gap-8"><div class="flex items-center gap-4"><a class="flex items-center gap-4" href="home page.html"><svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">{{DATA:DOCUMENT:DOCUMENT_8}}</svg><span class="text-6xl font-headline-xl tracking-tighter">1123</span></a></div><p class="max-w-md text-on-surface-variant font-medium">Automotive precision translated into textile form. Engineered for those who build the future with their own hands.</p></div><div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12"><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">NAVIGATION</span><a class="font-bold hover:italic" href="galeri.html">BUILDS</a><a class="font-bold hover:italic" href="shop.html">MERCH</a><a class="font-bold hover:italic" href="home page.html">ABOUT</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SOCIAL</span><a class="font-bold hover:italic" href="#">INSTAGRAM</a><a class="font-bold hover:italic" href="#">YOUTUBE</a><a class="font-bold hover:italic" href="#">TIKTOK</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SUPPORT</span><a class="font-bold hover:italic" href="contact person.html">CONTACT</a><a class="font-bold hover:italic" href="#">SHIPPING</a><a class="font-bold hover:italic" href="#">LEGAL</a></div></div></div><div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40"><span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span><div class="flex gap-8 mt-4 md:mt-0"><span class="">PRIVACY POLICY</span><span class="">TERMS OF SERVICE</span></div></div></footer>
 <script>
         var shippingCost = 0;
-        var selectedCityName = '';
+
+        var PROVINCES = [
+          "ACEH","SUMATERA UTARA","SUMATERA BARAT","RIAU","KEPULAUAN RIAU","JAMBI",
+          "SUMATERA SELATAN","BANGKA BELITUNG","BENGKULU","LAMPUNG","DKI JAKARTA",
+          "JAWA BARAT","BANTEN","JAWA TENGAH","DI YOGYAKARTA","JAWA TIMUR","BALI",
+          "NUSA TENGGARA BARAT","NUSA TENGGARA TIMUR","KALIMANTAN BARAT",
+          "KALIMANTAN TENGAH","KALIMANTAN SELATAN","KALIMANTAN TIMUR","KALIMANTAN UTARA",
+          "SULAWESI UTARA","GORONTALO","SULAWESI TENGAH","SULAWESI BARAT",
+          "SULAWESI SELATAN","SULAWESI TENGGARA","MALUKU","MALUKU UTARA",
+          "PAPUA BARAT","PAPUA"
+        ];
+
+        var CITIES = {
+          "ACEH": ["BANDA ACEH","LHOKSEUMAWE","LANGSA","SABANG"],
+          "SUMATERA UTARA": ["MEDAN","BINJAI","PEMATANG SIANTAR","TEBING TINGGI","PADANG SIDEMPUAN","GUNUNGSITOLI"],
+          "SUMATERA BARAT": ["PADANG","BUKITTINGGI","PAYAKUMBUH","SAWAHLUNTO"],
+          "RIAU": ["PEKANBARU","DUMAI","BENGKALIS"],
+          "KEPULAUAN RIAU": ["TANJUNG PINANG","BATAM"],
+          "JAMBI": ["JAMBI","SUNGAI PENUH"],
+          "SUMATERA SELATAN": ["PALEMBANG","LUBUKLINGGAU","PRABUMULIH","PAGAR ALAM"],
+          "BANGKA BELITUNG": ["PANGKAL PINANG"],
+          "BENGKULU": ["BENGKULU"],
+          "LAMPUNG": ["BANDAR LAMPUNG","METRO"],
+          "DKI JAKARTA": ["JAKARTA","BEKASI","DEPOK","TANGERANG","BOGOR"],
+          "JAWA BARAT": ["BANDUNG","CIMAHI","GARUT","TASIKMALAYA","CIREBON","PURWAKARTA","SUKABUMI","BANJAR","CIANJUR","INDRAMAYU","KARAWANG","SUBANG","SUMEDANG"],
+          "BANTEN": ["TANGERANG SELATAN","SERANG","CILEGON"],
+          "JAWA TENGAH": ["SEMARANG","SALATIGA","SURAKARTA","MAGELANG","PEKALONGAN","TEGAL","PURWOKERTO","KUDUS","SOLO"],
+          "DI YOGYAKARTA": ["YOGYAKARTA","BANTUL","SLEMAN"],
+          "JAWA TIMUR": ["SURABAYA","MALANG","PASURUAN","PROBOLINGGO","KEDIRI","BLITAR","MADIUN","MOJOKERTO","SIDOARJO","GRESIK","BATU","TULUNGAGUNG","JEMBER","BANYUWANGI","PONOROGO"],
+          "BALI": ["DENPASAR"],
+          "NUSA TENGGARA BARAT": ["MATARAM","BIMA"],
+          "NUSA TENGGARA TIMUR": ["KUPANG"],
+          "KALIMANTAN BARAT": ["PONTIANAK","SINGKAWANG"],
+          "KALIMANTAN TENGAH": ["PALANGKA RAYA"],
+          "KALIMANTAN SELATAN": ["BANJARMASIN","BANJARBARU"],
+          "KALIMANTAN TIMUR": ["SAMARINDA","BALIKPAPAN","BONTANG"],
+          "KALIMANTAN UTARA": ["TARAKAN"],
+          "SULAWESI UTARA": ["MANADO"],
+          "GORONTALO": ["GORONTALO"],
+          "SULAWESI TENGAH": ["PALU"],
+          "SULAWESI BARAT": ["MAMUJU"],
+          "SULAWESI SELATAN": ["MAKASSAR"],
+          "SULAWESI TENGGARA": ["KENDARI"],
+          "MALUKU": ["AMBON"],
+          "MALUKU UTARA": ["TERNATE"],
+          "PAPUA BARAT": ["MANOKWARI","SORONG"],
+          "PAPUA": ["JAYAPURA"]
+        };
 
         function fmtRp(n) {
           return 'Rp' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -426,30 +473,16 @@ html {
 
         function loadProvinces() {
           var sel = document.getElementById('ship-province');
-          sel.innerHTML = '<option value="">MEMUAT...</option>';
-          fetch('/.netlify/functions/rajaongkir?action=provinces')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-              if (data.limited) {
-                sel.innerHTML = '<option value="">RATE LIMIT — COBA BESOK</option>';
-                return;
-              }
-              if (!data.success || !data.data) {
-                sel.innerHTML = '<option value="">GAGAL LOAD PROVINSI</option>';
-                return;
-              }
-              sel.innerHTML = '<option value="">PILIH PROVINSI</option>';
-              data.data.forEach(function(p) {
-                var o = document.createElement('option');
-                o.value = p.id; o.textContent = p.name;
-                sel.appendChild(o);
-              });
-            })
-            .catch(function() { sel.innerHTML = '<option value="">GAGAL LOAD</option>'; });
+          sel.innerHTML = '<option value="">PILIH PROVINSI</option>';
+          PROVINCES.forEach(function(p) {
+            var o = document.createElement('option');
+            o.value = p; o.textContent = p;
+            sel.appendChild(o);
+          });
         }
 
         function loadCities() {
-          var provinceId = document.getElementById('ship-province').value;
+          var province = document.getElementById('ship-province').value;
           var citySel = document.getElementById('ship-city');
           var hint = document.getElementById('ship-hint');
           var container = document.getElementById('courier-results');
@@ -459,34 +492,47 @@ html {
           document.getElementById('co-shipping').textContent = '—';
           updateTotal();
 
-          if (!provinceId) {
+          if (!province) {
             citySel.innerHTML = '<option value="">PILIH KOTA</option>';
             citySel.disabled = true;
             return;
           }
 
-          citySel.disabled = true;
-          citySel.innerHTML = '<option value="">MEMUAT...</option>';
+          citySel.innerHTML = '<option value="">PILIH KOTA</option>';
+          var cities = CITIES[province] || [];
+          cities.forEach(function(c) {
+            var o = document.createElement('option');
+            o.value = c; o.textContent = c;
+            citySel.appendChild(o);
+          });
+          citySel.disabled = false;
+        }
 
-          fetch('/.netlify/functions/rajaongkir?action=cities&province_id=' + provinceId)
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-              if (!data.success || !data.data) return;
-              citySel.innerHTML = '<option value="">PILIH KOTA</option>';
-              data.data.forEach(function(c) {
-                var o = document.createElement('option');
-                o.value = c.name;
-                o.textContent = c.name;
-                o.dataset.id = c.id;
-                citySel.appendChild(o);
-              });
-              citySel.disabled = false;
-            })
-            .catch(function() { citySel.innerHTML = '<option value="">GAGAL LOAD</option>'; });
+        var CITY_DISTANCES = {
+          'jakarta': 0, 'bekasi': 20, 'depok': 25, 'tangerang': 30, 'bogor': 50, 'tangerang selatan': 28,
+          'bandung': 150, 'cimahi': 155, 'garut': 220, 'tasikmalaya': 250, 'cirebon': 220, 'purwakarta': 130, 'sukabumi': 120,
+          'semarang': 450, 'salatiga': 480, 'surakarta': 520, 'magelang': 530,
+          'yogyakarta': 550, 'bantul': 560, 'sleman': 545,
+          'surabaya': 780, 'malang': 820, 'pasuruan': 830, 'probolinggo': 860, 'kediri': 710, 'blitar': 750, 'madiun': 650, 'mojokerto': 740, 'sidoarjo': 790, 'gresik': 800, 'batu': 810,
+          'medan': 1400, 'padang': 950, 'palembang': 450, 'pekanbaru': 920, 'bandar lampung': 250,
+          'pontianak': 750, 'samarinda': 1200, 'balikpapan': 1200, 'banjarmasin': 900,
+          'makassar': 1400, 'manado': 2200, 'palu': 1600, 'kendari': 1700,
+          'denpasar': 1000, 'mataram': 1150, 'kupang': 2000,
+          'ambon': 2500, 'jayapura': 4000
+        };
+
+        function getShippingCost(km) {
+          if (km < 0) return false;
+          if (km <= 10) return 0;
+          if (km <= 50) return 30000;
+          if (km <= 150) return 70000;
+          if (km <= 500) return 150000;
+          if (km <= 1000) return 250000;
+          return 400000;
         }
 
         function calcShipping() {
-          var city = document.getElementById('ship-city').value.trim();
+          var city = document.getElementById('ship-city').value.trim().toLowerCase();
           var hint = document.getElementById('ship-hint');
           var container = document.getElementById('courier-results');
 
@@ -499,16 +545,33 @@ html {
             return;
           }
 
-          selectedCityName = city;
-          hint.textContent = 'MENCARI KURIR...';
-          shippingCost = 0;
-          container.innerHTML = '<div class="flex items-center gap-3 text-on-surface-variant text-mono-metric py-3"><div class="loading-spinner" style="display:block;width:16px;height:16px"></div>LOADING KURIR...</div>';
+          var km = CITY_DISTANCES[city];
+          if (km === undefined) km = -1;
+
+          var label;
+          if (km === 0) {
+            label = 'LOKAL (WORKSHOP AREA)';
+            shippingCost = 0;
+          } else if (km > 0) {
+            label = km + ' KM DARI WORKSHOP';
+            shippingCost = getShippingCost(km);
+          } else {
+            label = 'LUAR JANGKAUAN';
+            shippingCost = 500000;
+          }
+
+          hint.textContent = label;
+          document.getElementById('co-shipping').textContent = shippingCost === 0 ? 'FREE' : fmtRp(shippingCost);
+          updateTotal();
+
+          container.innerHTML = '<div class="flex items-center gap-3 text-on-surface-variant text-mono-metric py-3"><div class="loading-spinner" style="display:block;width:16px;height:16px"></div>CARI KURIR VIA RAJAONGKIR...</div>';
 
           fetch('/.netlify/functions/rajaongkir?city=' + encodeURIComponent(city) + '&weight=1')
             .then(function(r) { return r.json(); })
             .then(function(data) {
               if (data.success && data.results && data.results.length > 0) {
-                hint.textContent = 'PILIH KURIR';
+                var label2 = shippingCost === 0 ? 'GRATIS (LOKAL)' : 'ESTIMASI ' + fmtRp(shippingCost);
+                hint.textContent = label + ' — PILIH KURIR (RAJAONGKIR):';
                 container.innerHTML = data.results.map(function(r) {
                   return '<label class="flex items-center gap-4 p-4 border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all cursor-pointer group" onclick="selectCourier(this, ' + r.cost + ')">' +
                     '<div class="w-5 h-5 rounded-full border-2 border-outline shrink-0 flex items-center justify-center group-hover:border-primary transition-all"><div class="w-2.5 h-2.5 rounded-full hidden bg-primary"></div></div>' +
@@ -516,17 +579,9 @@ html {
                     '<span class="text-label-caps font-label-caps text-primary shrink-0">Rp' + r.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '</span>' +
                     '</label>';
                 }).join('');
-              } else if (data.error === 'city_not_found') {
-                hint.textContent = 'KOTA TIDAK DITEMUKAN DI RAJAONGKIR';
-                container.innerHTML = '';
-              } else {
-                hint.textContent = 'KURIR TIDAK TERSEDIA';
-                container.innerHTML = '';
               }
             })
-            .catch(function() {
-              container.innerHTML = '<p class="text-mono-metric text-on-surface-variant text-[10px]">GAGAL MEMUAT KURIR</p>';
-            });
+            .catch(function() {});
         }
 
         function selectCourier(el, cost) {
@@ -632,10 +687,7 @@ html {
             return active ? active.getAttribute('data-method') || '' : '';
         }
 
-        var provincesLoaded = false;
-        document.addEventListener('DOMContentLoaded', function() {
-          if (!provincesLoaded) { loadProvinces(); provincesLoaded = true; }
-        });
+        loadProvinces();
 
         var purchaseBtn = document.getElementById('complete-purchase-btn');
 
