@@ -122,25 +122,14 @@ input::placeholder {
     background-image: linear-gradient(45deg, #121414 25%, transparent 25%), linear-gradient(-45deg, #121414 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #121414 75%), linear-gradient(-45deg, transparent 75%, #121414 75%);
     background-size: 4px 4px
     }
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c4c7c8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    background-size: 14px;
-    padding-right: 32px !important;
+.custom-dropdown-panel {
+    scrollbar-width: thin;
+    scrollbar-color: #444748 transparent;
 }
-select option {
-    background: #1e2020;
-    color: #e2e2e2;
-    padding: 8px;
-}
-select:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
+.custom-dropdown-panel::-webkit-scrollbar { width: 4px; }
+.custom-dropdown-panel::-webkit-scrollbar-track { background: transparent; }
+.custom-dropdown-panel::-webkit-scrollbar-thumb { background: #444748; border-radius: 0; }
+
 .payment-btn {
     border: 1px solid #444748;
     background: #1e2020;
@@ -255,22 +244,34 @@ html {
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">PROVINCE</label>
-<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer" id="ship-province" onchange="loadCities()">
-<option value="">PILIH PROVINSI</option>
-</select>
+<div class="relative" id="province-wrap">
+<button class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary text-primary font-mono-metric text-left py-3 px-0 uppercase flex items-center justify-between transition-all" id="province-btn" onclick="toggleDrop('province')">
+<span id="province-label">PILIH PROVINSI</span>
+<svg class="w-4 h-4 text-on-surface-variant transition-transform" id="province-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<div class="absolute top-full left-0 right-0 z-50 mt-0 max-h-52 overflow-y-auto bg-surface-container border border-outline-variant hidden custom-dropdown-panel" id="province-panel"></div>
+</div>
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">CITY</label>
-<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer disabled:opacity-30" id="ship-city" disabled onchange="loadDistricts()">
-<option value="">PILIH KOTA</option>
-</select>
+<div class="relative" id="city-wrap">
+<button class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary text-primary font-mono-metric text-left py-3 px-0 uppercase flex items-center justify-between transition-all opacity-30 cursor-not-allowed" id="city-btn" onclick="toggleDrop('city')" disabled>
+<span id="city-label">PILIH KOTA</span>
+<svg class="w-4 h-4 text-on-surface-variant transition-transform" id="city-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<div class="absolute top-full left-0 right-0 z-50 mt-0 max-h-52 overflow-y-auto bg-surface-container border border-outline-variant hidden custom-dropdown-panel" id="city-panel"></div>
+</div>
 <p class="text-mono-metric text-[11px] text-on-surface-variant mt-1" id="ship-hint"></p>
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">KECAMATAN</label>
-<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer disabled:opacity-30" id="ship-district" disabled onchange="calcShipping()">
-<option value="">PILIH KECAMATAN</option>
-</select>
+<div class="relative" id="district-wrap">
+<button class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary text-primary font-mono-metric text-left py-3 px-0 uppercase flex items-center justify-between transition-all opacity-30 cursor-not-allowed" id="district-btn" onclick="toggleDrop('district')" disabled>
+<span id="district-label">PILIH KECAMATAN</span>
+<svg class="w-4 h-4 text-on-surface-variant transition-transform" id="district-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<div class="absolute top-full left-0 right-0 z-50 mt-0 max-h-52 overflow-y-auto bg-surface-container border border-outline-variant hidden custom-dropdown-panel" id="district-panel"></div>
+</div>
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">ZIP CODE</label>
@@ -531,14 +532,129 @@ html {
           return labels[z] || 'ZONE LUAR';
         }
 
-        function loadProvinces() {
-          var sel = document.getElementById('ship-province');
-          sel.innerHTML = '<option value="">PILIH PROVINSI</option>';
-          PROVINCES.forEach(function(p) {
-            var o = document.createElement('option');
-            o.value = p; o.textContent = p;
-            sel.appendChild(o);
+        var DROP = {};
+
+        function buildDrop(id, items, onPick) {
+          var btn = document.getElementById(id + '-btn');
+          var label = document.getElementById(id + '-label');
+          var panel = document.getElementById(id + '-panel');
+          var arrow = document.getElementById(id + '-arrow');
+          DROP[id] = { btn: btn, label: label, panel: panel, arrow: arrow, items: items, onPick: onPick, open: false, val: '' };
+          panel.innerHTML = items.map(function(it) {
+            return '<button class="w-full text-left px-3 py-2.5 text-mono-metric text-on-surface-variant hover:text-primary hover:bg-surface-container-high uppercase border-b border-outline-variant/30 last:border-0 transition-all" data-val="' + (typeof it === 'object' ? it.val : it) + '" onclick="pickDrop(\'' + id + '\',\'' + (typeof it === 'object' ? it.val.replace(/'/g,"\\'") : it.replace(/'/g,"\\'")) + '\',this)">' + (typeof it === 'object' ? it.label : it) + '</button>';
+          }).join('');
+        }
+
+        function setDrop(id, val, labelText) {
+          DROP[id].val = val;
+          DROP[id].label.textContent = labelText || val || 'PILIH ' + id.toUpperCase();
+        }
+
+        function getDrop(id) { return DROP[id] ? DROP[id].val : ''; }
+
+        function enableDrop(id, on) {
+          var d = DROP[id];
+          if (!d) return;
+          d.btn.disabled = !on;
+          d.btn.className = 'w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary text-primary font-mono-metric text-left py-3 px-0 uppercase flex items-center justify-between transition-all' + (on ? '' : ' opacity-30 cursor-not-allowed');
+        }
+
+        function toggleDrop(id) {
+          var d = DROP[id];
+          if (!d || d.btn.disabled) return;
+          d.open = !d.open;
+          d.panel.classList.toggle('hidden', !d.open);
+          d.arrow.style.transform = d.open ? 'rotate(180deg)' : '';
+        }
+
+        function pickDrop(id, val, el) {
+          var d = DROP[id];
+          setDrop(id, val, el.textContent);
+          d.open = false;
+          d.panel.classList.add('hidden');
+          d.arrow.style.transform = '';
+          if (d.onPick) d.onPick(val);
+        }
+
+        document.addEventListener('click', function(e) {
+          Object.keys(DROP).forEach(function(id) {
+            var d = DROP[id];
+            if (!d.open) return;
+            var wrap = document.getElementById(id + '-wrap');
+            if (wrap && !wrap.contains(e.target)) {
+              d.open = false;
+              d.panel.classList.add('hidden');
+              d.arrow.style.transform = '';
+            }
           });
+        });
+
+        function loadProvinces() {
+          buildDrop('province', PROVINCES, function(val) {
+            DROP['city'] ? setDrop('city', '', '') : null;
+            DROP['district'] ? setDrop('district', '', '') : null;
+            enableDrop('city', false);
+            enableDrop('district', false);
+            document.getElementById('ship-hint').textContent = '';
+            document.getElementById('courier-results').innerHTML = '';
+            shippingCost = 0; selectedCourier = '';
+            document.getElementById('co-shipping').textContent = '—';
+            updateTotal();
+            buildDrop('city', CITIES[val] || [], function(cv) {
+              enableDrop('district', true);
+              buildDrop('district', DISTRICTS[cv] || [], function(dv) {
+                calcShipping();
+              });
+            });
+            enableDrop('city', true);
+          });
+        }
+
+        function calcShipping() {
+          var city = getDrop('city').toLowerCase();
+          var hint = document.getElementById('ship-hint');
+          var container = document.getElementById('courier-results');
+
+          if (!city) {
+            hint.textContent = '';
+            container.innerHTML = '';
+            shippingCost = 0; selectedCourier = '';
+            document.getElementById('co-shipping').textContent = '—';
+            updateTotal();
+            return;
+          }
+
+          var zone = ZONES[city];
+          if (!zone) {
+            hint.textContent = 'KOTA BELUM TERDEFINISI';
+            shippingCost = 500000;
+            container.innerHTML = '';
+            document.getElementById('co-shipping').textContent = fmtRp(shippingCost);
+            updateTotal();
+            return;
+          }
+
+          var rates = RATES[zone];
+          var zoneLabel = getZoneLabel(zone);
+          var weight = getItemWeight();
+          var weightKg = Math.ceil(weight / 1000);
+
+          hint.textContent = zoneLabel + ' (' + weightKg + ' KG)';
+
+          container.innerHTML = '<p class="text-mono-metric text-[10px] text-on-surface-variant mb-2 tracking-wider">PILIH KURIR:</p>' +
+            rates.map(function(r) {
+              var total = r.p * weightKg;
+              return '<label class="flex items-center gap-4 p-4 border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all cursor-pointer group" onclick="selectCourier(this, ' + total + ', \'' + r.c + ' ' + r.s + '\')">' +
+                '<div class="w-5 h-5 rounded-full border-2 border-outline shrink-0 flex items-center justify-center group-hover:border-primary transition-all"><div class="w-2.5 h-2.5 rounded-full hidden bg-primary"></div></div>' +
+                '<div class="flex items-center gap-3 flex-1 min-w-0"><span class="w-8 h-8 bg-surface-container-high border border-outline-variant flex items-center justify-center text-[10px] font-bold tracking-tighter text-primary shrink-0">' + r.c + '</span>' +
+                '<div class="min-w-0"><p class="text-label-caps font-label-caps text-primary text-[11px]">' + r.c + ' — ' + r.s + '</p><p class="text-mono-metric text-on-surface-variant text-[10px]">' + r.e + '</p></div></div>' +
+                '<div class="text-right shrink-0"><p class="text-label-caps font-label-caps text-primary">' + fmtRp(total) + '</p><p class="text-mono-metric text-on-surface-variant text-[9px]">' + fmtRp(r.p) + '/KG</p></div>' +
+                '</label>';
+            }).join('');
+
+          shippingCost = 0; selectedCourier = '';
+          document.getElementById('co-shipping').textContent = '—';
+          updateTotal();
         }
 
         var DISTRICTS = {
@@ -880,15 +996,12 @@ html {
                 var tax = subtotal * 0.08;
                 var total = subtotal + tax + shippingCost;
                 
-                var provinceEl = document.getElementById('ship-province');
-                var cityEl = document.getElementById('ship-city');
-                var districtEl = document.getElementById('ship-district');
                 var address = {
                     name: document.getElementById('ship-name').value.trim(),
                     street: document.getElementById('ship-street').value.trim(),
-                    city: cityEl.options[cityEl.selectedIndex] ? cityEl.options[cityEl.selectedIndex].text : '',
-                    district: districtEl.options[districtEl.selectedIndex] ? districtEl.options[districtEl.selectedIndex].text : '',
-                    province: provinceEl.options[provinceEl.selectedIndex] ? provinceEl.options[provinceEl.selectedIndex].text : '',
+                    city: getDrop('city'),
+                    district: getDrop('district'),
+                    province: getDrop('province'),
                     zip: document.getElementById('ship-zip').value.trim(),
                     phone: document.getElementById('ship-phone').value.trim()
                 };
