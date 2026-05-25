@@ -81,10 +81,11 @@ exports.handler = async function(event) {
     // Province list
     if (action === 'provinces') {
       var res = await apiGet('/destination/province', {}, apiKey);
-      if (res.meta && res.meta.status === 'success' && res.data) {
+      if (res && res.meta && res.meta.status === 'success' && res.data) {
         return { statusCode: 200, headers, body: JSON.stringify({ success: true, data: res.data }) };
       }
-      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed' }) };
+      var msg = (res && res.meta) ? res.meta.message : 'no response';
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed', detail: msg }) };
     }
 
     // City list for a province
