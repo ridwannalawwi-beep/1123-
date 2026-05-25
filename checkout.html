@@ -267,6 +267,10 @@ html {
 <p class="text-mono-metric text-[11px] text-on-surface-variant mt-1" id="ship-hint"></p>
 </div>
 <div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">KECAMATAN</label>
+<input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase" id="ship-district" placeholder="CICENDO" type="text">
+</div>
+<div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">ZIP CODE</label>
 <input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0" id="ship-zip" placeholder="40200" type="text">
 </div>
@@ -418,6 +422,7 @@ html {
 <footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop"><div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24"><div class="lg:col-span-6 flex flex-col items-start gap-8"><div class="flex items-center gap-4"><a class="flex items-center gap-4" href="home page.html"><svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">{{DATA:DOCUMENT:DOCUMENT_8}}</svg><span class="text-6xl font-headline-xl tracking-tighter">1123</span></a></div><p class="max-w-md text-on-surface-variant font-medium">Automotive precision translated into textile form. Engineered for those who build the future with their own hands.</p></div><div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12"><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">NAVIGATION</span><a class="font-bold hover:italic" href="galeri.html">BUILDS</a><a class="font-bold hover:italic" href="shop.html">MERCH</a><a class="font-bold hover:italic" href="home page.html">ABOUT</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SOCIAL</span><a class="font-bold hover:italic" href="#">INSTAGRAM</a><a class="font-bold hover:italic" href="#">YOUTUBE</a><a class="font-bold hover:italic" href="#">TIKTOK</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SUPPORT</span><a class="font-bold hover:italic" href="contact person.html">CONTACT</a><a class="font-bold hover:italic" href="#">SHIPPING</a><a class="font-bold hover:italic" href="#">LEGAL</a></div></div></div><div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40"><span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span><div class="flex gap-8 mt-4 md:mt-0"><span class="">PRIVACY POLICY</span><span class="">TERMS OF SERVICE</span></div></div></footer>
 <script>
         var shippingCost = 0;
+        var selectedCourier = '';
 
         var PROVINCES = [
           "ACEH","SUMATERA UTARA","SUMATERA BARAT","RIAU","KEPULAUAN RIAU","JAMBI",
@@ -467,8 +472,61 @@ html {
           "PAPUA": ["JAYAPURA"]
         };
 
+        var ZONES = {
+          'bandung':'1','cimahi':'1',
+          'jakarta':'2','bekasi':'2','depok':'2','tangerang':'2','bogor':'2','tangerang selatan':'2',
+          'purwakarta':'3','sukabumi':'3','cianjur':'3','subang':'3','karawang':'3','indramayu':'3','sumedang':'3',
+          'garut':'3','tasikmalaya':'3','cirebon':'3','banjar':'3',
+          'serang':'3','cilegon':'3',
+          'bandar lampung':'3','metro':'3',
+          'semarang':'4','salatiga':'4','surakarta':'4','magelang':'4','pekalongan':'4','tegal':'4','purwokerto':'4','kudus':'4','solo':'4',
+          'yogyakarta':'4','bantul':'4','sleman':'4',
+          'surabaya':'5','malang':'5','pasuruan':'5','probolinggo':'5','kediri':'5','blitar':'5','madiun':'5','mojokerto':'5','sidoarjo':'5','gresik':'5','batu':'5','tulungagung':'5','jember':'5','banyuwangi':'5','ponorogo':'5',
+          'denpasar':'6','mataram':'6','bima':'6','kupang':'6',
+          'medan':'6','binjai':'6','pematang siantar':'6','tebing tinggi':'6','padang sidempuan':'6','gunungsitoli':'6',
+          'padang':'6','bukittinggi':'6','payakumbuh':'6','sawahlunto':'6',
+          'pekanbaru':'6','dumai':'6',
+          'tanjung pinang':'6','batam':'6',
+          'jambi':'6','sungai penuh':'6',
+          'palembang':'6','lubuklinggau':'6','prabumulih':'6','pagar alam':'6',
+          'pangkal pinang':'6','bengkulu':'6',
+          'pontianak':'7','singkawang':'7',
+          'palangka raya':'7','banjarmasin':'7','banjarbaru':'7',
+          'samarinda':'7','balikpapan':'7','bontang':'7','tarakan':'7',
+          'manado':'7','gorontalo':'7','palu':'7','mamuju':'7',
+          'makassar':'7','kendari':'7',
+          'ambon':'8','ternate':'8',
+          'manokwari':'8','sorong':'8','jayapura':'8'
+        };
+
+        var RATES = {
+          '1':[ {c:'JNE',s:'REG',p:10000,e:'1-2 hari'},{c:'J&T',s:'REG',p:10000,e:'1-2 hari'},{c:'SiCepat',s:'REG',p:12000,e:'1 hari'},{c:'POS',s:'Kilat',p:8000,e:'2-3 hari'} ],
+          '2':[ {c:'JNE',s:'REG',p:18000,e:'1-2 hari'},{c:'J&T',s:'REG',p:18000,e:'1-2 hari'},{c:'SiCepat',s:'REG',p:22000,e:'1 hari'},{c:'POS',s:'Kilat',p:13000,e:'2-3 hari'} ],
+          '3':[ {c:'JNE',s:'REG',p:25000,e:'2-3 hari'},{c:'J&T',s:'REG',p:25000,e:'2-3 hari'},{c:'SiCepat',s:'REG',p:30000,e:'1-2 hari'},{c:'POS',s:'Kilat',p:18000,e:'3-4 hari'} ],
+          '4':[ {c:'JNE',s:'REG',p:35000,e:'2-4 hari'},{c:'J&T',s:'REG',p:35000,e:'2-4 hari'},{c:'SiCepat',s:'REG',p:40000,e:'2-3 hari'},{c:'POS',s:'Kilat',p:25000,e:'3-5 hari'} ],
+          '5':[ {c:'JNE',s:'REG',p:45000,e:'3-5 hari'},{c:'J&T',s:'REG',p:45000,e:'3-5 hari'},{c:'SiCepat',s:'REG',p:55000,e:'2-4 hari'},{c:'POS',s:'Kilat',p:35000,e:'4-6 hari'} ],
+          '6':[ {c:'JNE',s:'REG',p:60000,e:'4-6 hari'},{c:'J&T',s:'REG',p:60000,e:'4-6 hari'},{c:'SiCepat',s:'REG',p:70000,e:'3-5 hari'},{c:'POS',s:'Kilat',p:45000,e:'5-7 hari'} ],
+          '7':[ {c:'JNE',s:'REG',p:80000,e:'5-8 hari'},{c:'J&T',s:'REG',p:80000,e:'5-8 hari'},{c:'POS',s:'Kilat',p:60000,e:'6-9 hari'} ],
+          '8':[ {c:'JNE',s:'REG',p:120000,e:'7-14 hari'},{c:'J&T',s:'REG',p:120000,e:'7-14 hari'},{c:'POS',s:'Kilat',p:90000,e:'8-15 hari'} ]
+        };
+
         function fmtRp(n) {
           return 'Rp' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        function getItemWeight() {
+          var data = JSON.parse(localStorage.getItem('checkoutData') || '[]');
+          var total = 0;
+          data.forEach(function(item) {
+            var qty = item.data ? (item.data.qty || 1) : 1;
+            total += qty * 500;
+          });
+          return Math.max(total, 500);
+        }
+
+        function getZoneLabel(z) {
+          var labels = {'1':'ZONE 1 — LOKAL (BANDUNG RAYA)','2':'ZONE 2 — JABODETABEK','3':'ZONE 3 — JAWA BARAT / BANTEN','4':'ZONE 4 — JAWA TENGAH / DIY','5':'ZONE 5 — JAWA TIMUR','6':'ZONE 6 — SUMATERA / BALI / NUSA','7':'ZONE 7 — KALIMANTAN / SULAWESI','8':'ZONE 8 — MALUKU / PAPUA'};
+          return labels[z] || 'ZONE LUAR';
         }
 
         function loadProvinces() {
@@ -489,6 +547,7 @@ html {
           container.innerHTML = '';
           hint.textContent = '';
           shippingCost = 0;
+          selectedCourier = '';
           document.getElementById('co-shipping').textContent = '—';
           updateTotal();
 
@@ -508,29 +567,6 @@ html {
           citySel.disabled = false;
         }
 
-        var CITY_DISTANCES = {
-          'jakarta': 0, 'bekasi': 20, 'depok': 25, 'tangerang': 30, 'bogor': 50, 'tangerang selatan': 28,
-          'bandung': 150, 'cimahi': 155, 'garut': 220, 'tasikmalaya': 250, 'cirebon': 220, 'purwakarta': 130, 'sukabumi': 120,
-          'semarang': 450, 'salatiga': 480, 'surakarta': 520, 'magelang': 530,
-          'yogyakarta': 550, 'bantul': 560, 'sleman': 545,
-          'surabaya': 780, 'malang': 820, 'pasuruan': 830, 'probolinggo': 860, 'kediri': 710, 'blitar': 750, 'madiun': 650, 'mojokerto': 740, 'sidoarjo': 790, 'gresik': 800, 'batu': 810,
-          'medan': 1400, 'padang': 950, 'palembang': 450, 'pekanbaru': 920, 'bandar lampung': 250,
-          'pontianak': 750, 'samarinda': 1200, 'balikpapan': 1200, 'banjarmasin': 900,
-          'makassar': 1400, 'manado': 2200, 'palu': 1600, 'kendari': 1700,
-          'denpasar': 1000, 'mataram': 1150, 'kupang': 2000,
-          'ambon': 2500, 'jayapura': 4000
-        };
-
-        function getShippingCost(km) {
-          if (km < 0) return false;
-          if (km <= 10) return 0;
-          if (km <= 50) return 30000;
-          if (km <= 150) return 70000;
-          if (km <= 500) return 150000;
-          if (km <= 1000) return 250000;
-          return 400000;
-        }
-
         function calcShipping() {
           var city = document.getElementById('ship-city').value.trim().toLowerCase();
           var hint = document.getElementById('ship-hint');
@@ -538,53 +574,49 @@ html {
 
           if (!city) {
             hint.textContent = '';
-            shippingCost = 0;
-            document.getElementById('co-shipping').textContent = '—';
             container.innerHTML = '';
+            shippingCost = 0;
+            selectedCourier = '';
+            document.getElementById('co-shipping').textContent = '—';
             updateTotal();
             return;
           }
 
-          var km = CITY_DISTANCES[city];
-          if (km === undefined) km = -1;
-
-          var label;
-          if (km === 0) {
-            label = 'LOKAL (WORKSHOP AREA)';
-            shippingCost = 0;
-          } else if (km > 0) {
-            label = km + ' KM DARI WORKSHOP';
-            shippingCost = getShippingCost(km);
-          } else {
-            label = 'LUAR JANGKAUAN';
+          var zone = ZONES[city];
+          if (!zone) {
+            hint.textContent = 'KOTA BELUM TERDEFINISI';
             shippingCost = 500000;
+            container.innerHTML = '';
+            document.getElementById('co-shipping').textContent = fmtRp(shippingCost);
+            updateTotal();
+            return;
           }
 
-          hint.textContent = label;
-          document.getElementById('co-shipping').textContent = shippingCost === 0 ? 'FREE' : fmtRp(shippingCost);
+          var rates = RATES[zone];
+          var zoneLabel = getZoneLabel(zone);
+          var weight = getItemWeight();
+          var weightKg = Math.ceil(weight / 1000);
+
+          hint.textContent = zoneLabel + ' (' + weightKg + ' KG)';
+
+          container.innerHTML = '<p class="text-mono-metric text-[10px] text-on-surface-variant mb-2 tracking-wider">PILIH KURIR:</p>' +
+            rates.map(function(r) {
+              var total = r.p * weightKg;
+              return '<label class="flex items-center gap-4 p-4 border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all cursor-pointer group" onclick="selectCourier(this, ' + total + ', \'' + r.c + ' ' + r.s + '\')">' +
+                '<div class="w-5 h-5 rounded-full border-2 border-outline shrink-0 flex items-center justify-center group-hover:border-primary transition-all"><div class="w-2.5 h-2.5 rounded-full hidden bg-primary"></div></div>' +
+                '<div class="flex items-center gap-3 flex-1 min-w-0"><span class="w-8 h-8 bg-surface-container-high border border-outline-variant flex items-center justify-center text-[10px] font-bold tracking-tighter text-primary shrink-0">' + r.c + '</span>' +
+                '<div class="min-w-0"><p class="text-label-caps font-label-caps text-primary text-[11px]">' + r.c + ' — ' + r.s + '</p><p class="text-mono-metric text-on-surface-variant text-[10px]">' + r.e + '</p></div></div>' +
+                '<div class="text-right shrink-0"><p class="text-label-caps font-label-caps text-primary">' + fmtRp(total) + '</p><p class="text-mono-metric text-on-surface-variant text-[9px]">' + fmtRp(r.p) + '/KG</p></div>' +
+                '</label>';
+            }).join('');
+
+          shippingCost = 0;
+          selectedCourier = '';
+          document.getElementById('co-shipping').textContent = '—';
           updateTotal();
-
-          container.innerHTML = '<div class="flex items-center gap-3 text-on-surface-variant text-mono-metric py-3"><div class="loading-spinner" style="display:block;width:16px;height:16px"></div>CARI KURIR VIA RAJAONGKIR...</div>';
-
-          fetch('/.netlify/functions/rajaongkir?city=' + encodeURIComponent(city) + '&weight=1')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-              if (data.success && data.results && data.results.length > 0) {
-                var label2 = shippingCost === 0 ? 'GRATIS (LOKAL)' : 'ESTIMASI ' + fmtRp(shippingCost);
-                hint.textContent = label + ' — PILIH KURIR (RAJAONGKIR):';
-                container.innerHTML = data.results.map(function(r) {
-                  return '<label class="flex items-center gap-4 p-4 border border-outline-variant hover:border-primary hover:bg-surface-container-high transition-all cursor-pointer group" onclick="selectCourier(this, ' + r.cost + ')">' +
-                    '<div class="w-5 h-5 rounded-full border-2 border-outline shrink-0 flex items-center justify-center group-hover:border-primary transition-all"><div class="w-2.5 h-2.5 rounded-full hidden bg-primary"></div></div>' +
-                    '<div class="flex-1 min-w-0"><p class="text-label-caps font-label-caps text-primary text-[11px] tracking-wider">' + r.courier + ' <span class="text-on-surface-variant font-normal">—</span> <span class="text-on-surface-variant font-normal">' + r.service + '</span></p><p class="text-mono-metric text-on-surface-variant text-[10px]">' + (r.etd || '—') + '</p></div>' +
-                    '<span class="text-label-caps font-label-caps text-primary shrink-0">Rp' + r.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '</span>' +
-                    '</label>';
-                }).join('');
-              }
-            })
-            .catch(function() {});
         }
 
-        function selectCourier(el, cost) {
+        function selectCourier(el, cost, label) {
           document.querySelectorAll('#courier-results label').forEach(function(l) {
             l.classList.remove('border-primary', 'bg-surface-container-high');
             l.classList.add('border-outline-variant');
@@ -594,7 +626,8 @@ html {
           el.classList.add('border-primary', 'bg-surface-container-high');
           el.querySelector('div > div').classList.remove('hidden');
           shippingCost = cost;
-          document.getElementById('co-shipping').textContent = fmtRp(shippingCost);
+          selectedCourier = label;
+          document.getElementById('co-shipping').textContent = label + ' — ' + fmtRp(shippingCost);
           updateTotal();
         }
 
@@ -702,6 +735,10 @@ html {
                 alert('Please select a payment method.');
                 return;
             }
+            if (!selectedCourier) {
+                alert('Please select a shipping courier.');
+                return;
+            }
 
             purchaseBtn.classList.add('btn-loading');
             
@@ -723,6 +760,7 @@ html {
                     name: document.getElementById('ship-name').value.trim(),
                     street: document.getElementById('ship-street').value.trim(),
                     city: cityEl.options[cityEl.selectedIndex] ? cityEl.options[cityEl.selectedIndex].text : '',
+                    district: document.getElementById('ship-district').value.trim(),
                     province: provinceEl.options[provinceEl.selectedIndex] ? provinceEl.options[provinceEl.selectedIndex].text : '',
                     zip: document.getElementById('ship-zip').value.trim(),
                     phone: document.getElementById('ship-phone').value.trim()
@@ -732,6 +770,7 @@ html {
                     date: new Date().toISOString().split('T')[0],
                     type: 'merch',
                     method: method,
+                    courier: selectedCourier,
                     isCOD: method === 'cod',
                     items: items,
                     subtotal: subtotal,
