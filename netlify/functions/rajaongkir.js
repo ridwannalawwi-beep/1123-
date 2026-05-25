@@ -70,19 +70,44 @@ exports.handler = async function(event) {
   }
 
   var params = event.queryStringParameters || {};
-  var city = (params.city || '').trim();
-  var weight = parseInt(params.weight) || 1;
+  var action = params.action || '';
   var apiKey = process.env.RAJAONGKIR_API_KEY;
 
   if (!apiKey) {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'API key not configured' }) };
   }
 
-  if (!city) {
-    return { statusCode: 400, headers, body: JSON.stringify({ error: 'city required' }) };
-  }
-
   try {
+    // Province list
+    if (action === 'provinces') {
+      var res = await apiGet('/destination/province', {}, apiKey);
+      if (res.meta && res.meta.status === 'success' && res.data) {
+        return { statusCode: 200, headers, body: JSON.stringify({ success: true, data: res.data }) };
+      }
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed' }) };
+    }
+
+    // City list for a province
+    if (action === 'cities') {
+      var provinceId = params.province_id;
+      if (!provinceId) {
+        return { statusCode: 400, headers, body: JSON.stringify({ error: 'province_id required' }) };
+      }
+      var res = await apiGet('/destination/city/' + provinceId, {}, apiKey);
+      if (res.meta && res.meta.status === 'success' && res.data) {
+        return { statusCode: 200, headers, body: JSON.stringify({ success: true, data: res.data }) };
+      }
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed' }) };
+    }
+
+    // Default: calculate shipping cost
+    var city = (params.city || '').trim();
+    var weight = parseInt(params.weight) || 1;
+
+    if (!city) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'city required' }) };
+    }
+
     // Search origin (workshop: Bandung)
     var originSearch = await apiGet('/destination/domestic-destination', { search: 'bandung', limit: 1 }, apiKey);
     if (!originSearch || originSearch.meta.status !== 'success' || !originSearch.data || originSearch.data.length === 0) {
@@ -96,7 +121,6 @@ exports.handler = async function(event) {
       return { statusCode: 200, headers, body: JSON.stringify({ error: 'city_not_found' }) };
     }
 
-    // Use first result as destination
     var destId = String(destSearch.data[0].id);
 
     // Calculate costs for multiple couriers
