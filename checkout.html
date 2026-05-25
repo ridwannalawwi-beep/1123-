@@ -261,14 +261,16 @@ html {
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">CITY</label>
-<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer disabled:opacity-30" id="ship-city" disabled onchange="calcShipping()">
+<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer disabled:opacity-30" id="ship-city" disabled onchange="loadDistricts()">
 <option value="">PILIH KOTA</option>
 </select>
 <p class="text-mono-metric text-[11px] text-on-surface-variant mt-1" id="ship-hint"></p>
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">KECAMATAN</label>
-<input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase" id="ship-district" placeholder="CICENDO" type="text">
+<select class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0 uppercase cursor-pointer disabled:opacity-30" id="ship-district" disabled onchange="calcShipping()">
+<option value="">PILIH KECAMATAN</option>
+</select>
 </div>
 <div class="space-y-2">
 <label class="text-label-caps font-label-caps text-on-surface-variant">ZIP CODE</label>
@@ -539,9 +541,97 @@ html {
           });
         }
 
+        var DISTRICTS = {
+          "BANDA ACEH":["KUTA ALAM","SYIAH KUALA","LUENG BATA","BAITURRAHMAN","MEURAXA"],
+          "LHOKSEUMAWE":["BANDA SAKTI","MUARA DUA","BLANG MANGAT"],
+          "LANGSA":["LANGSA LAMA","LANGSA BARAT","LANGSA TIMUR"],
+          "MEDAN":["MEDAN BARAT","MEDAN TIMUR","MEDAN BARU","MEDAN KOTA","MEDAN TEMBUNG","MEDAN LABUHAN","MEDAN JOHOR","MARTUBUNG"],
+          "BINJAI":["BINJAI KOTA","BINJAI UTARA","BINJAI TIMUR"],
+          "PADANG":["PADANG BARAT","PADANG TIMUR","PADANG UTARA","PADANG SELATAN","LUBUK KILANGAN","KOTO TANGAH"],
+          "BUKITTINGGI":["GUGUK PANJANG","AUR BIRUGO TIGO BALEH","MANDIANGIN KOTO SELAYAN"],
+          "PEKANBARU":["SUKAJADI","SENAPELAN","MARPOYAN DAMAI","BUKIT RAYA","TAMPAN","PAYUNG SEKAKI"],
+          "BATAM":["LUBUK BAJA","BATU AJI","BENGKONG","BATAM KOTA","NONGSA","SEI BEDUK"],
+          "JAMBI":["PASAR JAMBI","JELUTUNG","TELANAIPURA","DANAU TELUK"],
+          "PALEMBANG":["ILIR BARAT I","ILIR TIMUR I","KEMUNING","SUKARAME","ALANG-ALANG LEBAR"],
+          "BANDAR LAMPUNG":["TANJUNG KARANG BARAT","TANJUNG KARANG TIMUR","TELUK BETUNG BARAT","TELUK BETUNG SELATAN","KEDATON","SUKABUMI"],
+          "JAKARTA":["CEMPAKA PUTIH","GAMBIR","KEBAYORAN BARU","KEBAYORAN LAMA","KEBON JERUK","KEMAYORAN","MATRAMAN","MENTENG","PASAR MINGGU","SENEN","SETIABUDI","TANAH ABANG","TEBET"],
+          "BEKASI":["BEKASI TIMUR","BEKASI BARAT","BEKASI SELATAN","BEKASI UTARA","JATIASIH","PONDOK GEDE"],
+          "DEPOK":["CIMANGGIS","PANCORAN MAS","CILODONG","LIMO","BATUCEPER","SAWANGAN","SUKMAJAYA"],
+          "TANGERANG":["BATUCEPER","BENDA","CILEDUG","JATIUWUNG","KARAWACI","KUNCIRAN","LARANGAN","NEGLASARI","PERIUK"],
+          "TANGERANG SELATAN":["CIPUTAT","CIPUTAT TIMUR","PAMULANG","PONDOK AREN","SERPONG","SETU"],
+          "BOGOR":["BOGOR BARAT","BOGOR SELATAN","BOGOR TENGAH","BOGOR TIMUR","BOGOR UTARA","TANAH SAREAL"],
+          "BANDUNG":["ANDIR","ANTAPANI","ARCAMANIK","ASTANAANYAR","BABAKAN CIPARAY","BANDUNG KIDUL","BANDUNG WETAN","BATUNUNGGAL","BOJONGLOA KALER","CICENDO","CIDADAP","COBLONG","KIARACONDONG","LENGKONG","REGOL","SUKAJADI","SUMUR BANDUNG"],
+          "CIMAHI":["CIMAHI SELATAN","CIMAHI TENGAH","CIMAHI UTARA"],
+          "GARUT":["GARUT KOTA","KARANGPAWITAN","SUKAWENING","TAROGONG KALER"],
+          "TASIKMALAYA":["CIPEDES","KAWALU","MANGKUBUMI","CIHIDEUNG","TAMANSARI","PURBARATU"],
+          "CIREBON":["KEJAKSAN","LEMAHWUNGKUK","HARJAMUKTI","PEKALIPAN","KESAMBI"],
+          "PURWAKARTA":["PURWAKARTA KOTA","PASAR KEMIS","DARANGDAN","CIBATU"],
+          "SUKABUMI":["CIKOLE","LEMBURSITU","CIBEUREUM","KOTA SUKABUMI"],
+          "BANJAR":["BANJAR","LANGEN","PATARUMAN","PURWAHARJA"],
+          "CIANJUR":["CIANJUR","CILAKU","KARANGTENGAH","WARUNGKONDANG"],
+          "INDRAMAYU":["INDRAMAYU","JATIBARANG","KERTASEMAYA","LELEA"],
+          "KARAWANG":["KARAWANG BARAT","KARAWANG TIMUR","KLARI","RENGASDENGKLOK","TELAGASARI"],
+          "SUBANG":["SUBANG","CIPATAT","CIPEUNDEUY","KALIJATI"],
+          "SUMEDANG":["SUMEDANG UTARA","SUMEDANG SELATAN","JATINANGOR","TANJUNGMEDAR"],
+          "SERANG":["SERANG","CIPOCOK JAYA","KASEMEN","WALANTAKA","TAKTAKAN"],
+          "CILEGON":["CILEGON","JOMBANG","PURWAKARTA","CIWANDAN"],
+          "SEMARANG":["CANDISARI","GAYAMSARI","GENUK","GUNUNGPATI","PEDURUNGAN","SEMARANG BARAT","SEMARANG TIMUR","SEMARANG UTARA","TEMBALANG","NGALIYAN"],
+          "SALATIGA":["SIDOREJO","SIDOMUKTI","TINGKIR","ARGOMULYO"],
+          "SURAKARTA":["BANJARSARI","JEBRES","LAWEYAN","PASAR KLIWON","SERENGAN"],
+          "MAGELANG":["MAGELANG TENGAH","MAGELANG UTARA","MAGELANG SELATAN"],
+          "PEKALONGAN":["PEKALONGAN BARAT","PEKALONGAN TIMUR","PEKALONGAN UTARA"],
+          "TEGAL":["TEGAL BARAT","TEGAL TIMUR","TEGAL SELATAN"],
+          "PURWOKERTO":["PURWOKERTO BARAT","PURWOKERTO TIMUR","PURWOKERTO SELATAN","PURWOKERTO UTARA"],
+          "KUDUS":["KUDUS KOTA","JATI","DAWE","JEKULO"],
+          "SOLO":["BANJARSARI","JEBRES","LAWEYAN","PASAR KLIWON","SERENGAN"],
+          "YOGYAKARTA":["DANUREJAN","GEDONGTENGEN","GONDOKUSUMAN","GONDOMANAN","JETIS","KOTAGEDE","KRATON","MANTRIJERON","MERGANGSAN","NGAMPILAN","TEGALREJO","UMBULHARJO","WIROBRAJAN"],
+          "BANTUL":["BANTUL","BAMBANG LIPURO","PANDAK","PLERET","SEDAYU"],
+          "SLEMAN":["SLEMAN","DEPOK","GAMPING","KALASAN","MLATI","NGANGRIK","PRAMBANAN"],
+          "SURABAYA":["BUBUTAN","GENTENG","GUBENG","KARANG PILANG","KENJERAN","KREMBANGAN","LAKARSANTRI","MULYOREJO","PABEAN CANTIAN","PAKAL","RUNGKUT","SAMBIKEREP","SAWAHAN","SEMAMPIR","SIMOKERTO","SUKOLILO","SUKOMANUNGGAL","TAMBAKSARI","TANDES","TEGALSARI","TENGGILIS MEJOYO","WIYUNG","WONOCOLO","WONOKROMO"],
+          "MALANG":["BLIMBING","KEDUNG KANDANG","KLJON","LOWOKWARU","SUKUN"],
+          "PASURUAN":["BUGUL KIDUL","GADINGREJO","PURWOREJO","PANGGUNGREJO"],
+          "PROBOLINGGO":["KADEMANGAREN","KEDOPOK","SUMBERSARI","WIROTO"],
+          "KEDIRI":["MOJOROTO","PESANTREN","KOTA","NGASEM"],
+          "BLITAR":["KEPANJEN KIDUL","SANANWETAN","SUKOREJO"],
+          "MADIUN":["KARTOHARJO","MANGU HARJO","TAMAN"],
+          "MOJOKERTO":["MOJOSARI","PURI","TROWULAN","KOTA MOJOKERTO"],
+          "SIDOARJO":["SIDOARJO","BUDURAN","CANDI","GEDANGAN","KREMBANGAN","TAMAN","WARU"],
+          "GRESIK":["GRESIK","KEBOMAS","MANYAR","BENJENG","CEMPA"],
+          "BATU":["BATU","BUMIAJI","JUNREJO"],
+          "TULUNGAGUNG":["TULUNGAGUNG","BOYOLANGU","KEDUNGWARU"],
+          "JEMBER":["KALIWATES","SUMBERSARI","PATRANG","JEMBER"],
+          "BANYUWANGI":["BANYUWANGI","GLAGAH","ROGOJAMPI","GENTENG"],
+          "PONOROGO":["PONOROGO","BALONG","SAMPUNG","JETIS"],
+          "DENPASAR":["DENPASAR BARAT","DENPASAR TIMUR","DENPASAR SELATAN","DENPASAR UTARA"],
+          "MATARAM":["MATARAM","CAKRANEGARA","AMPENAN","SELAPARANG"],
+          "BIMA":["RASANAE BARAT","RASANAE TIMUR","MPUNDA"],
+          "KUPANG":["KUPANG","ALAK","KELAPA LIMA","OEBOBO"],
+          "PONTIANAK":["PONTIANAK BARAT","PONTIANAK TIMUR","PONTIANAK UTARA","PONTIANAK KOTA","PONTIANAK SELATAN"],
+          "SINGKAWANG":["SINGKAWANG","SINGKAWANG BARAT","SINGKAWANG TIMUR"],
+          "PALANGKA RAYA":["PAHANDUT","SABANGAU","JEKAN RAYA","BUKIT BATU"],
+          "BANJARMASIN":["BANJARMASIN BARAT","BANJARMASIN TIMUR","BANJARMASIN SELATAN","BANJARMASIN UTARA","BANJARMASIN TENGAH"],
+          "BANJARBARU":["BANJARBARU","BANJARBARU SELATAN","BANJARBARU UTARA","LANDASAN ULIN"],
+          "SAMARINDA":["SAMARINDA ULU","SAMARINDA ILIR","SAMARINDA SEBERANG","PALARAN","SAMBUTAN","SUNGAI KUNJANG"],
+          "BALIKPAPAN":["BALIKPAPAN BARAT","BALIKPAPAN TIMUR","BALIKPAPAN SELATAN","BALIKPAPAN UTARA","BALIKPAPAN TENGAH","BALIKPAPAN KOTA"],
+          "BONTANG":["BONTANG UTARA","BONTANG SELATAN","BONTANG BARAT"],
+          "TARAKAN":["TARAKAN BARAT","TARAKAN TIMUR","TARAKAN TENGAH"],
+          "MANADO":["MANADO","MALALAYANG","SARIO","TIKALA","TUMINTING","MAPANGET"],
+          "GORONTALO":["GORONTALO","DUNGINGI","HULONTHALANGI","KOTA BARAT","KOTA TIMUR"],
+          "PALU":["PALU BARAT","PALU TIMUR","PALU SELATAN","PALU UTARA","TAWAELI"],
+          "MAMUJU":["MAMUJU","BABANA","SIMBORO"],
+          "MAKASSAR":["MAKASSAR","BIRINGKANAYA","BONTOALA","MANGGALA","MARISO","PANAKKUKANG","RAPPOCINI","TALLO","TAMALATE","TAMALANREA","UJUNG PANDANG","WAJO"],
+          "KENDARI":["KENDARI","ABELI","POASIA","KENDARI BARAT"],
+          "AMBON":["AMBON","BAGUALA","LEITIMUR SELATAN","SIRIMAU","NUSANIWE"],
+          "TERNATE":["TERNATE","MOTI","PULAU TERNATE"],
+          "MANOKWARI":["MANOKWARI","MANOKWARI BARAT","MANOKWARI SELATAN"],
+          "SORONG":["SORONG","SORONG BARAT","SORONG TIMUR","SORONG KEPULAUAN"],
+          "JAYAPURA":["JAYAPURA SELATAN","JAYAPURA UTARA","ABEPURA","MUARA TAMI","HERAM"]
+        };
+
         function loadCities() {
           var province = document.getElementById('ship-province').value;
           var citySel = document.getElementById('ship-city');
+          var districtSel = document.getElementById('ship-district');
           var hint = document.getElementById('ship-hint');
           var container = document.getElementById('courier-results');
           container.innerHTML = '';
@@ -550,6 +640,9 @@ html {
           selectedCourier = '';
           document.getElementById('co-shipping').textContent = '—';
           updateTotal();
+
+          districtSel.innerHTML = '<option value="">PILIH KECAMATAN</option>';
+          districtSel.disabled = true;
 
           if (!province) {
             citySel.innerHTML = '<option value="">PILIH KOTA</option>';
@@ -565,6 +658,39 @@ html {
             citySel.appendChild(o);
           });
           citySel.disabled = false;
+        }
+
+        function loadDistricts() {
+          var city = document.getElementById('ship-city').value;
+          var districtSel = document.getElementById('ship-district');
+          var container = document.getElementById('courier-results');
+          container.innerHTML = '';
+          shippingCost = 0;
+          selectedCourier = '';
+          document.getElementById('co-shipping').textContent = '—';
+          updateTotal();
+
+          if (!city) {
+            districtSel.innerHTML = '<option value="">PILIH KECAMATAN</option>';
+            districtSel.disabled = true;
+            return;
+          }
+
+          districtSel.innerHTML = '<option value="">PILIH KECAMATAN</option>';
+          var districts = DISTRICTS[city] || [];
+          if (districts.length === 0) {
+            districtSel.innerHTML = '<option value="">KECAMATAN TIDAK TERSEDIA</option>';
+            districtSel.disabled = false;
+            return;
+          }
+          districts.forEach(function(d) {
+            var o = document.createElement('option');
+            o.value = d; o.textContent = d;
+            districtSel.appendChild(o);
+          });
+          districtSel.disabled = false;
+
+          calcShipping();
         }
 
         function calcShipping() {
@@ -756,11 +882,12 @@ html {
                 
                 var provinceEl = document.getElementById('ship-province');
                 var cityEl = document.getElementById('ship-city');
+                var districtEl = document.getElementById('ship-district');
                 var address = {
                     name: document.getElementById('ship-name').value.trim(),
                     street: document.getElementById('ship-street').value.trim(),
                     city: cityEl.options[cityEl.selectedIndex] ? cityEl.options[cityEl.selectedIndex].text : '',
-                    district: document.getElementById('ship-district').value.trim(),
+                    district: districtEl.options[districtEl.selectedIndex] ? districtEl.options[districtEl.selectedIndex].text : '',
                     province: provinceEl.options[provinceEl.selectedIndex] ? provinceEl.options[provinceEl.selectedIndex].text : '',
                     zip: document.getElementById('ship-zip').value.trim(),
                     phone: document.getElementById('ship-phone').value.trim()
