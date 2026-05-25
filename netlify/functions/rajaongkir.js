@@ -1,3 +1,6 @@
+var https = require('https');
+var querystring = require('querystring');
+
 var CITY_IDS = {
   'jakarta': 151, 'jakarta pusat': 151, 'jakpus': 151, 'jakarta utara': 152, 'jakut': 152,
   'jakarta barat': 153, 'jakbar': 153, 'jakarta selatan': 154, 'jaksel': 154, 'jakarta timur': 155, 'jaktim': 155,
@@ -15,6 +18,36 @@ var CITY_IDS = {
 };
 
 var originId = 151;
+
+function postRajaOngkir(apiKey, data) {
+  return new Promise(function(resolve, reject) {
+    var postData = querystring.stringify(data);
+    var options = {
+      hostname: 'api.rajaongkir.com',
+      path: '/starter/cost',
+      method: 'POST',
+      headers: {
+        'key': apiKey,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+    };
+    var req = https.request(options, function(res) {
+      var body = '';
+      res.on('data', function(chunk) { body += chunk; });
+      res.on('end', function() {
+        try {
+          resolve(JSON.parse(body));
+        } catch(e) {
+          reject(new Error('Invalid response: ' + body.substring(0, 200)));
+        }
+      });
+    });
+    req.on('error', function(e) { reject(new Error('HTTP error: ' + e.message)); });
+    req.write(postData);
+    req.end();
+  });
+}
 
 exports.handler = async function(event) {
   var headers = {
@@ -42,7 +75,7 @@ exports.handler = async function(event) {
   }
 
   if (!destId) {
-    return { statusCode: 200, headers, body: JSON.stringify({ error: 'city_not_found', message: 'City not found in database' }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ error: 'city_not_found' }) };
   }
 
   var apiKey = process.env.RAJAONGKIR_API_KEY;
@@ -50,31 +83,22 @@ exports.handler = async function(event) {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'API key not configured' }) };
   }
 
-  var body = new URLSearchParams();
-  body.append('origin', originId.toString());
-  body.append('destination', destId.toString());
-  body.append('weight', weight.toString());
-  body.append('courier', 'jne:tiki:pos');
-
   try {
-    var response = await fetch('https://api.rajaongkir.com/starter/cost', {
-      method: 'POST',
-      headers: {
-        'key': apiKey,
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      body: body.toString()
+    var rajaData = await postRajaOngkir(apiKey, {
+      origin: originId.toString(),
+      destination: destId.toString(),
+      weight: weight.toString(),
+      courier: 'jne:tiki:pos'
     });
 
-    var data = await response.json();
-
-    if (data.rajaongkir && data.rajaongkir.status && data.rajaongkir.status.code !== 200) {
-      return { statusCode: 200, headers, body: JSON.stringify({ error: data.rajaongkir.status.description }) };
+    if (!rajaData.rajaongkir || rajaData.rajaongkir.status.code !== 200) {
+      var msg = rajaData.rajaongkir ? rajaData.rajaongkir.status.description : 'Unknown error';
+      return { statusCode: 200, headers, body: JSON.stringify({ error: msg }) };
     }
 
     var results = [];
-    if (data.rajaongkir && data.rajaongkir.results) {
-      data.rajaongkir.results.forEach(function(courier) {
+    if (rajaData.rajaongkir.results) {
+      rajaData.rajaongkir.results.forEach(function(courier) {
         if (courier.costs) {
           courier.costs.forEach(function(cost) {
             results.push({
@@ -90,8 +114,7 @@ exports.handler = async function(event) {
     }
 
     results.sort(function(a, b) { return a.cost - b.cost; });
-
-    return { statusCode: 200, headers, body: JSON.stringify({ success: true, results: results, city: city, destId: destId }) };
+    return { statusCode: 200, headers, body: JSON.stringify({ success: true, results: results }) };
   } catch (err) {
     return { statusCode: 500, headers, body: JSON.stringify({ error: err.message }) };
   }
