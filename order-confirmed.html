@@ -1,0 +1,159 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Order Confirmed | 1123 WORKSHOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="styles.css">
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-secondary-container": "#bab8b7", "on-secondary": "#313030", "on-primary-fixed": "#1a1c1c",
+        "background": "#121414", "surface-dim": "#121414", "on-primary-container": "#636565",
+        "surface-container-highest": "#333535", "surface-container-low": "#1a1c1c",
+        "inverse-surface": "#e2e2e2", "on-error": "#690005", "secondary-fixed-dim": "#c9c6c5",
+        "on-background": "#e2e2e2", "primary": "#ffffff", "primary-container": "#e2e2e2",
+        "tertiary-container": "#e5e2e1", "surface-container-lowest": "#0c0f0f",
+        "primary-fixed-dim": "#c6c6c7", "on-tertiary-fixed": "#1c1b1b",
+        "inverse-primary": "#5d5f5f", "tertiary": "#ffffff", "surface-container-high": "#282a2b",
+        "tertiary-fixed-dim": "#c8c6c5", "inverse-on-surface": "#2f3131", "on-surface": "#e2e2e2",
+        "surface-tint": "#c6c6c7", "on-surface-variant": "#c4c7c8", "on-primary-fixed-variant": "#454747",
+        "error-container": "#93000a", "surface-bright": "#38393a", "secondary": "#c9c6c5",
+        "on-tertiary": "#313030", "surface-container": "#1e2020", "surface": "#121414",
+        "on-tertiary-fixed-variant": "#474746", "outline-variant": "#444748",
+        "surface-variant": "#333535", "on-primary": "#2f3131", "primary-fixed": "#e2e2e2",
+        "outline": "#8e9192", "on-secondary-fixed": "#1c1b1b", "secondary-fixed": "#e5e2e1",
+        "on-tertiary-container": "#656464", "error": "#ffb4ab", "tertiary-fixed": "#e5e2e1",
+        "secondary-container": "#4a4949", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#474646"
+      },
+      borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
+      spacing: { unit: "4px", gutter: "24px", "section-padding": "120px", "margin-mobile": "16px", "margin-desktop": "64px" },
+      fontFamily: { "headline-md": ["Anton"], "label-caps": ["Geist"], "headline-xl": ["Anton"], "headline-lg-mobile": ["Anton"], "headline-lg": ["Anton"], "body-md": ["Geist"], "body-lg": ["Geist"], "mono-metric": ["Geist"] },
+      fontSize: { "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}], "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}], "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}], "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}], "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}], "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}], "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}] }
+    }
+  }
+};
+</script>
+<style>
+.noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.05; z-index: 9999; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAWm4vH-bDnGimBJR-77RQ0QH8RCWSV7HhDPvFKFdyHr4rQUwEFO9NmQDKn9jJRMFLGNILq5mkPhexbShG2U0ptWpxrLKEVDRE1yO3mvfnxAajHxanvyDQ_QMKAJNn5fZbV5WsaPfq33sq5wFRDm7SFRVHwtKbxruXE7H34QQZMCvYaa8LMpP1jkHx2Z4OT30jUvpg4ZMNqWFicXc8zHZ75tENKT2qhREbctIro-3h9GjWrxJiNPY5eIk6bmZdRLAlr09vrg1cbOhk); }
+.carbon-bg { background-color: #0c0f0f; background-image: linear-gradient(45deg, #121414 25%, transparent 25%), linear-gradient(-45deg, #121414 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #121414 75%), linear-gradient(-45deg, transparent 75%, #121414 75%); background-size: 4px 4px; }
+html { scroll-behavior: smooth; }
+.reveal-up { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.2, 0, 0.2, 1), transform 1s cubic-bezier(0.2, 0, 0.2, 1); }
+.reveal-up.active { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-background overflow-x-hidden">
+<div class="noise-overlay"></div>
+<header class="fixed top-0 left-0 w-full z-50 bg-background border-b border-outline-variant flex justify-between items-center px-margin-desktop h-20">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a>
+</nav>
+<div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<main class="pt-32 pb-section-padding px-margin-mobile md:px-margin-desktop max-w-4xl mx-auto min-h-screen">
+<div id="order-content" class="reveal-up space-y-12"></div>
+</main>
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden">
+<div class="absolute -right-20 top-0 opacity-10"><span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span></div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<div class="flex items-center gap-4"><a class="flex items-center gap-4" href="home page.html"><span class="text-6xl font-headline-xl tracking-tighter">1123</span></a></div>
+<p class="max-w-md text-on-surface-variant font-medium">Automotive precision translated into textile form. Engineered for those who build the future with their own hands.</p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">NAVIGATION</span><a class="font-bold hover:italic" href="galeri.html">BUILDS</a><a class="font-bold hover:italic" href="shop.html">MERCH</a><a class="font-bold hover:italic" href="home page.html">ABOUT</a></div>
+<div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SOCIAL</span><a class="font-bold hover:italic" href="#">INSTAGRAM</a><a class="font-bold hover:italic" href="#">YOUTUBE</a><a class="font-bold hover:italic" href="#">TIKTOK</a></div>
+<div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SUPPORT</span><a class="font-bold hover:italic" href="contact person.html">CONTACT</a><a class="font-bold hover:italic" href="#">SHIPPING</a><a class="font-bold hover:italic" href="#">LEGAL</a></div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span>2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0"><span>PRIVACY POLICY</span><span>TERMS OF SERVICE</span></div>
+</div>
+</footer>
+<script>
+function fmtRp(n) {
+  return 'Rp' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function getMethodLabel(method) {
+  var labels = { gopay: 'GoPay', ovo: 'OVO', dana: 'DANA', qris: 'QRIS', bca: 'BCA Transfer', mandiri: 'Mandiri Transfer', bni: 'BNI Transfer', bri: 'BRI Transfer', applepay: 'Apple Pay', googlepay: 'Google Pay', paypal: 'PayPal', visamc: 'Visa / Mastercard', indomaret: 'Indomaret', alfamart: 'Alfamart', cod: 'COD (Cash on Delivery)' };
+  return labels[method] || method.toUpperCase();
+}
+
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var orderId = params.get('id');
+  var orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  var order = null;
+  orders.forEach(function(o) {
+    if (o.id === orderId) order = o;
+  });
+  var container = document.getElementById('order-content');
+  if (!order) {
+    container.innerHTML = '<div class="text-center py-24"><span class="material-symbols-outlined text-8xl text-outline-variant opacity-30 mb-8">error</span><h1 class="text-headline-xl font-headline-xl text-primary mb-4">ORDER NOT FOUND</h1><p class="text-body-lg text-on-surface-variant mb-12">No order matches the given ID.</p><a class="inline-block bg-primary text-background px-12 py-4 font-headline-md hover:bg-on-surface transition-all uppercase" href="home page.html">RETURN TO BASE</a></div>';
+    return;
+  }
+
+  var isCOD = order.isCOD;
+  var isBuild = order.type === 'build';
+
+  if (isCOD) {
+    container.innerHTML = '<div class="text-center py-12"><div class="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-8"><span class="material-symbols-outlined text-6xl text-green-400">check_circle</span></div><h1 class="text-headline-xl font-headline-xl text-primary mb-4">PAYMENT SUCCESSFUL</h1><p class="text-body-lg text-on-surface-variant mb-4">Your order <span class="text-primary font-bold">' + order.id + '</span> has been confirmed.</p><p class="text-body-lg text-on-surface-variant mb-12">Your package will be shipped immediately.</p></div>' +
+      '<div class="border border-outline-variant p-8 carbon-bg space-y-4"><h3 class="text-label-caps font-label-caps text-primary">ORDER DETAILS</h3>' +
+      '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Order ID</span><span class="text-primary">' + order.id + '</span></div>' +
+      '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Date</span><span class="text-primary">' + order.date + '</span></div>' +
+      '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Payment Method</span><span class="text-primary">' + getMethodLabel(order.method) + '</span></div>' +
+      '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Status</span><span class="text-green-400 font-bold">CONFIRMED</span></div>' +
+      (isBuild ? '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Deposit</span><span class="text-primary">' + fmtRp(order.total) + '</span></div>' : '') +
+      (!isBuild ? '<div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Total</span><span class="text-primary">' + fmtRp(order.total) + '</span></div>' : '') +
+      '</div>' +
+      '<div class="flex flex-col md:flex-row gap-4 justify-center"><a class="text-center bg-primary text-background px-12 py-4 font-headline-md hover:bg-on-surface transition-all uppercase" href="account.html">VIEW MY ORDERS</a><a class="text-center border border-primary text-primary px-12 py-4 font-headline-md hover:bg-primary hover:text-background transition-all uppercase" href="shop.html">CONTINUE SHOPPING</a></div>';
+  } else {
+    container.innerHTML = '<div class="text-center py-12"><div class="w-24 h-24 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto mb-8"><span class="material-symbols-outlined text-6xl text-yellow-400">hourglass_top</span></div><h1 class="text-headline-xl font-headline-xl text-primary mb-4">AWAITING PAYMENT</h1><p class="text-body-lg text-on-surface-variant mb-4">Order <span class="text-primary font-bold">' + order.id + '</span> is waiting for payment confirmation.</p><p class="text-body-lg text-on-surface-variant mb-12">Please complete the payment using the method below. Your order will be processed once the payment is verified.</p></div>' +
+      '<div class="border border-outline-variant p-8 carbon-bg space-y-6"><h3 class="text-label-caps font-label-caps text-primary">PAYMENT INSTRUCTIONS</h3>' +
+      '<div class="border border-outline-variant p-6 bg-surface-container-low"><div class="flex items-center gap-4 mb-4"><span class="material-symbols-outlined text-3xl text-primary" data-icon="account_balance">account_balance</span><div><p class="text-label-caps font-label-caps text-primary">' + getMethodLabel(order.method) + '</p><p class="text-mono-metric text-on-surface-variant">Transfer to the account below</p></div></div>' +
+      '<div class="space-y-2"><div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Account Number</span><span class="text-primary font-bold">1123 0011 2233 4455</span></div><div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Account Name</span><span class="text-primary">1123 WORKSHOP</span></div><div class="flex justify-between text-mono-metric"><span class="text-on-surface-variant">Amount</span><span class="text-primary font-bold text-headline-md">' + fmtRp(order.total) + '</span></div></div></div>' +
+      '<p class="text-mono-metric text-on-surface-variant text-sm flex items-center gap-2"><span class="material-symbols-outlined text-lg">info</span> Payments are processed automatically. Please allow up to 24 hours for verification.</p></div>' +
+      '<div class="flex justify-between pt-4 text-headline-md font-headline-md"><span class="text-on-surface-variant">Total Due</span><span class="text-primary">' + fmtRp(order.total) + '</span></div>' +
+      '<div class="flex flex-col md:flex-row gap-4 justify-center"><a class="text-center bg-primary text-background px-12 py-4 font-headline-md hover:bg-on-surface transition-all uppercase" href="account.html">VIEW MY ORDERS</a><a class="text-center border border-primary text-primary px-12 py-4 font-headline-md hover:bg-primary hover:text-background transition-all uppercase" href="shop.html">CONTINUE SHOPPING</a></div>';
+  }
+})();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>PROJECT REVENANT | 1123 WORKSHOP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #121414; color: #e2e2e2; -webkit-font-smoothing: antialiased; }
+.grain-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 9999; opacity: 0.05;
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuClELkUtnP6tBZiX1X3eZ_3UIzaLGK7auuZulP7GhsxRzjnoauuoCac94sLCtN90YOtGiVBeTTTe46Wbc6titHWxG8acDqHkepfurH1WgByXZBZz31sfMetWMM7hfJhxqWwamZ91W3EIm9hezABPleIV3MuOC-lRqKKdu5q0-YbXMG31QAy_ve8R94pR9qV3UrbzQ0Q0KpVzuiHWqRSkk3QuzaDpcWgTLLSG1wjkBftmFFzITaWNgYeY-2VQjqIzXWsyKTXo5hM8WQ);
+}
+</style>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        background: "#121414", "on-surface": "#e2e2e2", "on-surface-variant": "#c4c7c8",
+        primary: "#ffffff", "on-primary": "#2f3131",
+        "surface-container": "#1e2020", "surface-container-low": "#1a1c1c",
+        "surface-container-high": "#282a2b", "surface-container-lowest": "#0c0f0f",
+        "outline-variant": "#444748", outline: "#8e9192", error: "#ffb4ab"
+      },
+      borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
+      spacing: { unit: "4px", gutter: "24px", "section-padding": "120px", "margin-mobile": "16px", "margin-desktop": "64px" },
+      fontFamily: { "headline-md": ["Anton"], "headline-xl": ["Anton"], "label-caps": ["Geist"], "body-lg": ["Geist"], "mono-metric": ["Geist"] },
+      fontSize: { "headline-xl": ["120px", { lineHeight: "110px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-lg": ["72px", { lineHeight: "72px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-md": ["32px", { lineHeight: "36px", fontWeight: "400" }], "body-lg": ["18px", "1.6"], "label-caps": ["12px", { letterSpacing: "0.1em", fontWeight: "500" }] },
+      fontWeight: { "headline-xl": "400", "headline-md": "400", "label-caps": "500" }
+    }
+  }
+};
+</script>
+</head>
+<body class="bg-background selection:bg-primary selection:text-on-primary overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant h-20 flex items-center">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</header>
+
+<main class="pt-20">
+
+<!-- Hero -->
+<section class="relative min-h-[70vh] flex items-end px-margin-mobile md:px-margin-desktop pb-section-padding border-b border-outline-variant overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 grayscale hero-static" src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=1200" alt="">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-4xl reveal-up">
+<div class="flex items-center gap-4 mb-4">
+<span class="text-label-caps text-on-surface-variant tracking-widest">01 // POWERTRAIN</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">STAGE: FINAL ASSEMBLY</span>
+</div>
+<h1 class="text-headline-lg-mobile md:text-headline-xl font-headline-xl text-primary leading-none mb-4">PROJECT<br>REVENANT</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl mb-10 border-l-2 border-primary pl-6">Complete technical breakdown of the 980CC custom powertrain — from block to exhaust. Designed for brutalist performance, engineered for the asphalt.</p>
+<a class="inline-block bg-primary text-on-primary px-10 py-4 font-headline-md hover:bg-transparent hover:text-primary border border-primary transition-all uppercase" href="#specs">SKIP TO SPECS</a>
+</div>
+</section>
+
+<!-- Overview Specs -->
+<section id="specs" class="px-margin-mobile md:px-margin-desktop py-section-padding border-b border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-16 reveal-up">
+<div class="md:col-span-4">
+<h2 class="text-label-caps text-on-surface-variant mb-4">02 // BASE SPECIFICATIONS</h2>
+<h3 class="text-headline-lg font-headline-xl text-primary leading-tight">ENGINE<br>DATASHEET</h3>
+</div>
+<div class="md:col-span-8">
+<p class="text-body-lg text-on-surface-variant mb-8">The Revenant powertrain is a hand-built, air-cooled V-twin engineered from billet aluminum and forged internals. Every component is rated for sustained high-load operation with a target service interval of 8,000 km.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-outline-variant reveal-up">
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">ENGINE TYPE</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Air-cooled 45° V-Twin, 4-stroke</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">DISPLACEMENT</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">980 cc (59.8 cu in)</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">BORE x STROKE</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">97.5 mm x 104.8 mm</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">COMPRESSION RATIO</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">10.8:1</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">VALVETRAIN</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">OHV, 2 valves per cylinder, pushrod</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">FUEL SYSTEM</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Dual Keihin FCR41 flat-slide carbs</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">IGNITION</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Dyna 2000 digital programmable</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">LUBRICATION</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Dry sump, 4.2 L capacity</span>
+</div>
+</div>
+</section>
+
+<!-- Performance figures -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding border-b border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-16 reveal-up">
+<div>
+<h2 class="text-label-caps text-on-surface-variant mb-4">03 // PERFORMANCE</h2>
+<h3 class="text-headline-lg font-headline-xl text-primary leading-tight">POWER &amp;<br>TORQUE CURVE</h3>
+</div>
+<div class="flex items-end">
+<p class="text-body-lg text-on-surface-variant">Dyno-tuned for maximum usable torque across the mid-range. The 45° firing order delivers the signature V-twin pulse with linear power delivery from idle to redline.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-outline-variant reveal-up">
+<div class="p-8 border-b md:border-r border-outline-variant md:border-b-0 flex flex-col items-center justify-center text-center">
+<span class="text-label-caps text-on-surface-variant mb-2">PEAK POWER</span>
+<span class="text-headline-lg font-headline-xl text-primary leading-none">86 HP</span>
+<span class="text-label-caps text-on-surface-variant mt-2">@ 6,200 RPM</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant md:border-b-0 flex flex-col items-center justify-center text-center">
+<span class="text-label-caps text-on-surface-variant mb-2">PEAK TORQUE</span>
+<span class="text-headline-lg font-headline-xl text-primary leading-none">112 Nm</span>
+<span class="text-label-caps text-on-surface-variant mt-2">@ 3,800 RPM</span>
+</div>
+<div class="p-8 border-b border-outline-variant md:border-b-0 flex flex-col items-center justify-center text-center">
+<span class="text-label-caps text-on-surface-variant mb-2">REDLINE</span>
+<span class="text-headline-lg font-headline-xl text-primary leading-none">7,200</span>
+<span class="text-label-caps text-on-surface-variant mt-2">RPM (hard limit)</span>
+</div>
+</div>
+</section>
+
+<!-- Transmission -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding border-b border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mb-16 reveal-up">
+<div>
+<h2 class="text-label-caps text-on-surface-variant mb-4">04 // DRIVETRAIN</h2>
+<h3 class="text-headline-lg font-headline-xl text-primary leading-tight">TRANSMISSION<br>&amp; FINAL DRIVE</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-0 border border-outline-variant reveal-up">
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">TRANSMISSION</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">5-speed constant mesh</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">PRIMARY DRIVE</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Triplex chain, 1.72:1 ratio</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">FINAL DRIVE</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">520 O-ring chain, 2.58:1 ratio</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">CLUTCH</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">Hydraulic, multi-plate wet</span>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">1ST GEAR</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">2.58:1</span>
+</div>
+<div class="p-8 border-b border-outline-variant">
+<span class="text-label-caps text-on-surface-variant">5TH GEAR</span>
+<div class="dotted-leader"></div>
+<span class="font-mono-metric text-primary text-lg">0.86:1 (overdrive)</span>
+</div>
+</div>
+</section>
+
+<!-- Compatibility -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding border-b border-outline-variant">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-16 reveal-up">
+<div class="md:col-span-4">
+<h2 class="text-label-caps text-on-surface-variant mb-4">05 // COMPATIBILITY</h2>
+<h3 class="text-headline-lg font-headline-xl text-primary leading-tight">PLATFORM<br>INTEGRATION</h3>
+</div>
+<div class="md:col-span-8">
+<p class="text-body-lg text-on-surface-variant mb-4">The Revenant powertrain is designed as a modular drop-in unit for custom hardtail and rigid frames. Below are verified platform fits and estimated fabrication requirements.</p>
+</div>
+</div>
+
+<!-- Bike compatibility cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-outline-variant reveal-up">
+<div class="p-8 border-b md:border-r border-outline-variant md:border-b-0 flex flex-col">
+<h4 class="text-headline-md font-headline-md text-primary mb-4 uppercase">HARLEY-DAVIDSON</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Direct fit for Evolution Big Twin frames (1984–1999). Requires custom engine mounts and oil tank relocation for rigid conversions.</p>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">COMPATIBLE MODELS</span>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">FXST Softail</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">FLST Heritage</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">FXR</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">XL Sportster</span>
+</div>
+</div>
+<div class="mt-4 border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">EXAMPLE BUILD</span>
+<p class="font-mono-metric text-primary text-sm mt-1">1997 FXST — 980cc stroker, hardtail rear section, midsized fuel tank, raw titanium exhaust. Est. build time: 14 weeks.</p>
+</div>
+</div>
+<div class="p-8 border-b md:border-r border-outline-variant md:border-b-0 flex flex-col">
+<h4 class="text-headline-md font-headline-md text-primary mb-4 uppercase">JAPANESE CRUISER</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Adaptable to Yamaha Virago / XV series and Suzuki Intruder frames. Requires custom fab: motor mount brackets, oil line re-routing, and carburetor clearance check.</p>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">COMPATIBLE MODELS</span>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Yamaha XV1100</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Yamaha XV535</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Suzuki VS800</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Kawasaki VN900</span>
+</div>
+</div>
+<div class="mt-4 border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">EXAMPLE BUILD</span>
+<p class="font-mono-metric text-primary text-sm mt-1">1992 Yamaha XV1100 — 980cc transplant, full frame chop, custom subframe, Mikuni HSR42 carb swap. Est. build time: 10 weeks.</p>
+</div>
+</div>
+<div class="p-8 border-b border-outline-variant md:border-b-0 flex flex-col">
+<h4 class="text-headline-md font-headline-md text-primary mb-4 uppercase">CUSTOM RIGID</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Purpose-built for scratch-built rigid frames using standard 1.25" O.D. tube. Engine acts as a stressed member; no downtubes required.</p>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">COMPATIBLE MODELS</span>
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Dutchman Rigid</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">PAIN Kustom</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">TC Bros hardtail</span>
+<span class="border border-outline-variant px-3 py-1 text-label-caps text-primary">Biltwell forged</span>
+</div>
+</div>
+<div class="mt-4 border-t border-outline-variant pt-4">
+<span class="text-label-caps text-on-surface-variant">EXAMPLE BUILD</span>
+<p class="font-mono-metric text-primary text-sm mt-1">Scratch-built rigid — 51mm front forks, 21" / 18" wheels, 980cc powerplant, side-mount oil tank, no front fender. Est. build time: 18 weeks.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Gallery / examples -->
+<section class="py-section-padding border-b border-outline-variant">
+<div class="px-margin-mobile md:px-margin-desktop mb-16 reveal-up">
+<h2 class="text-label-caps text-on-surface-variant mb-4">06 // INSTALLATION EXAMPLES</h2>
+<h3 class="text-headline-lg font-headline-xl text-primary leading-tight">REVENANT IN<br>THE WILD</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-outline-variant">
+<div class="relative aspect-square overflow-hidden group border-b md:border-r border-outline-variant">
+<img class="w-full h-full object-cover grayscale brightness-50 group-hover:brightness-75 transition-all duration-500" src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=600" alt="">
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<h4 class="text-headline-md text-primary uppercase">HARLEY FXST</h4>
+<p class="text-label-caps text-on-surface-variant">980cc · Hardtail · Ti exhaust</p>
+</div>
+</div>
+<div class="relative aspect-square overflow-hidden group border-b md:border-r border-outline-variant">
+<img class="w-full h-full object-cover grayscale brightness-50 group-hover:brightness-75 transition-all duration-500" src="https://images.unsplash.com/photo-1558980395-be8a5fc1a8f0?w=600" alt="">
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<h4 class="text-headline-md text-primary uppercase">YAMAHA XV1100</h4>
+<p class="text-label-caps text-on-surface-variant">980cc transplant · Chopped frame</p>
+</div>
+</div>
+<div class="relative aspect-square overflow-hidden group border-b border-outline-variant">
+<img class="w-full h-full object-cover grayscale brightness-50 group-hover:brightness-75 transition-all duration-500" src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600" alt="">
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<h4 class="text-headline-md text-primary uppercase">CUSTOM RIGID</h4>
+<p class="text-label-caps text-on-surface-variant">Scratch frame · Stressed member</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Bottom CTA -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding text-center border-b border-outline-variant reveal-up">
+<h2 class="text-headline-lg font-headline-xl text-primary mb-6 uppercase">WANT THIS POWERTRAIN?</h2>
+<p class="text-body-lg text-on-surface-variant max-w-xl mx-auto mb-10">Each Revenant unit is hand-assembled to order. Lead time: 8–12 weeks depending on configuration. Contact us for a build consultation.</p>
+<a class="inline-block bg-primary text-on-primary px-12 py-4 font-headline-md hover:bg-transparent hover:text-primary border border-primary transition-all uppercase" href="contact person.html">REQUEST A QUOTE</a>
+</section>
+
+</main>
+
+<!-- Inner Circle -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12 uppercase">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+
+<!-- Site Footer -->
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

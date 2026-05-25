@@ -1,0 +1,411 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE MACHINES | 1123 WORKSHOP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-container": "#bab8b7",
+                      "on-secondary": "#313030",
+                      "on-primary-fixed": "#1a1c1c",
+                      "background": "#121414",
+                      "surface-dim": "#121414",
+                      "on-primary-container": "#636565",
+                      "surface-container-highest": "#333535",
+                      "surface-container-low": "#1a1c1c",
+                      "inverse-surface": "#e2e2e2",
+                      "on-error": "#690005",
+                      "secondary-fixed-dim": "#c9c6c5",
+                      "on-background": "#e2e2e2",
+                      "primary": "#ffffff",
+                      "primary-container": "#e2e2e2",
+                      "tertiary-container": "#e5e2e1",
+                      "surface-container-lowest": "#0c0f0f",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "inverse-primary": "#5d5f5f",
+                      "tertiary": "#ffffff",
+                      "surface-container-high": "#282a2b",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "inverse-on-surface": "#2f3131",
+                      "on-surface": "#e2e2e2",
+                      "surface-tint": "#c6c6c7",
+                      "on-surface-variant": "#c4c7c8",
+                      "on-primary-fixed-variant": "#454747",
+                      "error-container": "#93000a",
+                      "surface-bright": "#38393a",
+                      "secondary": "#c9c6c5",
+                      "on-tertiary": "#313030",
+                      "surface-container": "#1e2020",
+                      "surface": "#121414",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "outline-variant": "#444748",
+                      "surface-variant": "#333535",
+                      "on-primary": "#2f3131",
+                      "primary-fixed": "#e2e2e2",
+                      "outline": "#8e9192",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-tertiary-container": "#656464",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#e5e2e1",
+                      "secondary-container": "#4a4949",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#474646"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "section-padding": "120px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Anton"],
+                      "label-caps": ["Geist"],
+                      "headline-xl": ["Anton"],
+                      "headline-lg-mobile": ["Anton"],
+                      "headline-lg": ["Anton"],
+                      "body-md": ["Geist"],
+                      "body-lg": ["Geist"],
+                      "mono-metric": ["Geist"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>.noise-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB3sgTuMtulwIqetpBiex9AW-k7nqpwKLbDhafFdIAkUJjjNMqh4Qi_8fFzAH68WaPa665lZ0PA_O_6fFPYxQPLJrC3PRY2XOJj71e05C2hqqoRpmMO6Tp5H1TF0C0sovSYyKZlyTEaLUXhagJVh10EEWpJ_t21z66sYJ6F0Cezbf5VUpk3ktAVYNVtI3jqD0Dz3xi5xKhLmPGoITWH3T1RFwFpdBnQMVAWM_SmdN7M8pwOyqpogMJij5Di8M23L9CMoISYwc1Sle8);
+    opacity: 0.05;
+    z-index: 9999
+    }
+.build-grid-line {
+    background-image: linear-gradient(to bottom, #444748 1px, transparent 1px);
+    background-size: 100% 100%
+    }
+.dotted-leader {
+    border-bottom: 1px dotted #444748;
+    flex-grow: 1;
+    margin: 0 8px;
+    margin-bottom: 4px
+    }
+.hover-invert:hover {
+    background-color: white;
+    color: black
+    }
+::-webkit-scrollbar {
+    width: 6px
+    }
+::-webkit-scrollbar-track {
+    background: transparent
+    }
+::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 999px
+    }
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4)
+    }
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+</style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary selection:text-on-primary">
+<div class="noise-overlay"></div>
+<!-- Navigation Header -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<nav class="hidden md:flex gap-8 items-center"><a class="text-label-caps font-label-caps text-primary font-bold border-b-2 border-primary uppercase tracking-widest" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a></nav>
+<div class="flex gap-6 items-center">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="pt-32">
+<!-- Hero Section -->
+<section class="px-margin-desktop mb-section-padding">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-end">
+<div class="md:col-span-8">
+<h1 class="text-headline-xl font-headline-xl uppercase leading-none mb-8">THE MACHINES</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant max-w-2xl border-l border-primary pl-8 py-2">
+                        ENGINEERING PERFORMANCE THROUGH THE ART OF REDUCTION. EVERY BOLT SERVES A PURPOSE. EVERY LINE TELLS A STORY OF POWER, PRECISION, AND UNCOMPROMISING TECHNICAL MASTERY. STRIPPED TO THE ESSENTIALS.
+                    </p>
+</div>
+<div class="md:col-span-4 hidden md:flex justify-end pb-4">
+<span class="text-label-caps font-label-caps text-on-surface-variant vertical-text rotate-180" style="writing-mode: vertical-rl;">ESTABLISHED MMXXIV — PRECISION BUILDS</span>
+</div>
+</div>
+</section>
+<!-- Featured Builds Gallery -->
+<section class="mb-section-padding">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-0 border-y border-outline-variant">
+<!-- Build 042 -->
+<a class="group relative overflow-hidden border-r border-outline-variant aspect-[4/5] md:aspect-square block" href="build detail.html">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A high-contrast cinematic photograph of a custom cafe racer motorcycle, featuring polished chrome exhaust pipes and a sleek carbon fiber fuel tank. The setting is a dark, moody industrial workshop with harsh directional lighting highlighting the metallic textures and sharp mechanical lines. The overall aesthetic is brutalist and minimalist, dominated by deep blacks and bright metallic reflections." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm2fyWu4sw5RCv7USH0DVTNfbTRcy5yMcoUeMhc0pvMvmy52ZBB3swllVDn_nDP1gP8j3vVoPxvBknpX1k_UbvhgogcfYJn_gdN-FIbsZDalH9kALcW0SavWTyeBazBoz5Em5WYoxVRMykcFEGeIhdK8hBFm75Os7vYJhh4NIEzs3st570Yx6EhQW-drlCuVwxrZq_nl4em3is943OwimZWgjcWvqI6dqeDao3krm-iZrsnxO4vpFTD6yAuxgHJI17XqWpcQ51tdE">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform">
+<div class="inline-block bg-primary text-on-primary px-4 py-1 text-label-caps font-label-caps mb-4">IN STOCK</div>
+<h3 class="text-headline-md font-headline-md text-primary">BUILD NO. 042<br>THE MIDNIGHT CAFE</h3>
+<div class="mt-4 flex opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-label-caps font-label-caps border border-primary px-6 py-3 hover:bg-primary hover:text-on-primary transition-colors">VIEW SPECIFICATIONS</span>
+</div>
+</div>
+</a>
+<!-- Build 039 -->
+<a class="group relative overflow-hidden aspect-[4/5] md:aspect-square block" href="build detail.html">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="A brutalist style motorcycle build, a Carbon Bobber with an exposed raw carbon fiber frame and matte black engine components. The lighting is low-key, focused on the textures of the sandblasted metal and weave of the carbon. Set against a dark, textured concrete wall in a minimalist garage environment. High contrast monochrome style with sharp focus on technical details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEgTA2mIhO7N6wscIj-2ddFilUelXJtHeW2ucq6zzbH5UBcLvnzVnD7dGqMnm_z-XXEr02OSwND9-D_OKt_OsgfvLQhTsCDaaUo7j8kiRX_M4g_ZT6g8x_b1YSvqHHlgPkK8PFCpMtk8a1XxapwGRpDIAKO8-zcyqp271x7sIC38qn22xonvV_ZsRSyIZ-wZ-P8VzvCmmNhvMJHn_vh0NZ9JdswLOwNFrSCI235gA8xp0MqLBFVtyw2aq7_EERds54Aj_kJrN3Gaw">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 w-full p-8 translate-y-4 group-hover:translate-y-0 transition-transform">
+<div class="inline-block bg-outline-variant text-on-background px-4 py-1 text-label-caps font-label-caps mb-4">ARCHIVED</div>
+<h3 class="text-headline-md font-headline-md text-primary">BUILD NO. 039<br>CARBON BOBBER</h3>
+<div class="mt-4 flex opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="text-label-caps font-label-caps border border-primary px-6 py-3 hover:bg-primary hover:text-on-primary transition-colors">VIEW GALLERY</span>
+</div>
+</div>
+</a>
+</div>
+</section>
+<!-- Technical Mastery / Build Specs Section -->
+<section class="px-margin-desktop mb-section-padding">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center border-t border-outline-variant pt-gutter">
+<div class="md:col-span-5">
+<h2 class="text-label-caps font-label-caps text-on-surface-variant mb-8">TECHNICAL MASTERY // GEN II ARCHITECTURE</h2>
+<div class="space-y-4">
+<div class="flex items-end">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">ENGINE</span>
+<div class="dotted-leader"></div>
+<span class="text-body-md font-mono-metric">1200CC V-TWIN</span>
+</div>
+<div class="flex items-end">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">CHASSIS</span>
+<div class="dotted-leader"></div>
+<span class="text-body-md font-mono-metric">CUSTOM TUBULAR</span>
+</div>
+<div class="flex items-end">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">EXHAUST</span>
+<div class="dotted-leader"></div>
+<span class="text-body-md font-mono-metric">TITANIUM 2-INTO-1</span>
+</div>
+<div class="flex items-end">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">WET WEIGHT</span>
+<div class="dotted-leader"></div>
+<span class="text-body-md font-mono-metric">172KG</span>
+</div>
+<div class="flex items-end">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">BRAKES</span>
+<div class="dotted-leader"></div>
+<span class="text-body-md font-mono-metric">BREMBO MONOBLOCK</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 mt-8 md:mt-0">
+<div class="aspect-video relative overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover grayscale opacity-80 hover:grayscale-0 transition-all duration-500" data-alt="Close up technical detail of a high-performance motorcycle engine, showing the intricate titanium exhaust welding and raw metal surfaces. The scene is lit with cool blue and white tones to emphasize the chrome and carbon elements. Sharp architectural shadows create a sense of depth and precision engineering. Minimalist workshop background with industrial vibes." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZrsu9tvOoMfjkYs8-7De3O3Z32FD5gOmEEc97lZp9wK5ReQ_EunKqhdN78qUr2K-WEscmekAyVZK0-v6IfTPynCDpXCipxWcAVscLl4y3r8QH5YOhducF51nQIOOMDJu5IgnKVH7g8LmUJqIIFbScaQIRrVKXV601vgfT8ULunIPWnMkAHZHyRZ9PqUkR7tSUGXD4QeWYEfy-C2JaGQTwu7sz6pwxcpxxxc1160HiSt9ehHrgXU-wWkZfemyM7bZZkrpXSHvz2FE">
+</div>
+</div>
+</div>
+</section>
+<!-- The Build Grid -->
+<section class="px-margin-desktop mb-section-padding">
+<h2 class="text-label-caps font-label-caps mb-12 border-b border-outline-variant pb-4">ARCHIVE / PREVIOUS COMMISSIONS</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-l border-t border-outline-variant">
+<!-- Build 045 -->
+<a class="reveal group border-r border-b border-outline-variant relative block active" href="build detail.html">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-110 transition-all duration-700" data-alt="A customized Street Tracker motorcycle with aggressive knobby tires and a minimalist white fuel tank. Shot in a high-key studio setting with sharp shadows. The aesthetic is clean, industrial, and raw, emphasizing the functional design and custom fabrication work. monochrome color palette with subtle silver accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBooQ9j5BnIT0NigbkHJo3wJQ0NsqvWkSGKiri8l1E57i757_jbiFXLhnhT5hXXfogRNYEjlA2Hdcamgtsuta-FLkTi2f4HsBCe5GZy-pi3-wZtAx1R4r1A9t3d2JM90kaHnOBhKZfL3yTFjO26FZ3aS6BRGwsyN_RuQZ4ijRJMj7Ub2dTNlJwLeutRD-K4j_lWk4EzuTMKZ16awriXak5rPJ8migPp0erxnv2cA43tXEL5cxTTYjFkIMVF0r8D8-D5jBSvDQTMsII">
+</div>
+<div class="p-6">
+<span class="text-label-caps font-mono-metric text-on-surface-variant">COMMISSION 045</span>
+<h4 class="text-headline-md font-headline-md mt-2">STREET TRACKER</h4>
+</div>
+</a>
+<!-- Raw Scrambler -->
+<a class="reveal group border-r border-b border-outline-variant relative block active" href="build detail.html">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-110 transition-all duration-700" data-alt="A raw Scrambler motorcycle featuring exposed steel frame and distressed leather seat. Parked against a brutalist concrete structure. The lighting is harsh and direct, creating strong shadows and highlighting the texture of the raw metal and rugged tires. Moody atmospheric shot in a dark minimalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6ciL1qGYcIQ1rPrt-mriW-TDElDijpirZ03dgNfewHciP_nWM3KXwkE5a_xNKKfhkZI8aV5DIKSrjv3qpS1SIFhxcAhVK5Lvf5jYuiutdQQGTJpqgAhppjYUL6Ek_OATkhFDU1zTlu5yoIXBiabwEWUfsVX97TrwqKpoyRuM4brOkxxi49XZ026d7SjV6EEkFVzCsI-3EJO95livLhaL86CldgxrJTlugeTrOEdQ7lWAV3V6I50Wsll4H-gAeSUot6O7FIvTTvhY">
+</div>
+<div class="p-6">
+<span class="text-label-caps font-mono-metric text-on-surface-variant">COMMISSION 041</span>
+<h4 class="text-headline-md font-headline-md mt-2">RAW SCRAMBLER</h4>
+</div>
+</a>
+<!-- Ghost Brat -->
+<a class="reveal group border-r border-b border-outline-variant relative block active" href="build detail.html">
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 group-hover:scale-110 transition-all duration-700" data-alt="A minimalist brat style motorcycle, completely blacked out with matte finishes and carbon fiber accents. The bike is positioned in a dark void-like space with a single overhead light source reflecting off the chrome details. High-contrast, sleek, and mysterious visual style reflecting precision engineering and stealth aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN3I1CumEY3Mi5w-Bt6vNJDgZHaTwq-aOpohlHl6GLtnYGkqrUlaoBcCcKZJ7hWBkFy4149mqHiqh3MNxyskN62UvP_wBxpXNdHU8DEUWSrh58izIVSKqIx_R__cSdT9Lg4c5mKPM8NZzAULZlDWArJMgcwuh4iXPqrs_00ibTXREQMFBlhzqMbWOtFGwNStBnHlXw-lAaKwNczRVatPwBruuh7SMQi6ahQa5B83LLZMb8DrnpVifKi8q4mxVFVRVA-dkinzQi3v4">
+</div>
+<div class="p-6">
+<span class="text-label-caps font-mono-metric text-on-surface-variant">COMMISSION 036</span>
+<h4 class="text-headline-md font-headline-md mt-2">GHOST BRAT</h4>
+</div>
+</a>
+</div>
+<!-- Footer Action -->
+<div class="mt-16 flex flex-col items-center gap-8">
+<button class="bg-primary text-on-primary px-12 py-5 text-label-caps font-label-caps hover:opacity-80 transition-opacity uppercase tracking-widest">
+                    LOAD MORE MACHINES
+                </button>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="h-px w-12 bg-outline-variant"></span>
+<p class="text-label-caps font-label-caps">CURRENT LEAD TIME: <span class="text-primary">14 MONTHS</span></p>
+<span class="h-px w-12 bg-outline-variant"></span>
+</div>
+</div>
+</section>
+</main>
+<!-- Inner Circle Footer Section -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke: 1px #000000; color: transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+<!-- Site Footer -->
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123 WORKSHOP</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interactions and mobile menu toggle
+        const toggle = document.getElementById('mobile-menu-toggle');
+        
+        if (toggle) {
+            toggle.addEventListener('click', () => {
+                const isMobile = window.innerWidth < 768;
+                if (isMobile) {
+                    alert('Mobile Menu System - Placeholder for Fullscreen Overlay');
+                }
+            });
+        }
+
+        // Scroll Reveal Animation Logic
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Parallax scroll effect for images
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelectorAll('img').forEach(img => {
+                const speed = 0.05;
+                img.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+    </script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Build Deposit | 1123 WORKSHOP</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="styles.css">
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-secondary-container": "#bab8b7", "on-secondary": "#313030", "on-primary-fixed": "#1a1c1c",
+        "background": "#121414", "surface-dim": "#121414", "on-primary-container": "#636565",
+        "surface-container-highest": "#333535", "surface-container-low": "#1a1c1c",
+        "inverse-surface": "#e2e2e2", "on-error": "#690005", "secondary-fixed-dim": "#c9c6c5",
+        "on-background": "#e2e2e2", "primary": "#ffffff", "primary-container": "#e2e2e2",
+        "tertiary-container": "#e5e2e1", "surface-container-lowest": "#0c0f0f",
+        "primary-fixed-dim": "#c6c6c7", "on-tertiary-fixed": "#1c1b1b",
+        "inverse-primary": "#5d5f5f", "tertiary": "#ffffff", "surface-container-high": "#282a2b",
+        "tertiary-fixed-dim": "#c8c6c5", "inverse-on-surface": "#2f3131", "on-surface": "#e2e2e2",
+        "surface-tint": "#c6c6c7", "on-surface-variant": "#c4c7c8", "on-primary-fixed-variant": "#454747",
+        "error-container": "#93000a", "surface-bright": "#38393a", "secondary": "#c9c6c5",
+        "on-tertiary": "#313030", "surface-container": "#1e2020", "surface": "#121414",
+        "on-tertiary-fixed-variant": "#474746", "outline-variant": "#444748",
+        "surface-variant": "#333535", "on-primary": "#2f3131", "primary-fixed": "#e2e2e2",
+        "outline": "#8e9192", "on-secondary-fixed": "#1c1b1b", "secondary-fixed": "#e5e2e1",
+        "on-tertiary-container": "#656464", "error": "#ffb4ab", "tertiary-fixed": "#e5e2e1",
+        "secondary-container": "#4a4949", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#474646"
+      },
+      borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
+      spacing: { unit: "4px", gutter: "24px", "section-padding": "120px", "margin-mobile": "16px", "margin-desktop": "64px" },
+      fontFamily: { "headline-md": ["Anton"], "label-caps": ["Geist"], "headline-xl": ["Anton"], "headline-lg-mobile": ["Anton"], "headline-lg": ["Anton"], "body-md": ["Geist"], "body-lg": ["Geist"], "mono-metric": ["Geist"] },
+      fontSize: { "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}], "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}], "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}], "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}], "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}], "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}], "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}] }
+    }
+  }
+};
+</script>
+<style>.brutalist-border { border: 1px solid #444748; }
+.brutalist-border-focus:focus-within { border-color: #fff; }
+.noise-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.05; z-index: 9999; background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAWm4vH-bDnGimBJR-77RQ0QH8RCWSV7HhDPvFKFdyHr4rQUwEFO9NmQDKn9jJRMFLGNILq5mkPhexbShG2U0ptWpxrLKEVDRE1yO3mvfnxAajHxanvyDQ_QMKAJNn5fZbV5WsaPfq33sq5wFRDm7SFRVHwtKbxruXE7H34QQZMCvYaa8LMpP1jkHx2Z4OT30jUvpg4ZMNqWFicXc8zHZ75tENKT2qhREbctIro-3h9GjWrxJiNPY5eIk6bmZdRLAlr09vrg1cbOhk); }
+input::placeholder { color: #636565; }
+.carbon-bg { background-color: #0c0f0f; background-image: linear-gradient(45deg, #121414 25%, transparent 25%), linear-gradient(-45deg, #121414 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #121414 75%), linear-gradient(-45deg, transparent 75%, #121414 75%); background-size: 4px 4px; }
+.payment-btn {
+    border: 1px solid #444748 !important;
+    background: #1e2020 !important;
+    outline: none !important;
+}
+.payment-btn.active {
+    border-color: #ffffff !important;
+    border-width: 2px !important;
+    background: #333535 !important;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-spinner { display: none; width: 24px; height: 24px; border: 3px solid rgba(0,0,0,0.3); border-radius: 50%; border-top-color: #000; animation: spin 1s ease-in-out infinite; }
+.btn-loading .loading-spinner { display: block; }
+.btn-loading .btn-text { display: none; }
+#success-modal { display: none; z-index: 100; }
+html { scroll-behavior: smooth; }
+.reveal-up { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.2, 0, 0.2, 1), transform 1s cubic-bezier(0.2, 0, 0.2, 1); }
+.reveal-up.active { opacity: 1; transform: translateY(0); }
+.fade-in { opacity: 0; transition: opacity 1.5s ease-out; }
+.fade-in.active { opacity: 1; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-background overflow-x-hidden">
+<div class="noise-overlay"></div>
+
+<!-- Success Modal -->
+<div class="fixed inset-0 bg-background/90 backdrop-blur-md flex items-center justify-center p-margin-mobile" id="success-modal">
+<div class="max-w-xl w-full bg-surface-container-low border border-outline-variant p-12 text-center carbon-bg relative">
+<h2 class="text-headline-xl font-headline-xl text-primary mb-6">DEPOSIT CONFIRMED</h2>
+<p class="text-body-lg text-on-surface-variant mb-12">YOUR BUILD SLOT IS SECURED. OUR TEAM WILL CONTACT YOU WITHIN 24 HOURS TO DISCUSS THE NEXT STEPS. RIDE READY.</p>
+<a class="inline-block bg-primary text-background px-12 py-4 font-headline-md text-headline-md hover:bg-on-surface transition-all uppercase" href="home page.html">RETURN TO BASE</a>
+</div>
+</div>
+
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background border-b border-outline-variant flex justify-between items-center px-margin-desktop h-20"><div class="flex items-center"><div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div></div><nav class="hidden md:flex gap-8 items-center"><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a></nav><div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div></header>
+
+<main class="pt-32 pb-section-padding px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Form Section -->
+<div class="lg:col-span-8 space-y-12 reveal-up">
+
+<!-- Build Summary -->
+<section>
+<div class="flex items-baseline gap-4 mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">BUILD DETAILS</h2>
+</div>
+<div id="build-summary" class="border border-outline-variant p-6 space-y-4">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-outline-variant opacity-40" data-icon="build">build</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary" id="bd-project">—</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant" id="bd-engine">ENGINE: —</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant" id="bd-frame">FRAME: —</p>
+</div>
+</div>
+<div id="bd-addons" class="hidden border-t border-outline-variant pt-4">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2">ADDONS</p>
+<ul id="bd-addons-list" class="list-disc list-inside font-body-md text-body-md text-on-surface-variant space-y-1"></ul>
+</div>
+</div>
+</section>
+
+<hr class="border-outline-variant">
+
+<!-- Deposit Info -->
+<section>
+<div class="flex items-baseline gap-4 mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">DEPOSIT</h2>
+</div>
+<div class="border border-outline-variant p-6 carbon-bg">
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">A <span class="text-primary font-bold">50% DEPOSIT</span> IS REQUIRED TO SECURE YOUR BUILD SLOT. THE REMAINING BALANCE WILL BE DUE UPON COMPLETION.</p>
+<div class="flex justify-between items-baseline border-b border-outline-variant pb-3 mb-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TOTAL BUILD PRICE</span>
+<span class="font-headline-md text-headline-md text-primary" id="bd-total">Rp0</span>
+</div>
+<div class="flex justify-between items-baseline">
+<span class="font-label-caps text-label-caps text-on-surface-variant">DEPOSIT (50%)</span>
+<span class="font-headline-md text-headline-md text-primary" id="bd-deposit">Rp0</span>
+</div>
+</div>
+</section>
+
+<hr class="border-outline-variant">
+
+<!-- Workshop Info -->
+<section>
+<div class="flex items-baseline gap-4 mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">WORKSHOP</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="border border-outline-variant p-6 space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="location_on">location_on</span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest">ADDRESS</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">1123 WORKSHOP<br>Jl. Raya Industri No. 123<br>Kawasan Pulo Gadung<br>Jakarta Timur, 13260<br>INDONESIA</p>
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-0.5 hover:opacity-70 transition-none inline-flex items-center gap-1 w-fit" href="https://maps.google.com/?q=1123+Workshop+Jakarta" target="_blank">
+<span class="material-symbols-outlined text-[14px]" data-icon="open_in_new">open_in_new</span> OPEN IN MAPS
+</a>
+</div>
+<div class="space-y-4">
+<div class="border border-outline-variant p-6 space-y-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="call">call</span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest">PHONE</span>
+</div>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-none flex items-center gap-2" href="tel:+6281234567890">
+<span class="material-symbols-outlined text-lg" data-icon="call">call</span> +62 812-3456-7890
+</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-none flex items-center gap-2" href="tel:+6282198765432">
+<span class="material-symbols-outlined text-lg" data-icon="call">call</span> +62 821-9876-5432
+</a>
+</div>
+<div class="border border-outline-variant p-6 space-y-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="mail">mail</span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest">EMAIL</span>
+</div>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-none flex items-center gap-2" href="mailto:build@1123workshop.com">
+<span class="material-symbols-outlined text-lg" data-icon="mail">mail</span> build@1123workshop.com
+</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-none flex items-center gap-2" href="mailto:sales@1123workshop.com">
+<span class="material-symbols-outlined text-lg" data-icon="mail">mail</span> sales@1123workshop.com
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<hr class="border-outline-variant">
+
+<!-- Payment Method -->
+<section>
+<div class="flex items-baseline gap-4 mb-8">
+<h2 class="text-headline-md font-headline-md text-primary">PAYMENT METHOD</h2>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="gopay">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-label-caps font-label-caps">GOPAY</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="ovo">
+<span class="material-symbols-outlined text-lg" data-icon="bolt">bolt</span>
+<span class="text-label-caps font-label-caps">OVO</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="dana">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+<span class="text-label-caps font-label-caps">DANA</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="qris">
+<span class="material-symbols-outlined text-lg" data-icon="qr_code_scanner">qr_code_scanner</span>
+<span class="text-label-caps font-label-caps">QRIS</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="bca">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-label-caps font-label-caps">BCA</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="mandiri">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-label-caps font-label-caps">MANDIRI</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="bni">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-label-caps font-label-caps">BNI</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="bri">
+<span class="material-symbols-outlined text-lg" data-icon="account_balance">account_balance</span>
+<span class="text-label-caps font-label-caps">BRI</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="applepay">
+<span class="material-symbols-outlined text-lg" data-icon="brand_family">brand_family</span>
+<span class="text-label-caps font-label-caps">APPLE PAY</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="googlepay">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+<span class="text-label-caps font-label-caps">GOOGLE PAY</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="paypal">
+<span class="material-symbols-outlined text-lg" data-icon="currency_exchange">currency_exchange</span>
+<span class="text-label-caps font-label-caps">PAYPAL</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="visamc">
+<span class="material-symbols-outlined text-lg" data-icon="credit_card">credit_card</span>
+<span class="text-label-caps font-label-caps">VISA / MC</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="indomaret">
+<span class="material-symbols-outlined text-lg" data-icon="storefront">storefront</span>
+<span class="text-label-caps font-label-caps">INDOMARET</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="alfamart">
+<span class="material-symbols-outlined text-lg" data-icon="storefront">storefront</span>
+<span class="text-label-caps font-label-caps">ALFAMART</span>
+</button>
+<button class="payment-btn text-primary h-14 flex items-center justify-center gap-2" onclick="selectPayment(this)" data-method="cod">
+<span class="material-symbols-outlined text-lg" data-icon="payments">payments</span>
+<span class="text-label-caps font-label-caps">COD</span>
+</button>
+</div>
+<div id="card-detail-form" class="border border-outline-variant p-6 hidden">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="credit_card">credit_card</span>
+<span class="text-label-caps font-label-caps text-primary tracking-widest">CARD DETAILS</span>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">CARD NUMBER</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0" placeholder="0000 0000 0000 0000" type="text">
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="credit_card">credit_card</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">EXPIRY</label>
+<input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0" placeholder="MM/YY" type="text">
+</div>
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">CVV</label>
+<input class="w-full bg-surface-container-low border-0 border-b border-outline-variant focus:border-primary focus:ring-0 text-primary font-mono-metric transition-all py-3 px-0" placeholder="***" type="password">
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- Sidebar -->
+<aside class="lg:col-span-4 reveal-up">
+<div class="sticky top-32 bg-surface-container-low border border-outline-variant p-8 carbon-bg">
+<h3 class="text-label-caps font-label-caps text-primary mb-8 border-b border-outline-variant pb-2">ORDER SUMMARY</h3>
+<div id="build-mini-summary" class="space-y-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-lg text-outline-variant opacity-40" data-icon="build">build</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary" id="bs-project">—</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant text-[10px]" id="bs-spec">—</p>
+</div>
+</div>
+</div>
+<div class="space-y-3 pt-6 border-t border-outline-variant">
+<div class="flex justify-between text-mono-metric">
+<span class="text-on-surface-variant">BUILD PRICE</span>
+<span class="text-primary" id="bs-total">Rp0</span>
+</div>
+<div class="flex justify-between text-mono-metric">
+<span class="text-on-surface-variant">DEPOSIT (50%)</span>
+<span class="text-primary" id="bs-deposit">Rp0</span>
+</div>
+<div class="flex justify-between text-mono-metric" id="bs-payment-row">
+<span class="text-on-surface-variant">PAYMENT</span>
+<span class="text-primary" id="bs-payment-label">—</span>
+</div>
+<div class="flex justify-between items-baseline pt-4">
+<span class="text-label-caps font-label-caps text-primary">DUE NOW</span>
+<span class="text-headline-md font-headline-md text-primary" id="bs-due">Rp0</span>
+</div>
+</div>
+<button class="w-full bg-primary text-background font-headline-md text-headline-md py-4 mt-8 hover:bg-on-surface transition-all active:scale-95 flex items-center justify-center" id="deposit-btn">
+<span class="btn-text">PAY DEPOSIT NOW</span>
+<div class="loading-spinner"></div>
+</button>
+<div class="flex items-center justify-center gap-2 mt-4">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">lock</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant text-[10px]">SECURE ENCRYPTED PAYMENT</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden"><div class="absolute -right-20 top-0 opacity-10"><span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span></div><div class="relative z-10 max-w-4xl"><h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12">THE INNER<br>CIRCLE</h2><p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p><form class="flex flex-col md:flex-row gap-4 w-full"><input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email"><button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button></form></div></section>
+
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop"><div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24"><div class="lg:col-span-6 flex flex-col items-start gap-8"><div class="flex items-center gap-4"><a class="flex items-center gap-4" href="home page.html"><svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">{{DATA:DOCUMENT:DOCUMENT_8}}</svg><span class="text-6xl font-headline-xl tracking-tighter">1123</span></a></div><p class="max-w-md text-on-surface-variant font-medium">Automotive precision translated into textile form. Engineered for those who build the future with their own hands.</p></div><div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12"><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">NAVIGATION</span><a class="font-bold hover:italic" href="galeri.html">BUILDS</a><a class="font-bold hover:italic" href="shop.html">MERCH</a><a class="font-bold hover:italic" href="home page.html">ABOUT</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SOCIAL</span><a class="font-bold hover:italic" href="#">INSTAGRAM</a><a class="font-bold hover:italic" href="#">YOUTUBE</a><a class="font-bold hover:italic" href="#">TIKTOK</a></div><div class="flex flex-col gap-6"><span class="text-label-caps font-bold text-white/40">SUPPORT</span><a class="font-bold hover:italic" href="contact person.html">CONTACT</a><a class="font-bold hover:italic" href="#">SHIPPING</a><a class="font-bold hover:italic" href="#">LEGAL</a></div></div></div><div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40"><span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span><div class="flex gap-8 mt-4 md:mt-0"><span class="">PRIVACY POLICY</span><span class="">TERMS OF SERVICE</span></div></div></footer>
+
+<script>
+function fmtRp(n) {
+  return 'Rp' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function getMethodLabel(method) {
+  var labels = { gopay: 'GoPay', ovo: 'OVO', dana: 'DANA', qris: 'QRIS', bca: 'BCA Transfer', mandiri: 'Mandiri Transfer', bni: 'BNI Transfer', bri: 'BRI Transfer', applepay: 'Apple Pay', googlepay: 'Google Pay', paypal: 'PayPal', visamc: 'Visa / Mastercard', indomaret: 'Indomaret', alfamart: 'Alfamart', cod: 'COD (Cash on Delivery)' };
+  return labels[method] || method.toUpperCase();
+}
+
+function selectPayment(element) {
+  document.querySelectorAll('.payment-btn').forEach(function(btn) { btn.classList.remove('active'); });
+  if (element.classList.contains('payment-btn')) { element.classList.add('active'); }
+  var method = element.getAttribute('data-method') || '';
+  var form = document.getElementById('card-detail-form');
+  if (form) { form.classList.toggle('hidden', method !== 'visamc' && method !== 'applepay' && method !== 'googlepay' && method !== 'paypal'); }
+  var label = document.getElementById('bs-payment-label');
+  if (label) label.textContent = getMethodLabel(method);
+}
+
+// Render build data
+(function() {
+  var data = JSON.parse(localStorage.getItem('checkoutBuildData') || 'null');
+  if (!data) {
+    document.getElementById('bd-project').textContent = 'NO BUILD DATA';
+    document.getElementById('deposit-btn').disabled = true;
+    return;
+  }
+
+  var price = Number(data.priceNum) || 0;
+  var deposit = Math.round(price * 0.5);
+
+  // Build summary
+  document.getElementById('bd-project').textContent = data.projectName || '—';
+  document.getElementById('bd-engine').textContent = 'ENGINE: ' + ((data.engine || '').toUpperCase());
+  document.getElementById('bd-frame').textContent = 'FRAME: ' + ((data.frame || '').toUpperCase());
+  document.getElementById('bd-total').textContent = fmtRp(price);
+  document.getElementById('bd-deposit').textContent = fmtRp(deposit);
+
+  // Addons
+  if (data.addons && data.addons.length) {
+    document.getElementById('bd-addons').classList.remove('hidden');
+    document.getElementById('bd-addons-list').innerHTML = data.addons.map(function(a) {
+      return '<li>' + a + '</li>';
+    }).join('');
+  }
+
+  // Sidebar
+  document.getElementById('bs-project').textContent = data.projectName || '—';
+  document.getElementById('bs-spec').textContent = ((data.engine || '').toUpperCase()) + ' · ' + ((data.frame || '').toUpperCase());
+  document.getElementById('bs-total').textContent = fmtRp(price);
+  document.getElementById('bs-deposit').textContent = fmtRp(deposit);
+  document.getElementById('bs-due').textContent = fmtRp(deposit);
+})();
+
+// Get selected payment method
+function getSelectedPayment() {
+  var active = document.querySelector('.payment-btn.active');
+  return active ? active.getAttribute('data-method') || '' : '';
+}
+
+// Complete Deposit
+var depositBtn = document.getElementById('deposit-btn');
+var successModal = document.getElementById('success-modal');
+
+depositBtn.addEventListener('click', function() {
+  if (depositBtn.classList.contains('btn-loading')) return;
+  if (localStorage.getItem('userLoggedIn') !== 'true') {
+    window.location.href = 'account.html?redirect=build';
+    return;
+  }
+  
+  var method = getSelectedPayment();
+  if (!method) {
+    alert('Please select a payment method.');
+    return;
+  }
+  
+  depositBtn.classList.add('btn-loading');
+  setTimeout(function() {
+    depositBtn.classList.remove('btn-loading');
+    
+    var data = JSON.parse(localStorage.getItem('checkoutBuildData') || 'null');
+    var price = data ? Number(data.priceNum) || 0 : 0;
+    var deposit = Math.round(price * 0.5);
+    
+    var order = {
+      id: 'BLD-' + Date.now().toString(36).toUpperCase(),
+      date: new Date().toISOString().split('T')[0],
+      type: 'build',
+      method: method,
+      isCOD: method === 'cod',
+      buildData: data,
+      total: deposit,
+      status: method === 'cod' ? 'confirmed' : 'pending'
+    };
+    
+    var orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    orders.unshift(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    localStorage.removeItem('checkoutBuildData');
+    localStorage.removeItem('cartMerch');
+    localStorage.removeItem('cartStatic');
+    localStorage.removeItem('cartStaticQtys');
+    localStorage.setItem('userLoggedIn', 'true');
+    
+    window.location.href = 'order-confirmed.html?id=' + order.id;
+  }, 2500);
+});
+</script>
+<script src="app.js"></script>
+</body>
+</html>

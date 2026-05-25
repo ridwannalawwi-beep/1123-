@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1123 WORKSHOP | LOADING</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css">
+<style>
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.02); opacity: 0.9; }
+        }
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .grain-overlay {
+            background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBRct4Warov6JNmCN_Kui1G5icP7C7VFe2XlDSk2GJJ3mdYoN39ByJsq7--XVNzfucPp7jifSeylB7NytFMUi_SqFtVbZhpHEFbsLDmh6Hs0siArINjBvfMWyenUxexlWOBmANcxMEvD1CSCURFJOpnTbD6Bg2UY6fjjeYVJrrGvUzRlsZUvleqQf2m_hx8Q5R15v6pW2xo8faBXTEBz-kAhmrKGfbo0SG1YcRqmgU6xsNPjbbllnnBwD1eNprOb13z4MIQC5807gk);
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            animation: scanline 8s linear infinite;
+        }
+        .chain-container {
+            mask-image: linear-gradient(to right, black var(--progress), transparent var(--progress));
+            -webkit-mask-image: linear-gradient(to right, black var(--progress), transparent var(--progress));
+        }
+        .logo-pulse {
+            animation: subtle-pulse 4s ease-in-out infinite;
+        }
+        .technical-fade-in {
+            opacity: 0;
+            animation: fade-in-up 1s ease-out forwards;
+        }
+        .delay-1000 { animation-delay: 1s; }
+        /* Mandatory material symbols class */
+        .material-symbols-outlined {
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#333535",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container-high": "#282a2b",
+                        "on-surface-variant": "#c4c7c8",
+                        "background": "#121414",
+                        "primary-container": "#e2e2e2",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-secondary": "#313030",
+                        "tertiary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed": "#e2e2e2",
+                        "on-primary-fixed-variant": "#454747",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#1a1c1c",
+                        "secondary": "#c9c6c5",
+                        "on-primary": "#2f3131",
+                        "surface-tint": "#c6c6c7",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#5d5f5f",
+                        "outline-variant": "#444748",
+                        "secondary-container": "#4a4949",
+                        "primary": "#ffffff",
+                        "outline": "#8e9192",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "surface": "#121414",
+                        "tertiary-container": "#e5e2e1",
+                        "on-secondary-container": "#bab8b7",
+                        "surface-bright": "#38393a",
+                        "tertiary": "#ffffff",
+                        "on-primary-container": "#636565",
+                        "inverse-surface": "#e2e2e2",
+                        "on-tertiary-container": "#656464",
+                        "surface-dim": "#121414",
+                        "surface-container": "#1e2020",
+                        "inverse-on-surface": "#2f3131",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-background": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e2e2e2",
+                        "surface-variant": "#333535",
+                        "on-tertiary": "#313030",
+                        "surface-container-lowest": "#0c0f0f",
+                        "on-primary-fixed": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#474746"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "section-padding": "120px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Anton"],
+                        "body-md": ["Geist"],
+                        "mono-metric": ["Geist"],
+                        "headline-md": ["Anton"],
+                        "headline-lg": ["Anton"],
+                        "headline-xl": ["Anton"],
+                        "body-lg": ["Geist"],
+                        "label-caps": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden flex flex-col items-center justify-center relative font-body-md selection:bg-primary selection:text-on-primary">
+<!-- Texture & Overlay Layers -->
+<div class="fixed inset-0 grain-overlay z-50"></div>
+<div class="fixed inset-0 scanline z-40"></div>
+<!-- Main Loading Container -->
+<main class="w-full max-w-[640px] px-margin-mobile md:px-0 flex flex-col items-center justify-center z-10 h-screen">
+<!-- Center Content -->
+<div class="w-full flex flex-col items-center">
+<!-- Logo Section -->
+<div class="mb-16 overflow-hidden flex flex-col items-center">
+<h1 class="font-headline-xl text-headline-xl text-primary tracking-tighter opacity-0 translate-y-8 transition-all duration-1000 ease-out logo-pulse" id="brand-logo">
+                    1123
+                </h1>
+<p class="font-label-caps text-label-caps text-outline tracking-[0.4em] mt-2 text-center opacity-0 translate-y-4 transition-all duration-1000 delay-300 ease-out" id="brand-subtext">
+                    WORKSHOP
+                </p>
+</div>
+<!-- Progress Section -->
+<div class="w-full space-y-6">
+<!-- Status Indicators -->
+<div class="flex justify-between items-end w-full border-b border-outline-variant pb-3">
+<span class="font-label-caps text-label-caps text-primary tracking-widest" id="status-text">INITIALIZING SYSTEMS...</span>
+<span class="font-headline-md text-headline-md leading-none text-primary" id="percent-counter">00</span>
+</div>
+<!-- Industrial Chain Progress Bar -->
+<div class="relative w-full h-8 flex items-center justify-center">
+<!-- Chain Background (Static dim links) -->
+<div class="absolute inset-0 flex items-center justify-between opacity-10">
+<svg class="h-6 w-full" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="24" id="chain-pattern-bg" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M5 4h14a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3H5z" fill="currentColor"></path>
+<rect fill="currentColor" height="4" rx="1" width="10" x="18" y="10"></rect>
+</pattern>
+</defs>
+<rect fill="url(#chain-pattern-bg)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<!-- Filling Chain (The active progress) -->
+<div class="absolute inset-0 flex items-center justify-between chain-container transition-all duration-300 ease-linear" id="chain-mask-container" style="--progress: 0%">
+<svg class="h-6 w-full text-primary" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="24" id="chain-pattern-active" patternunits="userSpaceOnUse" width="40" x="0" y="0">
+<path d="M5 4h14a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H5a5 5 0 0 1-5-5V9a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3V9a3 3 0 0 0-3-3H5z" fill="currentColor"></path>
+<rect fill="currentColor" height="4" rx="1" width="10" x="18" y="10"></rect>
+</pattern>
+</defs>
+<rect fill="url(#chain-pattern-active)" height="100%" width="100%"></rect>
+</svg>
+</div>
+</div>
+<!-- Technical Details -->
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant technical-fade-in delay-1000">
+<div class="space-y-1">
+<p class="font-label-caps text-[10px] text-outline opacity-60">SYSTEM_ID</p>
+<p class="font-mono-metric text-mono-metric text-on-surface-variant">1123_LOAD_SEQUENCE_01.EXE</p>
+</div>
+<div class="space-y-1 text-right">
+<p class="font-label-caps text-[10px] text-outline opacity-60">FIRMWARE</p>
+<p class="font-mono-metric text-mono-metric text-on-surface-variant">BUILD_V4.0.2</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Raw Metrics Display (Subtle) -->
+<div class="absolute bottom-12 left-12 opacity-10 hidden md:block technical-fade-in delay-1000">
+<div class="border border-outline-variant p-4">
+<p class="font-label-caps text-label-caps mb-2">RAW_METRICS</p>
+<div class="w-32 h-20 bg-surface-container-high border border-outline-variant relative overflow-hidden">
+<img alt="Mechanical components texture" class="w-full h-full object-cover grayscale brightness-50 contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_5nrGnKZEYAnD2p5Y0-iF9NtUmnOW_wYrNuvyKTk_6jRHcwdtRJShqn10qsBfK8LTo17zX_UwSvBWg9IjBBhrL5XPRQR-MnnzWiIANFpyO6Vkwc3JmuJqVeeXg_ob6zFT2LvuGloEXYCKSlfOmMu4YAYa_17sHfiODWNRk8OF7xCEaYevflavForS1q--0oi5zIQe4p287qPb6dP6Yg6p_8CUCrZCSsUuncC1N7HYtK9loS-wpWT6_06NzATSMLmbOfDS8yjnv3Q"/>
+</div>
+</div>
+</div>
+<!-- Bottom Tagline -->
+<div class="absolute bottom-12 text-center">
+<p class="font-label-caps text-label-caps text-outline-variant tracking-[0.5em] animate-pulse">
+                FORGING THE FUTURE
+            </p>
+</div>
+</main>
+<!-- Decoration Corner Lines -->
+<div class="fixed top-0 left-0 w-16 h-16 border-t border-l border-outline-variant m-8 opacity-40"></div>
+<div class="fixed bottom-0 right-0 w-16 h-16 border-b border-r border-outline-variant m-8 opacity-40"></div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logo = document.getElementById('brand-logo');
+            const subtext = document.getElementById('brand-subtext');
+            const chainContainer = document.getElementById('chain-mask-container');
+            const percentCounter = document.getElementById('percent-counter');
+            const statusText = document.getElementById('status-text');
+
+            const statuses = [
+                "CALIBRATING CHASSIS...",
+                "SYNCING ECU...",
+                "POLISHING TITANIUM...",
+                "TESTING TORQUE...",
+                "OPTIMIZING COMBUSTION...",
+                "READY TO RIDE"
+            ];
+
+            // Initial animations
+            setTimeout(() => {
+                logo.style.opacity = '1';
+                logo.style.transform = 'translateY(0)';
+            }, 300);
+
+            setTimeout(() => {
+                subtext.style.opacity = '1';
+                subtext.style.transform = 'translateY(0)';
+            }, 600);
+
+            // Progress Bar Logic
+            let progress = 0;
+            const duration = 3500; // Adjusted to ~3.5 seconds for redirect around 4s
+            const interval = 50;
+            const step = (100 / (duration / interval));
+
+            const updateLoading = setInterval(() => {
+                // Add some slight randomness to the step for a more "organic" loading feel
+                progress += step + (Math.random() * 1.2);
+                
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(updateLoading);
+                    completeLoading();
+                }
+
+                chainContainer.style.setProperty('--progress', `${progress}%`);
+                percentCounter.textContent = Math.floor(progress).toString().padStart(2, '0');
+                
+                // Update status text based on progress
+                const statusIndex = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
+                statusText.textContent = statuses[statusIndex];
+
+            }, interval);
+
+            function completeLoading() {
+                statusText.classList.add('text-primary');
+                statusText.textContent = "SYSTEMS ONLINE";
+                
+                // Final interaction trigger after a small delay
+                setTimeout(() => {
+                    document.body.style.transition = 'opacity 0.6s ease-out';
+                    document.body.style.opacity = '0';
+                    
+                    // Automatically redirect to Home page (SCREEN_15)
+                    setTimeout(() => {
+                        window.location.href = 'home page.html';
+                    }, 600);
+                }, 800);
+            }
+        });
+    </script>
+<script src="app.js"></script>
+</body></html>

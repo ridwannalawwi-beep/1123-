@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>1123 HEAVYWEIGHT TEE | 1123 WORKSHOP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAOC99v8Teie2J7xAjcfzKehcVFny3I9YF-d9giH02NFFIcMdPmDf1e5ukAfhW61K29DIk7RbdnO9mZx_NHfwpxRBqGCRB_Ar-XoDcGobXWuGAEQNGt888WsNjvlktch94gymX_mcPk94m4pb-P0GZ3M160XMqeB0xHOIHQh91d0vt5YTIQrNxl48vAf5ecF4wl3KaqfxijKW-4gwgeIDCiz7ZQa31RcmZPY8redYatICEvV02_ux-r2DHwvjabQsJa5XP6xU3xboU)
+    }
+::-webkit-scrollbar {
+    width: 6px
+    }
+::-webkit-scrollbar-track {
+    background: transparent
+    }
+::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 999px
+    }
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4)
+    }
+::-webkit-scrollbar-track {
+    background: #0c0f0f
+    }
+::-webkit-scrollbar-thumb {
+    background: #444748
+    }
+.spec-line {
+    flex-grow: 1;
+    border-bottom: 1px dotted #444748;
+    margin: 0 8px;
+    margin-bottom: 4px
+    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in-image {
+    animation: fadeIn 0.8s ease-out forwards;
+    opacity: 0;
+}
+.size-active {
+    background-color: #ffffff !important;
+    color: #121414 !important;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    border-color: #ffffff !important;
+}
+#added-toast {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+}
+
+html {
+    scroll-behavior: smooth;
+}</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "tertiary-container": "#e5e2e1",
+                "error": "#ffb4ab",
+                "on-primary-fixed-variant": "#454747",
+                "on-primary-container": "#636565",
+                "outline": "#8e9192",
+                "on-surface": "#e2e2e2",
+                "on-tertiary": "#313030",
+                "on-error": "#690005",
+                "primary-fixed-dim": "#c6c6c7",
+                "error-container": "#93000a",
+                "inverse-surface": "#e2e2e2",
+                "on-tertiary-container": "#656464",
+                "outline-variant": "#444748",
+                "surface-container": "#1e2020",
+                "surface-tint": "#c6c6c7",
+                "primary-container": "#e2e2e2",
+                "surface-dim": "#121414",
+                "on-secondary-fixed-variant": "#474646",
+                "surface-bright": "#38393a",
+                "on-tertiary-fixed-variant": "#474746",
+                "on-tertiary-fixed": "#1c1b1b",
+                "surface-container-high": "#282a2b",
+                "on-primary-fixed": "#1a1c1c",
+                "on-primary": "#2f3131",
+                "inverse-primary": "#5d5f5f",
+                "secondary-fixed-dim": "#c9c6c5",
+                "on-error-container": "#ffdad6",
+                "surface-variant": "#333535",
+                "on-secondary-fixed": "#1c1b1b",
+                "inverse-on-surface": "#2f3131",
+                "secondary-container": "#4a4949",
+                "tertiary": "#ffffff",
+                "secondary-fixed": "#e5e2e1",
+                "surface-container-highest": "#333535",
+                "on-background": "#e2e2e2",
+                "primary": "#ffffff",
+                "background": "#121414",
+                "tertiary-fixed-dim": "#c8c6c5",
+                "primary-fixed": "#e2e2e2",
+                "on-secondary": "#313030",
+                "surface": "#121414",
+                "tertiary-fixed": "#e5e2e1",
+                "secondary": "#c9c6c5",
+                "on-surface-variant": "#c4c7c8",
+                "on-secondary-container": "#bab8b7",
+                "surface-container-low": "#1a1c1c",
+                "surface-container-lowest": "#0c0f0f"
+              },
+              "borderRadius": {
+                "DEFAULT": "0rem",
+                "lg": "0rem",
+                "xl": "0rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "section-padding": "120px",
+                "unit": "4px",
+                "gutter": "24px",
+                "margin-desktop": "64px",
+                "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                "headline-md": ["Anton"],
+                "headline-lg": ["Anton"],
+                "mono-metric": ["Geist"],
+                "label-caps": ["Geist"],
+                "headline-lg-mobile": ["Anton"],
+                "body-md": ["Geist"],
+                "headline-xl": ["Anton"],
+                "body-lg": ["Geist"]
+              },
+              "fontSize": {
+                "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary selection:text-background overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- Cart Toast Stack -->
+<div id="toast-container" class="fixed top-6 right-6 z-[70] flex flex-col gap-2 pointer-events-none"></div>
+<!-- Header Navigation -->
+<header class="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md border-b border-outline-variant">
+<nav class="flex justify-between items-center w-full px-4 md:px-margin-desktop py-5">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<!-- Desktop Links -->
+<div class="hidden md:flex gap-8 items-center"><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a><a class="text-label-caps font-label-caps text-primary font-bold border-b-2 border-primary uppercase tracking-widest" href="shop.html">MERCH</a><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a><a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a></div>
+<div class="flex items-center gap-6"><div class="relative flex items-center">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">2</span>
+</a>
+</div>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button></div>
+</nav>
+</header>
+<main class="pt-24 min-h-screen">
+<!-- Product Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-0 border-b border-outline-variant">
+<!-- Image Gallery -->
+<div class="md:col-span-7 border-r border-outline-variant bg-surface-container-low">
+<div class="sticky top-24">
+<div class="relative aspect-[4/5] overflow-hidden group">
+<img class="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 transition-all duration-700 fade-in-image opacity-100" data-alt="A cinematic, high-contrast studio photograph of a heavy-duty black cotton t-shirt with a minimalist 1123 WORKSHOP graphic on the chest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUjBHi71WwEbFr-R5nMn8-mdjuWgEFmVwf-8PGB4VdGHEkpD6b_pxzwlNbOCciXghLftelEr9Qq8-qJ1w8mvGIr2RsLAa5S1r9y7sNLX6XTHeAvG3U-UDyvcFq6FT0jYjd2ZSDWl5yV2Aw82HnepG08smGh4v1Wt_qOi5Vfx7q9FwkLL-Zjb0Dk3shH7ETn-9tLlsGf0ozgLXopq_deulhfRRwx1LxC8feRz34hzOoZWV01E1QEF6Rf9fXrBbBl-UoWJxmHjsc_YE" id="product-main-img" style="animation-delay: 0.1s; opacity:0;">
+</div>
+<div class="grid grid-cols-2 border-t border-outline-variant">
+<div class="aspect-square border-r border-outline-variant overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 fade-in-image opacity-100" data-alt="Detailed macro shot of the high-quality screen-printed logo on a dark heavyweight fabric. The lighting is low and moody, capturing the ink's texture and the tight weave of the 1123 workshop apparel. The color palette is strictly monochrome, featuring deep blacks and stark whites, echoing an industrial-minimalist design philosophy with sharp, clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXg39NjNOzkaHGJWdobAcZsF2KLzmdcDyz4ugubSmSPyNbb5_8lzqyGG53t2AQhMwegU4djuy1Bx3yRgfEfiWXzoR0vw-o7WDH8PjUJ36aIqVhB5HgnFaugzhjCdD14fV93MZ41WZSkOqm3CfpwogkpwgdJVq7azB5MylcQ9-ZPUj_4Lxvfpo-0e5Z7p1VauO9fDMK7gBX6xgh7nPr7mcEWFDSmKd6GXKEdeEUMSVNE-Iofcl5HcwsAcadEP1glmUh6BpRRZX9pWQ" style="animation-delay: 0.3s;">
+</div>
+<div class="aspect-square overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 fade-in-image opacity-100" data-alt="Action shot of a mechanic in a dark garage wearing the 1123 oversized tee, leaning over a custom motorcycle. Shadows are deep and dramatic, creating a sense of structural rigidity and architectural stability. The image is filtered with a subtle grain to mimic the tactile feel of sandblasted metal and carbon fiber, maintaining an aggressive monochrome contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL6tsuxlCkanvDSlmAr9Un3Uu77qcTHDdL-4FVPkRjE2eU6ghXc2RpWuVHQRzLd0v_9L6meLvsN0INnW7Sdj6zW0yZHzWZbcZrgmwf932_acSK4AIhVSColGmsJXJ_9XOg4Jc-cQwielEz3u7JaJjBb_i61z2FTCDBSjq2qH8Jh7Ri5rhrKBzP-P2SQZmpMYd3LbLmMI-UMUnYDxg2uxwAmOsNmK58Mo2JnmL_cZDpTc3T_a8RXIaU5SOU4jU2RvmkYX0bpxUhtsU" style="animation-delay: 0.5s;">
+</div>
+</div>
+</div>
+</div>
+<!-- Product Info -->
+<div class="md:col-span-5 px-4 md:px-12 py-12 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-8">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg leading-none uppercase tracking-tighter max-w-sm" id="product-title">1123 HEAVYWEIGHT OVERSIZED TEE</h1>
+<span class="font-headline-md text-headline-md" id="product-price">Rp1.200.000</span>
+</div>
+<p class="text-body-lg text-on-surface-variant mb-12 max-w-md" id="product-desc">
+                        ENGINEERED FOR ENDURANCE. CRAFTED FROM 300GSM COMBED COTTON WITH A STRUCTURED, BOX-FIT ARCHITECTURE. DESIGNED TO WEATHER THE GRIT OF THE WORKSHOP AND THE VELOCITY OF THE OPEN ROAD.
+                    </p>
+<!-- Selection Controls -->
+<div class="space-y-12">
+<!-- Size -->
+<div>
+<div class="flex justify-between items-end mb-4">
+<span class="text-label-caps font-label-caps uppercase text-on-surface-variant">SELECT SIZE</span>
+<button class="text-label-caps font-label-caps uppercase text-primary border-b border-primary hover:opacity-70" onclick="document.getElementById('size-modal').classList.remove('hidden')">SIZE GUIDE</button>
+</div>
+<div id="size-grid" class="grid grid-cols-5 gap-0 border border-outline-variant">
+<button class="py-4 border-r border-outline-variant text-label-caps font-label-caps hover:bg-primary hover:text-background transition-colors transition-shadow" onclick="selectSize(this)">S</button>
+<button class="py-4 border-r border-outline-variant text-label-caps font-label-caps hover:bg-primary hover:text-background transition-colors transition-shadow size-active" onclick="selectSize(this)">M</button>
+<button class="py-4 border-r border-outline-variant text-label-caps font-label-caps hover:bg-primary hover:text-background transition-colors transition-shadow" onclick="selectSize(this)">L</button>
+<button class="py-4 border-r border-outline-variant text-label-caps font-label-caps hover:bg-primary hover:text-background transition-colors transition-shadow" onclick="selectSize(this)">XL</button>
+<button class="py-4 text-label-caps font-label-caps hover:bg-primary hover:text-background transition-colors transition-shadow" onclick="selectSize(this)">XXL</button>
+</div>
+</div>
+<!-- Technical Specs -->
+<div class="space-y-4">
+<span class="text-label-caps font-label-caps uppercase text-on-surface-variant">TECHNICAL SPECIFICATIONS</span>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="text-label-caps font-label-caps">MATERIAL WEIGHT</span>
+<div class="spec-line"></div>
+<span class="text-label-caps font-label-caps" id="spec-weight">300 GSM</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-label-caps font-label-caps">FABRIC TYPE</span>
+<div class="spec-line"></div>
+<span class="text-label-caps font-label-caps" id="spec-fabric">100% COMBED COTTON</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-label-caps font-label-caps">PRINT TYPE</span>
+<div class="spec-line"></div>
+<span class="text-label-caps font-label-caps" id="spec-print">HIGH-DENSITY PLASTISOL</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-label-caps font-label-caps">FIT ARCHITECTURE</span>
+<div class="spec-line"></div>
+<span class="text-label-caps font-label-caps" id="spec-fit">STRUCTURAL BOX-FIT</span>
+</div>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="w-full bg-primary text-background py-6 font-headline-md text-headline-md uppercase hover:invert transition-all duration-300" id="add-to-archive">
+                            ADD TO ARCHIVE
+                        </button>
+</div>
+</div>
+<!-- Secondary Info -->
+<div class="mt-16 pt-8 border-t border-outline-variant grid grid-cols-2 gap-8">
+<div>
+<h4 class="text-label-caps font-label-caps mb-2 text-primary">SHIPPING</h4>
+<p class="text-label-caps font-label-caps text-on-surface-variant leading-relaxed">INTERNATIONAL EXPEDITED AVAILABLE. DISPATCHED WITHIN 48 HOURS FROM WORKSHOP HQ.</p>
+</div>
+<div>
+<h4 class="text-label-caps font-label-caps mb-2 text-primary">RETURNS</h4>
+<p class="text-label-caps font-label-caps text-on-surface-variant leading-relaxed">14-DAY RETURN POLICY FOR UNWORN GARMENTS. TECHNICAL EXCHANGE GUARANTEED.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Builds/Products -->
+<section class="py-section-padding px-4 md:px-margin-desktop border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md uppercase mb-12">COMPLETE THE BUILD</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-0 border border-outline-variant">
+<!-- Related Item 1 -->
+<a class="group border-r border-outline-variant relative overflow-hidden" href="product detail.html?product=hoodie">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 fade-in-image opacity-100" data-alt="A pair of rugged, black workshop trousers resting against a carbon fiber motorcycle frame. The lighting is dramatic and low-key, emphasizing the tough fabric texture and technical stitching. The scene is set in a brutalist, monochrome environment with sharp shadows and cold metal surfaces, reflecting a high-precision industrial design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbHbth78ghgZTYt1p1w2GMZNTdW7LR3QQtCAaenoNpKbz9FsmnO97ylN1CN45PBGXKrEcYxF3MBusXbH1MIzsX7WdX3L5F2n3Lf_Pvj1NPK9djRiqSQTTuBkUR6-QxsWvTPalot10Dwsr3aLGZkbYUyQrGC0paqilGKWqmv4m4ynS3nAv5hPspNcXzZXux7IM7-EzNbqh-3ufIj0OXF2fAxPzDGM1IhtvoFqpEy14h2nJI54YG_qClD-NiFqoiJI9m3q1JpvM1jio" style="animation-delay: 0.1s;">
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-background/90 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-label-caps font-label-caps">UTILITY PANT</h3>
+<p class="text-label-caps font-label-caps opacity-60">Rp2.240.000</p>
+</div>
+</a>
+<!-- Related Item 2 -->
+<a class="group border-r border-outline-variant relative overflow-hidden" href="product detail.html?product=tshirt">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 fade-in-image opacity-100" data-alt="Close-up of a premium black cotton hoodie with a subtle industrial texture. The lighting is high-contrast, casting deep shadows across the folds of the heavy material. The background is a clean, dark workshop floor with a few scattered metal bolts, reinforcing the brutalist minimalism of the 1123 workshop collection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkzomns2-mSSY7kzEeBt7cs0W6DkRaxrCAYEXGs5cYtpTlFt-A1pePFTCuoWHhW8Gya6lhO13UCHjzF-HHooqO8xyW_3k51TFvGqqnsH6v6bZnmOz348nj2oMMbEYtkPPI8qFoKBxwbSAhE0x99aEBLoSev6uuRxcXTQpEijRWG6Ot9lrdwNsO2xsMjANxX98ulqSwyf25CQe7UPVuxQxnWKyfifz_LUa2j1LdsFYoiHrbxUDHufzDrrD0ZYAwiGfz0Q4C7NFHxNc" style="animation-delay: 0.2s;">
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-background/90 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-label-caps font-label-caps">LOGO HOODIE</h3>
+<p class="text-label-caps font-label-caps opacity-60">Rp1.760.000</p>
+</div>
+</a>
+<!-- Related Item 3 -->
+<a class="group border-r border-outline-variant relative overflow-hidden" href="product detail.html?product=cap">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 fade-in-image opacity-100" data-alt="A stack of minimalist, high-quality black t-shirts neatly folded on a raw metal bench. The lighting is cold and clinical, highlighting the sharp edges and dense weave of the fabric. The overall mood is one of quiet power and technical mastery, presented in a strict monochrome palette with no distracting elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXhbLxYLSv3s-1vdS1OJ4nYXr2Ctp3p1x1XH0bsMLRMJUs_aW-1bNkVv6iZ8mSSKBnrQQz2ugsdylQLsan76oUClvvJ7f8wmcCvh6muut0-V80Fjszi_7-hdeiCIJDbaAU0h_1QWCdwNEMz1fPrTlIwGN2V8BS2JRBCwCl19jb_W1TtPu3c0fZDC9zV8q-uF_iXDFA-Or1hsSdXPUOiEqXefCyEUZ_H3OhbEnXty5tFYsyhVzlOGUiyBRhca013q-jWsHz1t6WzC8" style="animation-delay: 0.3s;">
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-background/90 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-label-caps font-label-caps">ESSENTIAL PACK</h3>
+<p class="text-label-caps font-label-caps opacity-60">Rp2.880.000</p>
+</div>
+</a>
+<!-- Related Item 4 -->
+<a class="group relative overflow-hidden" href="product detail.html?product=gloves">
+<div class="aspect-[3/4] overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 fade-in-image opacity-100" data-alt="A sleek black motorcycle helmet with a matte carbon fiber finish, sitting in a spotlight against a dark concrete wall. The image features aggressive contrast and structural honesty, with a slight film grain overlay that adds a tactile, gritty finish. The aesthetic is raw and uncompromising, capturing the essence of the 1123 Workshop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2t3yMN3skOXWMyAM6p-LmgReUScDrkpVRF9AHIsJCRYQsxhaHg07D82BEDgiDq9hnQJoN91pFGRgh4rzLrNo2IVn9xWyG8JNgfkOLKUsPMr5qV937GstKS-iCEan6heFOWmbMYs3dfEOj3lAbZndzU4WrrqfX1otPMWyH8n-TdNaEzZ3Uvhk4IjmifzE-uSpqKu6FgPpD6QjEZug0EpQ0OW9DDKhHzPhPIv80UePmcZj6pQF50BaI1KR_7uWMjSfcXncJmC9PyVA" style="animation-delay: 0.4s;">
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-6 bg-background/90 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<h3 class="text-label-caps font-label-caps">CARBON HELMET</h3>
+<p class="text-label-caps font-label-caps opacity-60">Rp7.200.000</p>
+</div>
+</a>
+</div>
+</section>
+<!-- Inner Circle -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden reveal-up">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12 uppercase">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+<!-- Size Guide Modal -->
+<div class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4" id="size-modal">
+<div class="absolute inset-0 bg-background/95 backdrop-blur-sm" onclick="document.getElementById('size-modal').classList.add('hidden')"></div>
+<div class="relative bg-background border border-outline-variant w-full max-w-2xl p-12 overflow-y-auto max-h-[921px]">
+<div class="flex justify-between items-center mb-12">
+<h3 class="font-headline-md text-headline-md uppercase">SIZE ARCHITECTURE</h3>
+<button class="material-symbols-outlined hover:rotate-90 transition-transform" data-icon="close" onclick="document.getElementById('size-modal').classList.add('hidden')">close</button>
+</div>
+<table class="w-full border-collapse">
+<thead>
+<tr class="border-b-2 border-primary">
+<th class="text-left py-4 text-label-caps font-label-caps text-on-surface-variant">SIZE</th>
+<th class="text-left py-4 text-label-caps font-label-caps text-on-surface-variant">CHEST (CM)</th>
+<th class="text-left py-4 text-label-caps font-label-caps text-on-surface-variant">LENGTH (CM)</th>
+</tr>
+</thead>
+<tbody class="text-label-caps font-label-caps">
+<tr class="border-b border-outline-variant">
+<td class="py-6">S</td>
+<td class="py-6">108</td>
+<td class="py-6">70</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-6">M</td>
+<td class="py-6">114</td>
+<td class="py-6">72</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-6">L</td>
+<td class="py-6">120</td>
+<td class="py-6">74</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-6">XL</td>
+<td class="py-6">126</td>
+<td class="py-6">76</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-6">XXL</td>
+<td class="py-6">132</td>
+<td class="py-6">78</td>
+</tr>
+</tbody>
+</table>
+<p class="mt-12 text-label-caps font-label-caps text-on-surface-variant uppercase leading-relaxed">
+                * ALL MEASUREMENTS ARE APPROXIMATE. THE OVERSIZED TEE IS DESIGNED WITH AN INTENTIONAL BOX-FIT. WE RECOMMEND TAKING YOUR STANDARD SIZE FOR THE INTENDED LOOK.
+            </p>
+</div>
+</div>
+<script>
+const products = {
+  hoodie: {
+    title: 'SIGNATURE BLACK HOODIE',
+    price: 'Rp1.920.000',
+    desc: '400GSM HEAVYWEIGHT COTTON. STRUCTURED SILHOUETTE WITH REINFORCED SEAMS. BUILT TO WEATHER THE WORKSHOP AND THE OPEN ROAD.',
+    weight: '400 GSM',
+    fabric: '100% COMBED COTTON',
+    print: 'HIGH-DENSITY PLASTISOL',
+    fit: 'STRUCTURAL BOX-FIT',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZLX86jBmP6yOgjtEcdXH-irX8pGJthwgloL4TxGZL7G2PtQc2T1dyOlT9vL6JvJqQcmbqTV84IJ3psu8ZAhkPYRZWfx-epjR8IstbykpM4dkE0HG7WQ0N1lbjjEVIkK8wN_PNCMgDtnyhD-R3s9cA0yU4hLqy3iLCrVXZ9NzNmxn3PgJnO-OD0IqgiexraYph4I5mA-x7CxEhmbV5gdRPE7MpCtQGVgJK5wd73jGdDY4N72dUq5KGIG4Ut9aegM8ku03KlT81NVo'
+  },
+  tshirt: {
+    title: 'CARBON T-SHIRT',
+    price: 'Rp720.000',
+    desc: 'BOX FIT / TECHNICAL SEAMS. 300GSM STRUCTURED COTTON WITH REINFORCED STITCHING. DESIGNED FOR THE MIDNIGHT ENGINEER.',
+    weight: '300 GSM',
+    fabric: '100% COMBED COTTON',
+    print: 'HIGH-DENSITY PLASTISOL',
+    fit: 'STRUCTURAL BOX-FIT',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDnEPsdB8swuJn116Jd15NwKYvy9omGS1AzXEXsjd9RpAeqV8DW8CNmSeHkV1_HGKJkJ33mLXdNMRS9i1f0LamLZDPdFvH6xOKgsqNI-_d6MVE4SpDPNo2k-NvnVoIpbLPflapyBKMcbwBxaK7yzKJ703w6XjKpksrbqkQkoaCiA0nSgpTt5zGGHpdcoBYA1pnd3bQwk1bZoXisnHN17MDcUHkx7S8-OQE4k2yrKy5gl3ofu5xKogxuESDAhj4lOZeAzGjePvkMhRo'
+  },
+  cap: {
+    title: 'WORKSHOP CAP',
+    price: 'Rp560.000',
+    desc: 'STRUCTURED SIX-PANEL SILHOUETTE. EMBROIDERED 1123 LOGO. ADJUSTABLE BRASS CLOSURE. ONE SIZE.',
+    weight: '280 GSM',
+    fabric: '100% COTTON TWILL',
+    print: 'EMBROIDERED',
+    fit: 'ADJUSTABLE SNAP-BACK',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBDArlfFXDd02dbK8XOJlDi56xkE-IeYVFriK9BA24yY3XDqOl5Nw98I8g3KYhjIZak7oSlqMMAOTAmdP3rW6ulGLjPr6uFiNCKbOAevycBz8xzUJ6wqO1O6783yyGdlfNVfJoN4bAACLu0ZHO2UkzNYOcLGMJxUWG8CjN4LPmySap5qCXGywYj3p7ZDUN8KoW83s1icr-X_MliSkhDB7kn_lFyMyjTlwV3pqf06xpzNZMbpk5VCNhJiluQneeM5nehbn0DBIYaQ08'
+  },
+  gloves: {
+    title: 'RIDER GLOVES',
+    price: 'Rp1.360.000',
+    desc: 'TECHNICAL RIDING GLOVES WITH REINFORCED PALM AND CARBON KNUCKLE PROTECTION. TOUCH-SCREEN COMPATIBLE.',
+    weight: '320 GSM',
+    fabric: 'GOAT LEATHER / MESH',
+    print: 'EMBOSSED LOGO',
+    fit: 'PRECISE RACE FIT',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDK6vNa171vSMBnuV9pNtFuikDvgd4kJ8FVEFrQQhhAGUM0QxMaML-aeOcRcZUm2dXvx-FsS4m9SpBmZod8rbQRnaWGQjTr_w_DW2VIZH3k7Vxtjed1D-a0QZKhBUxhpKDiUhEoGzzMl8kKG-jm-tRSGPTt2Roy6JFCj83YIUgqxcLeHFVHmkHfIyiFc1g5miPS9P-8xKpGstvm2JrK2Al-DvvOtyDLGz4bJbIRtcsRHSJgYsQhMvl7v_68HAw7lMW2l2yFDe71FQ8'
+  },
+  pack: {
+    title: 'SHOP PACK',
+    price: 'Rp240.000',
+    desc: 'CURATED SET OF 1123 WORKSHOP STICKERS, PATCHES, AND TECHNICAL SPECS CARD. THE ESSENTIAL GARAGE KIT.',
+    weight: 'VARIES',
+    fabric: 'VINYL / EMBROIDERED',
+    print: 'SCREEN-PRINTED',
+    fit: 'UNIVERSAL',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCbvUbRSejJ4frQyEOos8qdpdzoqwN8VyJlub3LT2Po6NfxRBjapa5bRp_yl7BnP9OiDakRSlhi2amEei1BKryFcS3uOBXLruttB6qDoERBjrNN2-Kp2d4hSwIsTU6Cyv5WjXWhjHtWjZZZ-24GMBtexeXid2X2OnmKhTCprLwgfRLLdrITVLJiJQ1aUQ2wc97qRJsQ8LNtd6toPBNHN0iFbU8oxmnxdnaFJ_2OemcgdiF2MREsjJMW-zjeic4eogdr82bYAII9YxE'
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const pid = params.get('product');
+const product = products[pid];
+
+const mainImg = document.getElementById('product-main-img');
+mainImg.onload = function() { mainImg.style.opacity = '1'; };
+if (product) {
+  document.getElementById('product-title').textContent = product.title;
+  document.getElementById('product-price').textContent = product.price;
+  document.getElementById('product-desc').textContent = product.desc;
+  document.getElementById('spec-weight').textContent = product.weight;
+  document.getElementById('spec-fabric').textContent = product.fabric;
+  document.getElementById('spec-print').textContent = product.print;
+  document.getElementById('spec-fit').textContent = product.fit;
+  mainImg.src = product.img;
+  document.title = product.title + ' | 1123 WORKSHOP';
+} else {
+  mainImg.style.opacity = '1';
+}
+
+// Size selection logic
+function selectSize(btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('size-active'));
+  btn.classList.add('size-active');
+}
+
+// Notification sound (Web Audio API)
+function playNotifySound() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    o.connect(g);
+    g.connect(ctx.destination);
+    o.type = 'square';
+    o.frequency.setValueAtTime(800, ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.1);
+    g.gain.setValueAtTime(0.15, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    o.start(ctx.currentTime);
+    o.stop(ctx.currentTime + 0.15);
+  } catch(e) {}
+}
+
+// Add to Cart interaction
+document.getElementById('add-to-archive').addEventListener('click', function() {
+  var pid = new URLSearchParams(window.location.search).get('product') || 'hoodie';
+  var p = products[pid];
+  if (!p) return;
+  var sizeBtn = document.querySelector('#size-grid .size-active') || document.querySelector('#size-grid button:first-child');
+  var size = sizeBtn ? sizeBtn.textContent.trim() : 'M';
+  var cart = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+  var existing = cart.filter(function(item) { return item.id === pid && item.size === size; });
+  if (existing.length) {
+    existing[0].qty = (existing[0].qty || 1) + 1;
+  } else {
+    cart.push({ id: pid, name: p.title, price: p.price, priceNum: parseInt(p.price.replace(/[^0-9]/g, '')), img: p.img, sku: pid.toUpperCase(), qty: 1, size: size });
+  }
+  localStorage.setItem('cartMerch', JSON.stringify(cart));
+  if (typeof updateCartBadge === 'function') updateCartBadge();
+  playNotifySound();
+  showCartToast();
+});
+
+// Parallax
+window.addEventListener('scroll', () => {
+  var scrolled = window.pageYOffset;
+  document.querySelectorAll('main img:not(.fade-in-image)').forEach(img => {
+    img.style.transform = 'translateY(' + (scrolled * 0.05) + 'px)';
+  });
+});
+
+// Fade-in observer
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) entry.target.classList.add('opacity-100');
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in-image').forEach(function(el) { observer.observe(el); });
+</script>
+<script src="app.js"></script>
+</body>
+</html>

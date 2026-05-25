@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>1123 WORKSHOP | PROJECT 01: THE IRON SHADOW</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css">
+<style>/* Global grain texture */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuClELkUtnP6tBZiX1X3eZ_3UIzaLGK7auuZulP7GhsxRzjnoauuoCac94sLCtN90YOtGiVBeTTTe46Wbc6titHWxG8acDqHkepfurH1WgByXZBZz31sfMetWMM7hfJhxqWwamZ91W3EIm9hezABPleIV3MuOC-lRqKKdu5q0-YbXMG31QAy_ve8R94pR9qV3UrbzQ0Q0KpVzuiHWqRSkk3QuzaDpcWgTLLSG1wjkBftmFFzITaWNgYeY-2VQjqIzXWsyKTXo5hM8WQ)
+    }
+body {
+    background-color: #0a0a0a;
+    color: #e2e2e2;
+    -webkit-font-smoothing: antialiased
+    }
+/* Technical specs leader lines */
+.spec-line {
+    flex-grow: 1;
+    border-bottom: 1px solid #444748;
+    margin: 0 8px;
+    margin-bottom: 5px
+    }
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px
+    }
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent
+    }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 999px
+    }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4)
+    }
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.2, 0, 0.2, 1), transform 1s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+.fade-in {
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+}
+.fade-in.active {
+    opacity: 1;
+}
+/* Interaction switch effect */
+.btn-mechanical:active {
+    transform: scale(0.98)
+    }
+.btn-mechanical {
+    transition: none
+    }
+
+html {
+    scroll-behavior: smooth;
+}</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#93000a",
+                      "on-tertiary": "#313030",
+                      "on-surface": "#e2e2e2",
+                      "on-primary-fixed-variant": "#454747",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "surface-container-lowest": "#0c0f0f",
+                      "surface-container-highest": "#333535",
+                      "on-tertiary-container": "#656464",
+                      "inverse-on-surface": "#2f3131",
+                      "outline-variant": "#444748",
+                      "inverse-primary": "#5d5f5f",
+                      "secondary": "#c9c6c5",
+                      "on-secondary-fixed-variant": "#474646",
+                      "on-primary": "#2f3131",
+                      "surface": "#121414",
+                      "on-tertiary-fixed-variant": "#474746",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1a1c1c",
+                      "tertiary-container": "#e5e2e1",
+                      "surface-tint": "#c6c6c7",
+                      "primary-container": "#e2e2e2",
+                      "surface-container-high": "#282a2b",
+                      "secondary-fixed-dim": "#c9c6c5",
+                      "tertiary-fixed": "#e5e2e1",
+                      "outline": "#8e9192",
+                      "on-primary-fixed": "#1a1c1c",
+                      "surface-container": "#1e2020",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-secondary-container": "#bab8b7",
+                      "inverse-surface": "#e2e2e2",
+                      "surface-variant": "#333535",
+                      "primary": "#ffffff",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "primary-fixed": "#e2e2e2",
+                      "surface-dim": "#121414",
+                      "tertiary": "#ffffff",
+                      "secondary-container": "#4a4949",
+                      "on-secondary": "#313030",
+                      "on-tertiary-fixed": "#1c1b1b",
+                      "on-error-container": "#ffdad6",
+                      "on-surface-variant": "#c4c7c8",
+                      "on-error": "#690005",
+                      "on-background": "#e2e2e2",
+                      "on-primary-container": "#636565",
+                      "surface-bright": "#38393a",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "background": "#121414"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0rem",
+                      "lg": "0rem",
+                      "xl": "0rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "section-padding": "120px",
+                      "unit": "4px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": ["Geist"],
+                      "headline-lg-mobile": ["Anton"],
+                      "body-lg": ["Geist"],
+                      "mono-metric": ["Geist"],
+                      "label-caps": ["Geist"],
+                      "headline-xl": ["Anton"],
+                      "headline-lg": ["Anton"],
+                      "headline-md": ["Anton"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                      "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="custom-scrollbar overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full bg-background border-b border-outline-variant h-20 z-40">
+<nav class="flex justify-between items-center px-margin-desktop w-full mx-auto h-full">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-primary font-bold border-b-2 border-primary uppercase tracking-widest" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+</header>
+<main class="w-full pt-20">
+<!-- Hero Section -->
+<section class="relative w-full h-[921px] bg-surface-container-lowest overflow-hidden border-b border-outline-variant reveal-up">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover object-center" data-alt="A side-profile cinematic shot of a customized black motorcycle in a dimly lit industrial workshop. High-contrast lighting highlights the chrome engine parts and the matte carbon fiber tank. The aesthetic is brutalist and minimalist, featuring deep shadows and sharp, metallic reflections. The background shows hints of concrete walls and heavy machinery, evoking a raw and technical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHGdApCd-SpPkkpoaAFCkuDVQbapQ9x9UFJh_nssUctsMYfXQ--BhSQ73aS1Yj1o7LvIAjfyKFIEch4jJYavm5QO-nMnc6Dl99Ss0e15OXs5lOnX8OUq6drhQ_Qf6JYYwe6U3lVE_pv3Scxjj2oVeOdszE4RHMB5sKxEIm0tIzPEydrKK7bT-zimposlta1oHncMt0HPzyE6xtE4CCI8isw_0tDcFzPvqo7XbjiuQ3AHq3G0OMGK-c6-RL9raFzC-XRHRNWNpNGFY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+</div>
+<div class="relative z-10 h-full flex flex-col justify-end px-margin-desktop pb-16">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-4">PROJECT 01</p>
+<h1 class="font-headline-xl text-headline-xl uppercase">THE IRON<br/>SHADOW</h1><div class="mt-6 inline-block bg-primary text-on-primary px-6 py-2 font-headline-md">Rp 425.000.000</div>
+</div>
+<div class="max-w-md border-l border-primary pl-8 py-2">
+<p class="font-body-md text-body-md text-on-surface-variant italic">
+                            A brutalist reinterpretation of the 1978 classic frame. Stripped, reinforced, and engineered for uncompromising urban dominance.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<section class="px-margin-desktop py-24 bg-background reveal-up">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- COLUMN 1: THE STORY -->
+<div class="md:col-span-4 border-r border-outline-variant pr-gutter">
+<h2 class="font-label-caps text-label-caps text-primary mb-12 flex items-center gap-4">
+<span class="w-8 h-[1px] bg-primary"></span>
+                        THE STORY
+                    </h2>
+<div class="space-y-6">
+<p class="font-body-lg text-body-lg text-primary leading-relaxed">
+                            The Iron Shadow began as a wreck salvaged from a shipyard in Hamburg. Our vision was to create a machine that felt like a monolithic extension of the city's concrete architecture.
+                        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            Every weld was left exposed, sandblasted back to a raw finish. The frame was shortened by 4.5 inches to aggressive the stance, while the custom-fabricated tank was formed from aerospace-grade carbon fiber to reduce weight by 12kg.
+                        </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                            This isn't just a motorcycle; it's a technical statement. We prioritized structural honesty over decorative flair—if a part didn't serve a functional purpose, it was removed. The result is a narrow, high-torque beast designed for high-speed lane splitting and absolute mechanical reliability.
+                        </p>
+</div>
+</div>
+<!-- COLUMN 2: TECHNICAL SPECS -->
+<div class="md:col-span-4 border-r border-outline-variant px-gutter">
+<h2 class="font-label-caps text-label-caps text-primary mb-12 flex items-center gap-4">
+<span class="w-8 h-[1px] bg-primary"></span>
+                        TECHNICAL SPECS
+                    </h2>
+<div class="space-y-4">
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ENGINE</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">1200CC V-TWIN</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">FRAME</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">REINFORCED TRESTLE</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SUSPENSION</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">ÖHLINS BLACK LINE</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">EXHAUST</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">SC-PROJECT 2-INTO-1</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TIRES</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">PIRELLI DIABLO IV</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">WEIGHT</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">178 KG DRY</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">POWER</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary">118 HP @ 9500 RPM</span>
+</div>
+<div class="flex items-end"><span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Investment</span><div class="spec-line"></div><span class="font-body-md text-body-md text-primary">PRICE UPON REQUEST</span></div></div>
+<div class="mt-16 p-6 border border-primary bg-primary text-on-primary">
+<p class="font-label-caps text-label-caps mb-2">DYNO TESTED</p>
+<p class="font-headline-md text-headline-md tracking-tighter">CERTIFIED PERFORMANCE</p>
+</div>
+</div>
+<!-- COLUMN 3: COMPONENTS -->
+<div class="md:col-span-4 pl-gutter">
+<h2 class="font-label-caps text-label-caps text-primary mb-12 flex items-center gap-4">
+<span class="w-8 h-[1px] bg-primary"></span>
+                        COMPONENTS
+                    </h2>
+<ul class="space-y-8">
+<li class="">
+<h3 class="font-label-caps text-label-caps text-primary mb-1">BRAKING SYSTEM</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Brembo M50 Monoblock calipers with carbon-ceramic discs.</p>
+</li>
+<li class="">
+<h3 class="font-label-caps text-label-caps text-primary mb-1">COCKPIT</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Motogadget Motoscope Pro digital display integrated into the triple tree.</p>
+</li>
+<li class="">
+<h3 class="font-label-caps text-label-caps text-primary mb-1">LIGHTING</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Vertical stacked LED projector units with CNC-machined aluminum housing.</p>
+</li>
+<li class="">
+<h3 class="font-label-caps text-label-caps text-primary mb-1">SEATING</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Hand-stitched Alcantara and perforated leather solo seat unit.</p>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Mechanical Gallery: Masonry Detail -->
+<section class="bg-surface-container-low border-t border-b border-outline-variant reveal-up">
+<div class="grid grid-cols-1 md:grid-cols-4 min-h-[600px]">
+<div class="md:col-span-2 relative group overflow-hidden border-r border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up, extreme-detail photograph of a TIG-welded motorcycle frame section. The welds are exposed, showing iridescent heat-blueing on the brushed steel surface. The lighting is sharp and industrial, emphasizing the technical precision of the metalwork. This image captures the raw, structural honesty of a minimalist brutalist design within a high-end workshop setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwcYXwWEeypE3-aiie8P-Zwai1DFdPDrWQ13ugxFgG78TX1b-HX9JRoV4CW0wk7_b2ODY044CFb4nnTXjsByo7FlzS4zmOSCquSwgS28q-hnfWfMhoX9mwptz0qlzJw7_ApCo-tn_v9s3w-AqR5pt04bOHgP9XEBVLE7yvVNqJbMF5yXyBWvxKqczYrNZ3vJ99jKt2lSi50IaJCYhKF7oN8iOflhB_lY3t2hTuE_2qCuUmYJvQvGbMQMuNdkfwkCaXeU2mM5Zn8PU"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="font-label-caps text-label-caps text-primary bg-black/80 px-6 py-2 border border-primary">STRUCTURAL WELDING</span>
+</div>
+</div>
+<div class="relative group overflow-hidden border-r border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A detailed macro shot focusing on the texture of a custom perforated leather motorcycle seat. The stitching is bright white against deep black leather, highlighting a diamond pattern. The surrounding parts show matte black metal finishes. The lighting is high-contrast, creating a luxury yet industrial feel, typical of a professional custom bike build." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4C2IWr7tDnKhANEFktTJ3heLbUsi3HU4zQWOj4CsKnaG2ZEWsVhZXHBDB8lCXzmFj6xsxiJFvUk5jZXm-Hbys7o8zk5JxPlq4lgZLPUTkYvWF2hqbFJSPw7S5N_ZI7BMRrLQ8GczY-NE0TZj6Ry6xpoGY_AHc-iB-PQnEHQe2NNct9JOJo3aV8M0CxTLm6c_gvqbqUgsyClvJqxO03luwlnlE2-vVk3Rr3MCRB4-fsSM6FrZY2td9E2VaNUKHIh47MJMGUBFNkwU"/>
+<div class="absolute bottom-0 left-0 right-0 bg-background/90 p-6 translate-y-full group-hover:translate-y-0 transition-transform">
+<p class="font-label-caps text-label-caps text-primary">CUSTOM UPHOLSTERY</p>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="h-1/2 relative group overflow-hidden border-b border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Close-up of a high-performance motorcycle engine's cooling fins and custom exhaust manifold. The engine is finished in a heat-resistant matte black, while the exhaust bolts are gleaming stainless steel. The shot is composed with a focus on depth and mechanical complexity, emphasizing a 'Chrome and Carbon' aesthetic with sharp, dramatic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmOPwUBXiosF_BQ7Xc79aRJfgXUj2HVNigzuR2QN9ePJ4YfKw76w1NM__peTgDUI508JK1EZoBWqH-GW2o_qGXvblftrqlyaH6DcVsNfrGQN7dFPVBxNtG5I88i-osH2VEBxjJ3sDpAConMwSHRngdSYKnSxmnor4XThlRH1Tr6nD-7A3nNd8f5mU4pt4WY23w1-WcqntAvZm0CmKu0-906UL5JSm6vP_82JZnCLej2gBeZJ2DWSD8sFwfxr--N97GWpSvLSRDG18"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<div class="h-1/2 relative group overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-angle detail shot of a motorcycle cockpit, showing the CNC-machined triple clamps and a minimalist digital speedometer integrated into the metal. The handlebars are clip-ons with premium rubber grips. The entire assembly is monochrome, showcasing a blend of machined aluminum and black finishes under cool, bright studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVIxVWuxSI6NxJeRJljkm_cNoM2N3PGm5IWqAktzTagmvXdAkW3Bl1CDXbbIn1Vf4zXsdqine6GdFmTWStWBgGU-8GIkTByjb2sTupYhezDQjehO_nBvbjCVxwGe8SyfkqnN33FQO0jn5If1Jen0QK3npLWHW_G1-ahWP9YA7rSdRljtJrEMVJE8xyO6knH1AK7c47ofNos0aW00nSUFFGr5QRXUMswQ7KVae6f9-Ag_iTJz7ijvYK9lSs6DFoNMV1hDMwGSE__MA"/>
+<div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-primary mb-2" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps text-primary">MACHINED PRECISION</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Inner Circle -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden reveal-up">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12 uppercase">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+    <script>
+        // Scroll reveal observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('active'), entry.target.dataset.delay || i * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.reveal-up, .fade-in').forEach(el => observer.observe(el));
+
+        // Micro-interaction: Parallax effect on hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImg = document.querySelector('section img');
+            if (heroImg) {
+                heroImg.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Interactive hover effects for technical specs
+        const specRows = document.querySelectorAll('.flex.items-end');
+        specRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.querySelector('.spec-line').style.borderColor = '#ffffff';
+                row.querySelector('span:first-child').style.color = '#ffffff';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.querySelector('.spec-line').style.borderColor = '#444748';
+                row.querySelector('span:first-child').style.color = '#c4c7c8';
+            });
+        });
+
+    </script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,722 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>1123 WORKSHOP | YOUR GARAGE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#bab8b7",
+                        "on-secondary": "#313030",
+                        "on-primary-fixed": "#1a1c1c",
+                        "background": "#121414",
+                        "surface-dim": "#121414",
+                        "on-primary-container": "#636565",
+                        "surface-container-highest": "#333535",
+                        "surface-container-low": "#1a1c1c",
+                        "inverse-surface": "#e2e2e2",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#c9c6c5",
+                        "on-background": "#e2e2e2",
+                        "primary": "#ffffff",
+                        "primary-container": "#e2e2e2",
+                        "tertiary-container": "#e5e2e1",
+                        "surface-container-lowest": "#0c0f0f",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "inverse-primary": "#5d5f5f",
+                        "tertiary": "#ffffff",
+                        "surface-container-high": "#282a2b",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "inverse-on-surface": "#2f3131",
+                        "on-surface": "#e2e2e2",
+                        "surface-tint": "#c6c6c7",
+                        "on-surface-variant": "#c4c7c8",
+                        "on-primary-fixed-variant": "#454747",
+                        "error-container": "#93000a",
+                        "surface-bright": "#38393a",
+                        "secondary": "#c9c6c5",
+                        "on-tertiary": "#313030",
+                        "surface-container": "#1e2020",
+                        "surface": "#121414",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "outline-variant": "#444748",
+                        "surface-variant": "#333535",
+                        "on-primary": "#2f3131",
+                        "primary-fixed": "#e2e2e2",
+                        "outline": "#8e9192",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-tertiary-container": "#656464",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#e5e2e1",
+                        "secondary-container": "#4a4949",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#474646"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "section-padding": "120px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Anton"],
+                        "label-caps": ["Geist"],
+                        "headline-xl": ["Anton"],
+                        "headline-lg-mobile": ["Anton"],
+                        "headline-lg": ["Anton"],
+                        "body-md": ["Geist"],
+                        "body-lg": ["Geist"],
+                        "mono-metric": ["Geist"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "36px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-xl": ["120px", {"lineHeight": "110px", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["48px", {"lineHeight": "48px", "fontWeight": "400"}],
+                        "headline-lg": ["72px", {"lineHeight": "72px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "mono-metric": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>body {
+    background-color: #121414;
+    color: #e2e2e2;
+    -webkit-font-smoothing: antialiased
+    }
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCBOSw2TPRGk-dHmQ4_uPlsNWn-LuvT1ChK4mP_K2XnEw-Kur-XCVYc7dnd2j-qinJdsOaEv0rdv7vFenh2clmssKZGPDUmqmYUib_nMeiYTkl0a3TyHDqn38kJE0JIvxnpS9WbQlrGmQzwl-FEzKD4SjJpMByiIZUSpUoRMlVxNjS1gM0Ja85rmuRCrfECetRnKVURvWq5t9DuNDVkTqDIUcB-ZInjaRFW2-bfRdLPzzPxSUk6Egd7I-FnuIiQg25F8NzmeES6b3s)
+    }
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px
+    }
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent
+    }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 999px
+    }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.4)
+    }
+.carbon-bg {
+    background: linear-gradient(45deg, #0c0f0f 25%, #121414 25%, #121414 50%, #0c0f0f 50%, #0c0f0f 75%, #121414 75%, #121414 100%);
+    background-size: 4px 4px
+    }
+.brutalist-border {
+    border: 1px solid #444748;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    }
+.nav-active {
+    border-bottom: 2px solid #fff;
+    padding-bottom: 4px
+    }
+.hover-invert:hover {
+    background-color: #fff;
+    color: #121414;
+    transition: none
+    }
+.slide-out {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    }
+
+html {
+    scroll-behavior: smooth;
+}
+.reveal-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.2, 0, 0.2, 1), transform 1s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.reveal-up.active { opacity: 1; transform: translateY(0); }
+.fade-in {
+    opacity: 0;
+    transition: opacity 1.5s ease-out;
+}
+.fade-in.active { opacity: 1; }
+.cart-checkbox {
+  width: 22px; height: 22px;
+  border: 2px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+  background: transparent;
+}
+.cart-checkbox:hover { border-color: #fff; }
+.cart-checkbox.checked { border-color: #fff; background: #fff; }
+.cart-checkbox.checked::after {
+  content: '';
+  width: 6px; height: 6px;
+  background: #000;
+}
+
+.cart-item.selected { border-color: #ffffff !important; background: rgba(255,255,255,0.03); }
+</style>
+</head>
+<body class="font-body-md selection:bg-primary selection:text-background overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- TopNavBar -->
+<header class="bg-background dark:bg-background border-b border-outline-variant fixed top-0 w-full z-50">
+<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-primary font-bold border-b-2 border-primary uppercase tracking-widest" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">2</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+</div>
+</nav>
+</header>
+<main class="pt-24 pb-section-padding px-margin-mobile md:px-margin-desktop min-h-screen max-w-[1440px] mx-auto">
+<!-- Breadcrumbs / Page Title -->
+<div class="mb-8 reveal-up">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tight">YOUR GARAGE / CART</h1>
+<div class="h-px w-full bg-outline-variant mt-4"></div>
+</div>
+<!-- Selection Toolbar -->
+<div id="selection-toolbar" class="flex items-center justify-between border border-outline-variant p-4 mb-6 reveal-up">
+<div class="flex items-center gap-3">
+<div class="cart-checkbox" id="select-all" onclick="toggleSelectAll(this)"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest cursor-pointer select-none" onclick="toggleSelectAll(document.getElementById('select-all'))">SELECT ALL</span>
+</div>
+<button id="delete-selected" class="font-label-caps text-label-caps text-error/50 hover:text-error flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300" onclick="deleteSelected()">
+<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span>
+DELETE SELECTED (<span id="selected-count">0</span>)
+</button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Item List Section -->
+<div class="lg:col-span-8 space-y-gutter reveal-up">
+<!-- Sort Filter Dropdown -->
+<div class="relative mb-2" id="sort-filter">
+<button class="w-full border border-outline-variant p-3 flex items-center justify-between gap-2 text-left hover:bg-surface-container-highest transition-none" onclick="toggleSortDropdown()">
+<span class="font-label-caps text-label-caps text-on-surface-variant tracking-widest text-xs" id="sort-label">URUTKAN</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="unfold_more">unfold_more</span>
+</button>
+<div class="absolute top-full left-0 right-0 z-20 border border-outline-variant border-t-0 bg-background hidden" id="sort-dropdown">
+<button class="w-full p-3 text-left font-label-caps text-label-caps text-xs text-on-surface-variant hover:bg-primary hover:text-background transition-none sort-option" data-sort="newest" onclick="setSort('newest')">TERBARU</button>
+<button class="w-full p-3 text-left font-label-caps text-label-caps text-xs text-on-surface-variant hover:bg-primary hover:text-background transition-none sort-option" data-sort="cheap" onclick="setSort('cheap')">MURAH → MAHAL</button>
+<button class="w-full p-3 text-left font-label-caps text-label-caps text-xs text-on-surface-variant hover:bg-primary hover:text-background transition-none sort-option" data-sort="expensive" onclick="setSort('expensive')">MAHAL → MURAH</button>
+</div>
+</div>
+<!-- Shop / Merch Items -->
+<h2 class="font-headline-md text-headline-md text-primary border-b border-outline-variant pb-3 mb-4 mt-12">MERCHANDISE</h2>
+<!-- Static Items (rendered by JS) -->
+<div id="static-items-list" class="space-y-gutter"></div>
+<!-- Merch Items -->
+<div id="merch-items-list" class="space-y-gutter"></div>
+<div class="pt-8">
+<a class="font-label-caps text-label-caps text-primary border-b border-primary pb-1 hover:opacity-70 transition-none inline-flex items-center gap-2" href="shop.html">
+<span class="material-symbols-outlined text-[14px]" data-icon="arrow_back">arrow_back</span>
+                        CONTINUE SHOPPING
+                    </a>
+</div>
+</div>
+<!-- Summary Panel -->
+<div class="lg:col-span-4 sticky top-32 reveal-up">
+<div class="brutalist-border bg-surface-container p-8 space-y-6">
+<h2 class="font-headline-md text-headline-md text-primary">SUMMARY</h2>
+<div class="text-label-caps text-label-caps text-on-surface-variant mb-2 tracking-widest" id="summary-items-count">0 item selected</div>
+<div class="space-y-3 font-body-md text-on-surface-variant">
+<div class="flex justify-between items-center">
+<span class="">Subtotal</span>
+<span class="text-primary" id="summary-subtotal">Rp0</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="">Shipping</span>
+<span class="font-label-caps text-label-caps">TBD</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="">Taxes</span>
+<span class="text-primary" id="summary-tax">Rp0</span>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-primary">Total</span>
+<span class="font-headline-md text-headline-md text-primary" id="summary-total">Rp0</span>
+</div>
+</div>
+<div class="pt-6">
+<a class="block w-full bg-primary text-background font-headline-md text-headline-md py-4 hover:bg-on-surface transition-none mb-4 text-center" id="checkout-btn" onclick="proceedToCheckout();return false;" href="#">
+                            PROCEED TO CHECKOUT
+                        </a>
+<div class="p-4 bg-surface-container-low border border-outline-variant flex gap-4 items-start">
+<span class="material-symbols-outlined text-primary shrink-0" data-icon="local_shipping">local_shipping</span>
+<div>
+<p class="font-label-caps text-label-caps text-primary mb-1">SHIPPING INFO</p>
+<p class="text-body-md text-[13px] leading-tight text-on-surface-variant">Free domestic shipping on orders over Rp4.000.000. International shipping rates calculated at checkout.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Promo Code -->
+<div class="mt-4 brutalist-border p-4 bg-surface-container-lowest">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">PROMO CODE</label>
+<div class="flex border-b border-outline-variant">
+<input class="bg-transparent border-none focus:ring-0 text-primary w-full font-mono-metric uppercase placeholder:text-outline-variant" placeholder="ENTER CODE" type="text">
+<button class="font-label-caps text-label-caps text-primary px-4 py-2 hover:opacity-70 transition-none">APPLY</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section><footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+<script>
+// Static products data
+var staticProducts = [
+  { name: 'Heavyweight "Oil" Hoodie', sku: '1123-OIL-H-04', size: 'L', price: 'Rp1.760.000', priceNum: 1760000, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBsFwJX2Pqynsj05fZEjBLHxg8QffFDY5aaFqiF91Wsm5YCS2rOT13WyuPoua0hhZwgLw_7X4SLdoUNEzRPDDDxhzYLWpAnu1gDBbwdyzKBxNrM0ZyzWJBcM3Pfl4_Y3-SNXRaHVjQq9NhOSPuv_9annoIgUvCZCzT7PeGoi12DdPlGNSUghmsL93YOCYPMc342uFYmOAxNU-Mz75OCIBKWfvJDgXI12a2i9YhudxejN2ClWfPAz-6CzBZBhtmLrTK1DwSZYfrPwzI' },
+  { name: 'Workshop Cap', sku: '1123-CAP-03', size: 'OS', price: 'Rp720.000', priceNum: 720000, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCx3T-StGnbCBpJltreLcr2n6PsNEYHcQotnGWzAWt3MBAEi394fRC0pbh3G_PMtkCnM71d7QC2Gc2ruv4tq7iatFcdb2zi97tQuK_Gm1AQLhIq_996o5VDcefn0kxe_Q35DTlrp2ecDFIbcNymv9kthEuKtAEzWrMn48SPObDmfbDi6RT0lA3By-M2v9HG__fknJl4GS5dZuf9PWMBlDPtaAfR8yhf7B5PF_A2Vvnfo8E89y6MB-cH1BncHxiPsM6euLYyey0OaK8' }
+];
+
+// Migrate old prices to IDR + add missing priceNum
+(function(){
+  var keys = ['cartMerch'];
+  keys.forEach(function(k) {
+    var data = JSON.parse(localStorage.getItem(k) || '[]');
+    var changed = false;
+    data.forEach(function(item) {
+      if (item.priceNum && item.priceNum < 10000) {
+        item.priceNum = item.priceNum * 16000;
+        changed = true;
+      } else if (!item.priceNum && item.total) {
+        var parsed = parseInt(item.total.replace(/[^\d]/g, '')) || 0;
+        item.priceNum = item.total.indexOf('$') === 0 ? parsed * 16000 : parsed;
+        changed = true;
+      } else if (!item.priceNum) {
+        item.priceNum = 0;
+        changed = true;
+      }
+    });
+    if (changed) localStorage.setItem(k, JSON.stringify(data));
+  });
+})();
+
+// Init static items state
+if (!localStorage.getItem('cartStatic')) {
+  localStorage.setItem('cartStatic', JSON.stringify([0, 1]));
+}
+
+var cartSortMode = '';
+
+function toggleSortDropdown() {
+  var dd = document.getElementById('sort-dropdown');
+  if (dd) dd.classList.toggle('hidden');
+}
+
+function setSort(mode) {
+  cartSortMode = (cartSortMode === mode) ? '' : mode;
+  var label = document.getElementById('sort-label');
+  var labels = { 'newest': 'TERBARU', 'cheap': 'MURAH → MAHAL', 'expensive': 'MAHAL → MURAH' };
+  if (label) label.textContent = cartSortMode ? labels[cartSortMode] : 'URUTKAN';
+  var dd = document.getElementById('sort-dropdown');
+  if (dd) dd.classList.add('hidden');
+  renderAll();
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#sort-filter')) {
+    var dd = document.getElementById('sort-dropdown');
+    if (dd) dd.classList.add('hidden');
+  }
+});
+function toggleItem(el) {
+  el.classList.toggle('checked');
+  var item = el.closest('.cart-item');
+  if (item) item.classList.toggle('selected');
+  updateDeleteBtn();
+  updateSelectAll();
+  updateSummary();
+}
+
+function toggleSelectAll(el) {
+  var allChecked = document.querySelectorAll('.cart-checkbox.checked').length === document.querySelectorAll('.cart-checkbox').length;
+  document.querySelectorAll('.cart-checkbox').forEach(function(cb) {
+    if (allChecked) {
+      cb.classList.remove('checked');
+      var p = cb.closest('.cart-item');
+      if (p) p.classList.remove('selected');
+    } else {
+      cb.classList.add('checked');
+      var p = cb.closest('.cart-item');
+      if (p) p.classList.add('selected');
+    }
+  });
+  el.classList.toggle('checked', !allChecked);
+  updateDeleteBtn();
+  updateSummary();
+}
+
+function updateSelectAll() {
+  var all = document.querySelectorAll('.cart-checkbox');
+  var checked = document.querySelectorAll('.cart-checkbox.checked');
+  var el = document.getElementById('select-all');
+  if (all.length > 0 && checked.length === all.length) {
+    el.classList.add('checked');
+  } else {
+    el.classList.remove('checked');
+  }
+}
+
+function updateDeleteBtn() {
+  var count = document.querySelectorAll('.cart-checkbox.checked').length;
+  var btn = document.getElementById('delete-selected');
+  document.getElementById('selected-count').textContent = count;
+  if (count > 0) {
+    btn.classList.remove('opacity-0', 'pointer-events-none');
+  } else {
+    btn.classList.add('opacity-0', 'pointer-events-none');
+  }
+}
+
+function deleteSelected() {
+  var checked = document.querySelectorAll('.cart-item.selected');
+  if (!checked.length) return;
+  var merch = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+  var staticArr = JSON.parse(localStorage.getItem('cartStatic') || '[]');
+  var merchIdx = [], staticIdx = [];
+  checked.forEach(function(item) {
+    var type = item.getAttribute('data-type');
+    var idx = parseInt(item.getAttribute('data-index'));
+    if (type === 'merch' && !isNaN(idx)) merchIdx.push(idx);
+    else if (type === 'static' && !isNaN(idx)) staticIdx.push(idx);
+    item.classList.add('slide-out');
+  });
+  merchIdx.sort(function(a,b){return b-a}).forEach(function(i){merch.splice(i,1);});
+  staticIdx.forEach(function(i){
+    var pos = staticArr.indexOf(i);
+    if (pos >= 0) staticArr.splice(pos, 1);
+  });
+  localStorage.setItem('cartMerch', JSON.stringify(merch));
+  localStorage.setItem('cartStatic', JSON.stringify(staticArr));
+  setTimeout(function() {
+    renderAll();
+    updateCartBadge();
+    updateDeleteBtn();
+    updateSelectAll();
+  }, 550);
+}
+
+function renderAll() {
+  try { renderStaticItems(); } catch(e) { console.error('static err', e); }
+  try { renderMerchItems(); } catch(e) { console.error('merch err', e); }
+  try { updateSummary(); } catch(e) { console.error('summary err', e); }
+}
+
+function getSelectedItems() {
+  var items = [];
+  document.querySelectorAll('.cart-checkbox.checked').forEach(function(cb) {
+    var el = cb.closest('.cart-item');
+    if (!el) return;
+    var type = el.getAttribute('data-type');
+    var idx = parseInt(el.getAttribute('data-index'));
+    if (type === 'static' && !isNaN(idx)) {
+      var s = JSON.parse(localStorage.getItem('cartStatic') || '[]');
+      if (s.indexOf(idx) >= 0) {
+        var d = JSON.parse(JSON.stringify(staticProducts[idx]));
+        d.qty = getStaticQty(idx);
+        items.push({ type:'static', idx:idx, data:d });
+      }
+    } else if (type === 'merch' && !isNaN(idx)) {
+      var m = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+      if (m[idx]) items.push({ type:'merch', idx:idx, data:JSON.parse(JSON.stringify(m[idx])) });
+    }
+  });
+  return items;
+}
+
+function fmtRp(n) {
+  return 'Rp' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function updateSummary() {
+  var allItems = getSelectedItems();
+  var count = allItems.length;
+  var subtotal = 0;
+  allItems.forEach(function(item) {
+    var qty = item.data.qty || 1;
+    if (item.type === 'static') {
+      if (item.data.priceNum) subtotal += item.data.priceNum * qty;
+    } else if (item.data.priceNum) {
+      subtotal += item.data.priceNum * qty;
+    }
+  });
+  var tax = subtotal * 0.08;
+  var total = subtotal + tax;
+  document.getElementById('summary-items-count').textContent = count + ' item' + (count !== 1 ? 's' : '') + ' selected';
+  document.getElementById('summary-subtotal').textContent = fmtRp(subtotal);
+  document.getElementById('summary-tax').textContent = fmtRp(tax);
+  document.getElementById('summary-total').textContent = fmtRp(total);
+}
+
+function proceedToCheckout() {
+  if (localStorage.getItem('userLoggedIn') !== 'true') {
+    document.body.style.transition = 'opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+    document.body.style.opacity = '0';
+    setTimeout(function() { window.location.href = 'account.html?redirect=checkout'; }, 350);
+    return;
+  }
+  var items = getSelectedItems();
+  if (items.length === 0) return;
+  localStorage.setItem('checkoutData', JSON.stringify(items));
+  document.body.style.transition = 'opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+  document.body.style.opacity = '0';
+  setTimeout(function() { window.location.href = 'checkout.html'; }, 350);
+}
+
+// --- Item functions ---
+function getStaticQty(idx) {
+  var qtys = JSON.parse(localStorage.getItem('cartStaticQtys') || '{}');
+  return qtys[idx] || 1;
+}
+
+function setStaticQty(idx, qty) {
+  var qtys = JSON.parse(localStorage.getItem('cartStaticQtys') || '{}');
+  qtys[idx] = qty;
+  localStorage.setItem('cartStaticQtys', JSON.stringify(qtys));
+}
+
+function updateQty(btn, change) {
+  var span = btn.parentElement.querySelector('span');
+  if (!span) return;
+  var item = btn.closest('.cart-item');
+  if (!item) return;
+  var type = item.getAttribute('data-type');
+  var idx = parseInt(item.getAttribute('data-index'));
+  var current = parseInt(span.innerText) || 1;
+  current = Math.max(1, current + change);
+  span.innerText = current;
+  if (type === 'static' && !isNaN(idx)) {
+    setStaticQty(idx, current);
+  } else if (type === 'merch' && !isNaN(idx)) {
+    var cart = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+    if (cart[idx]) { cart[idx].qty = current; localStorage.setItem('cartMerch', JSON.stringify(cart)); }
+  }
+  updateSummary();
+}
+
+function removeItem(btn) {
+  var item = btn.closest('.cart-item');
+  if (!item) return;
+  var type = item.getAttribute('data-type');
+  var idx = parseInt(item.getAttribute('data-index'));
+  item.classList.add('slide-out');
+  setTimeout(function() {
+    if (type === 'static' && !isNaN(idx)) {
+      var s = JSON.parse(localStorage.getItem('cartStatic') || '[]');
+      var p = s.indexOf(idx);
+      if (p >= 0) s.splice(p, 1);
+      localStorage.setItem('cartStatic', JSON.stringify(s));
+    } else if (type === 'merch' && !isNaN(idx)) {
+      var m = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+      m.splice(idx, 1);
+      localStorage.setItem('cartMerch', JSON.stringify(m));
+    } else {
+      item.remove();
+      return;
+    }
+    renderAll();
+    updateCartBadge();
+  }, 500);
+}
+
+// Static items render
+function renderStaticItems() {
+  var active = JSON.parse(localStorage.getItem('cartStatic') || '[]');
+  if (cartSortMode) {
+    var mapped = active.map(function(idx) { return { idx: idx, priceNum: staticProducts[idx] ? staticProducts[idx].priceNum : 0 }; });
+    if (cartSortMode === 'newest') { mapped = mapped.slice().reverse(); }
+    else if (cartSortMode === 'cheap') { mapped = mapped.slice().sort(function(a,b){return (a.priceNum||0)-(b.priceNum||0);}); }
+    else if (cartSortMode === 'expensive') { mapped = mapped.slice().sort(function(a,b){return (b.priceNum||0)-(a.priceNum||0);}); }
+    active = mapped.map(function(o) { return o.idx; });
+    localStorage.setItem('cartStatic', JSON.stringify(active));
+  }
+  var list = document.getElementById('static-items-list');
+  if (!list) return;
+  if (active.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = active.map(function(idx, pos) {
+    var p = staticProducts[idx];
+    var qty = getStaticQty(idx);
+    return '<div class="brutalist-border grid grid-cols-1 md:grid-cols-4 bg-surface-container-lowest cart-item" data-type="static" data-index="' + idx + '">' +
+      '<div class="aspect-square relative overflow-hidden brutalist-border md:border-none">' +
+      '<div class="absolute top-3 left-3 z-10"><div class="cart-checkbox" onclick="event.stopPropagation();toggleItem(this)"></div></div>' +
+      '<img class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-500" src="' + p.img + '" alt="' + p.name + '">' +
+      '</div>' +
+      '<div class="md:col-span-3 p-6 flex flex-col justify-between">' +
+      '<div class="flex justify-between items-start">' +
+      '<div>' +
+      '<h3 class="font-headline-md text-headline-md text-primary leading-none mb-1">' + p.name + '</h3>' +
+      '<p class="font-label-caps text-label-caps text-on-surface-variant">SIZE: ' + p.size + ' | SKU: ' + p.sku + '</p>' +
+      '</div>' +
+      '<span class="font-headline-md text-headline-md text-primary">' + p.price + '</span>' +
+      '</div>' +
+      '<div class="flex justify-between items-end mt-8">' +
+      '<div class="flex border border-outline-variant">' +
+      '<button class="px-4 py-2 hover:bg-surface-container-highest transition-none" onclick="updateQty(this, -1)">-</button>' +
+      '<span class="px-6 py-2 border-x border-outline-variant font-mono-metric flex items-center">' + qty + '</span>' +
+      '<button class="px-4 py-2 hover:bg-surface-container-highest transition-none" onclick="updateQty(this, 1)">+</button>' +
+      '</div>' +
+      '<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-error flex items-center gap-2 group transition-none" onclick="removeItem(this)">' +
+      '<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> REMOVE</button>' +
+      '</div></div></div>';
+  }).join('');
+}
+
+// Merch items
+function renderMerchItems() {
+  var cart = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+  if (cartSortMode === 'newest') { cart = cart.slice().reverse(); }
+  else if (cartSortMode === 'cheap') { cart = cart.slice().sort(function(a,b){return (Number(a.priceNum)||0)-(Number(b.priceNum)||0);}); }
+  else if (cartSortMode === 'expensive') { cart = cart.slice().sort(function(a,b){return (Number(b.priceNum)||0)-(Number(a.priceNum)||0);}); }
+  if (cartSortMode) { localStorage.setItem('cartMerch', JSON.stringify(cart)); }
+  var list = document.getElementById('merch-items-list');
+  if (!list) return;
+  if (cart.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = cart.map(function(item, i) {
+    return '<div class="brutalist-border grid grid-cols-1 md:grid-cols-4 bg-surface-container-lowest cart-item" data-type="merch" data-index="' + i + '">' +
+      '<div class="aspect-square relative overflow-hidden brutalist-border md:border-none">' +
+      '<div class="absolute top-3 left-3 z-10"><div class="cart-checkbox" onclick="event.stopPropagation();toggleItem(this)"></div></div>' +
+      '<img class="object-cover w-full h-full grayscale" src="' + item.img + '" alt="' + item.name + '">' +
+      '</div>' +
+      '<div class="md:col-span-3 p-6 flex flex-col justify-between">' +
+      '<div class="flex justify-between items-start">' +
+      '<div>' +
+'<h3 class="font-headline-md text-headline-md text-primary leading-none mb-1">' + item.name + '</h3>' +
+'<p class="font-label-caps text-label-caps text-on-surface-variant">SKU: ' + item.sku + ' | SIZE: ' + (item.size || 'M') + '</p>' +
+      '</div>' +
+      '<span class="font-headline-md text-headline-md text-primary">' + fmtRp(item.priceNum || 0) + '</span>' +
+      '</div>' +
+      '<div class="flex justify-between items-end mt-8">' +
+      '<div class="flex border border-outline-variant">' +
+      '<button class="px-4 py-2 hover:bg-surface-container-highest transition-none" onclick="updateMerchQty(' + i + ', -1)">-</button>' +
+      '<span class="px-6 py-2 border-x border-outline-variant font-mono-metric flex items-center">' + (item.qty || 1) + '</span>' +
+      '<button class="px-4 py-2 hover:bg-surface-container-highest transition-none" onclick="updateMerchQty(' + i + ', 1)">+</button>' +
+      '</div>' +
+      '<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-error flex items-center gap-2 group transition-none" onclick="removeMerchItem(' + i + ')">' +
+      '<span class="material-symbols-outlined text-[18px]" data-icon="delete">delete</span> REMOVE</button>' +
+      '</div></div></div>';
+  }).join('');
+}
+
+function updateMerchQty(index, change) {
+  var cart = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+  cart[index].qty = Math.max(1, (cart[index].qty || 1) + change);
+  localStorage.setItem('cartMerch', JSON.stringify(cart));
+  var el = document.querySelector('#merch-items-list .cart-item[data-index="' + index + '"]');
+  if (el) {
+    var span = el.querySelector('.font-mono-metric.flex.items-center');
+    if (span) span.textContent = cart[index].qty;
+  }
+  updateCartBadge();
+  updateSummary();
+}
+
+function removeMerchItem(index) {
+  var cart = JSON.parse(localStorage.getItem('cartMerch') || '[]');
+  cart.splice(index, 1);
+  localStorage.setItem('cartMerch', JSON.stringify(cart));
+  renderAll();
+  updateCartBadge();
+}
+
+renderAll();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

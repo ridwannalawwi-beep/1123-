@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BUILD ORDER | 1123 WORKSHOP</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Geist:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css">
+<style>
+body { background: #121414; color: #e2e2e2; -webkit-font-smoothing: antialiased; }
+.grain-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 9999; opacity: 0.04;
+  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuClELkUtnP6tBZiX1X3eZ_3UIzaLGK7auuZulP7GhsxRzjnoauuoCac94sLCtN90YOtGiVBeTTTe46Wbc6titHWxG8acDqHkepfurH1WgByXZBZz31sfMetWMM7hfJhxqWwamZ91W3EIm9hezABPleIV3MuOC-lRqKKdu5q0-YbXMG31QAy_ve8R94pR9qV3UrbzQ0Q0KpVzuiHWqRSkk3QuzaDpcWgTLLSG1wjkBftmFFzITaWNgYeY-2VQjqIzXWsyKTXo5hM8WQ);
+}
+.hero-slide {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hero-slide.out {
+  transform: translateX(-60px);
+  opacity: 0;
+}
+.hero-slide.in {
+  transform: translateX(0);
+  opacity: 1;
+}
+.option-card {
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.option-card.selected {
+  border-color: #ffffff;
+  background-color: rgba(255,255,255,0.08);
+}
+.option-card .delta-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 0;
+  font-weight: 600;
+}
+.addon-option {
+  transition: border-color 0.3s, background-color 0.3s;
+}
+.addon-option.checked {
+  border-color: #ffffff;
+  background-color: rgba(255,255,255,0.08);
+}
+.addon-option.checked .checkbox-visual {
+  border-color: #ffffff;
+  background-color: #ffffff;
+}
+.addon-option.checked .checkbox-visual::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 10px;
+  border: solid #121414;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-top: -2px;
+}
+</style>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        background: "#121414", "on-surface": "#e2e2e2", "on-surface-variant": "#c4c7c8",
+        primary: "#ffffff", "on-primary": "#2f3131",
+        "surface-container": "#1e2020", "surface-container-low": "#1a1c1c",
+        "surface-container-high": "#282a2b", "surface-container-lowest": "#0c0f0f",
+        "outline-variant": "#444748", outline: "#8e9192", error: "#ffb4ab"
+      },
+      borderRadius: { DEFAULT: "0px", lg: "0px", xl: "0px", full: "9999px" },
+      spacing: { unit: "4px", gutter: "24px", "section-padding": "120px", "margin-mobile": "16px", "margin-desktop": "64px" },
+      fontFamily: { "headline-md": ["Anton"], "headline-xl": ["Anton"], "label-caps": ["Geist"], "body-lg": ["Geist"], "mono-metric": ["Geist"] },
+      fontSize: { "headline-xl": ["120px", { lineHeight: "110px", letterSpacing: "-0.02em", fontWeight: "400" }], "headline-lg": ["72px", { lineHeight: "72px", letterSpacing: "0.01em", fontWeight: "400" }], "headline-md": ["32px", { lineHeight: "36px", fontWeight: "400" }], "body-lg": ["18px", "1.6"], "label-caps": ["12px", { letterSpacing: "0.1em", fontWeight: "500" }] },
+      fontWeight: { "headline-xl": "400", "headline-md": "400", "label-caps": "500" }
+    }
+  }
+};
+</script>
+</head>
+<body class="bg-background selection:bg-primary selection:text-on-primary overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- Cart Toast -->
+<div id="toast-container" class="fixed top-6 right-6 z-[70] flex flex-col gap-2 pointer-events-none"></div>
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant h-20 flex items-center">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop">
+<div class="flex items-center gap-2">
+<button data-navigate="back" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<a class="text-headline-md font-headline-md text-primary tracking-tighter uppercase" href="home page.html">1123</a>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="galeri.html">BUILDS</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="shop.html">MERCH</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="home page.html">ABOUT</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-primary transition-none uppercase tracking-widest nav-link" href="contact person.html">CONTACT</a>
+</div>
+<div class="flex items-center gap-6">
+<a class="relative text-on-surface-variant hover:text-primary transition-none" href="cart.html">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="cart-badge absolute -top-1 -right-1 bg-primary text-on-primary text-[8px] font-bold h-3 w-3 rounded-full flex items-center justify-center">0</span>
+</a>
+<a href="account.html" class="text-on-surface-variant hover:text-primary transition-none">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</a>
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</header>
+
+<main class="pt-20">
+<!-- Project Selector -->
+<section class="px-margin-mobile md:px-margin-desktop py-8 border-b border-outline-variant">
+<div class="flex flex-wrap gap-3">
+<button class="project-btn border border-primary bg-primary/10 text-primary font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:bg-primary/20 transition-colors" data-project="0">THE IRON SHADOW</button>
+<button class="project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors" data-project="1">CARBON GHOST</button>
+<button class="project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors" data-project="2">RAW V-TWIN</button>
+<button class="project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors" data-project="3">SILVER BULLET</button>
+<button class="project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors" data-project="4">THE VOID</button>
+</div>
+</section>
+
+<!-- Hero -->
+<section class="relative min-h-[60vh] flex items-end px-margin-mobile md:px-margin-desktop pb-section-padding border-b border-outline-variant overflow-hidden reveal-up">
+<div class="absolute inset-0 z-0 hero-slide out" id="hero-img-wrap">
+<img class="w-full h-full object-cover grayscale" id="hero-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Ndl-qgo-9wzptug_GGZGOCVwjLfbBkf0WMDUKQ0zjemAHzUvYwekf-aKtjQoHRx7piaflgmp-elAm2-HDm5NGJFmgvYDMBIGX1LC-lVGXFrL18XZuSlBoUnDK40iTJx3xKmDHakeBhrzC5QwRceiaASSJs3OriYYAYvqkCqDNPn-HhL6wU8_4d2EKELJww7IUI90bGl77s6PSfqSUYe80cmZW25CKqXiAqV6AGfbWTi_JZfy2cBus3LJtRheHynXXIgrTP6dSNs" alt="Project Image">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+</div>
+<div class="relative z-10 w-full hero-slide out" id="hero-text-wrap">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-4 block" id="hero-label">PROJECT 001</span>
+<h1 class="font-headline-xl text-headline-xl text-primary uppercase leading-none mb-6" id="hero-title">THE IRON<br>SHADOW</h1>
+<div class="flex flex-wrap gap-4 items-center">
+<span class="bg-primary text-on-primary px-6 py-2 font-headline-md text-headline-md" id="hero-price">Rp 425.000.000</span>
+<span class="border border-outline-variant text-on-surface-variant px-6 py-2 font-label-caps text-label-caps">EST. DELIVERY: 12-16 WEEKS</span>
+</div>
+</div>
+</section>
+
+<!-- Specs + Configurator -->
+<section class="px-margin-mobile md:px-margin-desktop py-section-padding border-b border-outline-variant">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left: Project Details -->
+<div class="lg:col-span-7">
+<h2 class="font-label-caps text-label-caps text-primary mb-8 flex items-center gap-4">
+<span class="w-8 h-px bg-primary"></span> PROJECT DETAILS
+</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-2xl" id="project-desc">
+A stripped-back 1200cc monster designed for the urban void. Carbon fiber meets cold-rolled steel. Every weld exposed, every component selected for purpose over decoration.
+</p>
+
+<div class="space-y-4 mb-12" id="specs-list">
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ENGINE</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-engine">1200CC V-TWIN</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">FRAME</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-frame">REINFORCED TRESTLE</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SUSPENSION</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-suspension">ÖHLINS BLACK LINE</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">EXHAUST</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-exhaust">SC-PROJECT 2-INTO-1</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">TIRES</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-tires">PIRELLI DIABLO IV</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">WEIGHT</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-weight">178 KG DRY</span>
+</div>
+<div class="flex items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">POWER</span>
+<div class="spec-line"></div>
+<span class="font-body-md text-body-md text-primary" id="spec-power">118 HP @ 9500 RPM</span>
+</div>
+</div>
+
+<!-- Components -->
+<h2 class="font-label-caps text-label-caps text-primary mb-8 flex items-center gap-4">
+<span class="w-8 h-px bg-primary"></span> COMPONENTS
+</h2>
+<ul class="space-y-6 mb-12" id="components-list">
+<li>
+<h3 class="font-label-caps text-label-caps text-primary">BRAKING SYSTEM</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Brembo M50 Monoblock calipers with carbon-ceramic discs.</p>
+</li>
+<li>
+<h3 class="font-label-caps text-label-caps text-primary">COCKPIT</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Motogadget Motoscope Pro digital display integrated into triple tree.</p>
+</li>
+<li>
+<h3 class="font-label-caps text-label-caps text-primary">LIGHTING</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Vertical stacked LED projector units with CNC-machined aluminum housing.</p>
+</li>
+<li>
+<h3 class="font-label-caps text-label-caps text-primary">SEATING</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Hand-stitched Alcantara and perforated leather solo seat unit.</p>
+</li>
+<li>
+<h3 class="font-label-caps text-label-caps text-primary">TRANSMISSION</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">5-speed manual with heavy-duty clutch and reinforced chain drive.</p>
+</li>
+</ul>
+</div>
+
+<!-- Right: Configurator -->
+<div class="lg:col-span-5 lg:pl-gutter lg:border-l border-outline-variant">
+<h2 class="font-label-caps text-label-caps text-primary mb-8 flex items-center gap-4">
+<span class="w-8 h-px bg-primary"></span> CONFIGURE YOUR BUILD
+</h2>
+
+<!-- Engine Selection -->
+<div class="mb-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span> PILIH MESIN
+</h3>
+<div class="space-y-2" id="engine-options">
+<label class="option-card selected flex items-center gap-4 p-4 border border-primary bg-primary/5 cursor-pointer hover:bg-primary/10 transition-colors" data-engine="0">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">V2</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">1200CC V-TWIN</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Air-cooled • 118 HP • Balanced torque</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge border border-outline-variant text-on-surface-variant px-2 py-0.5 text-xs">BASE</span>
+<input type="radio" name="engine" value="1200cc" class="appearance-none w-4 h-4 border-2 border-primary rounded-full checked:bg-primary checked:border-primary" checked>
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-engine="1">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">V2</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">1450CC BIG BORE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">High-compression • 142 HP • +51jt</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-error/20 text-error px-2 py-0.5 text-xs font-bold">+Rp 51jt</span>
+<input type="radio" name="engine" value="1450cc" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-engine="2">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">V2</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">1100CC STREET</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Lightweight • 95 HP • Agile</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-green-900/30 text-green-400 px-2 py-0.5 text-xs font-bold">-Rp 29jt</span>
+<input type="radio" name="engine" value="1100cc" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-engine="3">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">V2</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">1600CC TWIN CAM</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Race-spec • 168 HP • Brutal</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-error/20 text-error px-2 py-0.5 text-xs font-bold">+Rp 95jt</span>
+<input type="radio" name="engine" value="1600cc" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-engine="4">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">V2</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">883CC EVOLUTION</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Classic air-cooled • 65 HP • Raw</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-green-900/30 text-green-400 px-2 py-0.5 text-xs font-bold">-Rp 68jt</span>
+<input type="radio" name="engine" value="883cc" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+</div>
+</div>
+
+<!-- Frame Selection -->
+<div class="mb-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="frame_person">frame_person</span> PILIH RANGKA
+</h3>
+<div class="space-y-2" id="frame-options">
+<label class="option-card selected flex items-center gap-4 p-4 border border-primary bg-primary/5 cursor-pointer hover:bg-primary/10 transition-colors" data-frame="0">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">#</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">REINFORCED TRESTLE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Chromoly steel • TIG-welded • Street optimised</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge border border-outline-variant text-on-surface-variant px-2 py-0.5 text-xs">BASE</span>
+<input type="radio" name="frame" value="trestle" class="appearance-none w-4 h-4 border-2 border-primary rounded-full checked:bg-primary checked:border-primary" checked>
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-frame="1">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">C</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">CARBON MONOCOQUE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Aerospace carbon • -14kg • +Rp 93jt</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-error/20 text-error px-2 py-0.5 text-xs font-bold">+Rp 93jt</span>
+<input type="radio" name="frame" value="carbon" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-frame="2">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">H</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">HARDTAIL RIGID</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">No rear suspension • Pure bobber • -Rp 19jt</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-green-900/30 text-green-400 px-2 py-0.5 text-xs font-bold">-Rp 19jt</span>
+<input type="radio" name="frame" value="rigid" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+<label class="option-card flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary transition-colors" data-frame="3">
+<div class="w-10 h-10 flex items-center justify-center border border-outline-variant shrink-0">
+<span class="font-headline-md text-sm">A</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-headline-md text-headline-md text-primary block leading-tight">ALUMINUM TRESTLE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Lightweight alloy • Race geometry • +Rp 42jt</span>
+</div>
+<div class="flex items-center gap-3 shrink-0">
+<span class="delta-badge bg-error/20 text-error px-2 py-0.5 text-xs font-bold">+Rp 42jt</span>
+<input type="radio" name="frame" value="aluminum" class="appearance-none w-4 h-4 border-2 border-outline-variant rounded-full checked:bg-primary checked:border-primary">
+</div>
+</label>
+</div>
+</div>
+
+<!-- Additional Options -->
+<div class="mb-10" id="addon-section">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="build">build</span> OPSI TAMBAHAN
+</h3>
+<div class="space-y-2">
+    <div class="addon-option flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" data-index="0">
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md text-primary block leading-tight">POWDER COATING — CUSTOM COLOR</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Any RAL color • Ceramic-infused finish</span>
+</div>
+<span class="delta-badge text-on-surface-variant text-xs shrink-0">+Rp 8jt</span>
+<div class="w-4 h-4 border-2 border-outline-variant shrink-0 ml-2 flex items-center justify-center checkbox-visual"></div>
+</div>
+<div class="addon-option flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" data-index="1">
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md text-primary block leading-tight">BREMBO STYLEMA — UPGRADED BRAKES</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Radial monoblock • Floating discs</span>
+</div>
+<span class="delta-badge text-on-surface-variant text-xs shrink-0">+Rp 24jt</span>
+<div class="w-4 h-4 border-2 border-outline-variant shrink-0 ml-2 flex items-center justify-center checkbox-visual"></div>
+</div>
+<div class="addon-option flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" data-index="2">
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md text-primary block leading-tight">CUSTOM PAINT — DUA TONE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Hand-sprayed • Multi-layer • Pinstripe accents</span>
+</div>
+<span class="delta-badge text-on-surface-variant text-xs shrink-0">+Rp 16jt</span>
+<div class="w-4 h-4 border-2 border-outline-variant shrink-0 ml-2 flex items-center justify-center checkbox-visual"></div>
+</div>
+<div class="addon-option flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" data-index="3">
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md text-primary block leading-tight">WIRELESS BLINKER SYSTEM</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Integrated LED • Auto-cancel module</span>
+</div>
+<span class="delta-badge text-on-surface-variant text-xs shrink-0">+Rp 5jt</span>
+<div class="w-4 h-4 border-2 border-outline-variant shrink-0 ml-2 flex items-center justify-center checkbox-visual"></div>
+</div>
+<div class="addon-option flex items-center gap-4 p-4 border border-outline-variant cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors" data-index="4">
+<div class="flex-1 min-w-0">
+<span class="font-body-md text-body-md text-primary block leading-tight">GPS TRACKING & ANTI-THEFT</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Real-time tracker • Immobiliser system</span>
+</div>
+<span class="delta-badge text-on-surface-variant text-xs shrink-0">+Rp 7jt</span>
+<div class="w-4 h-4 border-2 border-outline-variant shrink-0 ml-2 flex items-center justify-center checkbox-visual"></div>
+</div>
+</div>
+</div>
+
+<!-- Price & Order -->
+<div class="border-t border-outline-variant pt-8">
+<div class="mb-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-4">Price Breakdown</span>
+<div class="bg-surface-container-low p-4 space-y-2 text-sm" id="price-breakdown">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Base — <span id="pd-project">The Iron Shadow</span></span>
+<span class="font-body-md text-body-md text-primary" id="pd-base">Rp 425.000.000</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Engine</span>
+<span class="font-body-md text-body-md text-on-surface-variant" id="pd-engine">Rp 0</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Frame</span>
+<span class="font-body-md text-body-md text-on-surface-variant" id="pd-frame">Rp 0</span>
+</div>
+<div class="flex justify-between items-center" id="pd-addons-row">
+<span class="font-body-md text-body-md text-on-surface-variant">Additional Options</span>
+<span class="font-body-md text-body-md text-on-surface-variant" id="pd-addons">Rp 0</span>
+</div>
+<div class="border-t border-outline-variant/30 pt-2 mt-2 flex justify-between items-center">
+<span class="font-headline-md text-headline-md text-primary">TOTAL</span>
+<span class="font-headline-md text-headline-md text-primary" id="total-price">Rp 425.000.000</span>
+</div>
+</div>
+</div>
+<button onclick="checkoutBuild()" class="w-full bg-primary text-on-primary py-6 font-headline-md text-headline-md uppercase tracking-wider hover:bg-white/90 transition-colors flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-2xl" data-icon="lock">lock</span>
+DEPOSIT NOW
+</button>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-4 text-center">50% deposit secures your build slot • balance due on completion</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Gallery -->
+<section class="grid grid-cols-1 md:grid-cols-4 border-b border-outline-variant">
+<div class="md:col-span-2 aspect-video md:aspect-auto overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwcYXwWEeypE3-aiie8P-Zwai1DFdPDrWQ13ugxFgG78TX1b-HX9JRoV4CW0wk7_b2ODY044CFb4nnTXjsByo7FlzS4zmOSCquSwgS28q-hnfWfMhoX9mwptz0qlzJw7_ApCo-tn_v9s3w-AqR5pt04bOHgP9XEBVLE7yvVNqJbMF5yXyBWvxKqczYrNZ3vJ99jKt2lSi50IaJCYhKF7oN8iOflhB_lY3t2hTuE_2qCuUmYJvQvGbMQMuNdkfwkCaXeU2mM5Zn8PU" alt="Frame detail">
+</div>
+<div class="aspect-video md:aspect-auto overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4C2IWr7tDnKhANEFktTJ3heLbUsi3HU4zQWOj4CsKnaG2ZEWsVhZXHBDB8lCXzmFj6xsxiJFvUk5jZXm-Hbys7o8zk5JxPlq4lgZLPUTkYvWF2hqbFJSPw7S5N_ZI7BMRrLQ8GczY-NE0TZj6Ry6xpoGY_AHc-iB-PQnEHQe2NNct9JOJo3aV8M0CxTLm6c_gvqbqUgsyClvJqxO03luwlnlE2-vVk3Rr3MCRB4-fsSM6FrZY2td9E2VaNUKHIh47MJMGUBFNkwU" alt="Seat detail">
+</div>
+<div class="aspect-video md:aspect-auto overflow-hidden">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmOPwUBXiosF_BQ7Xc79aRJfgXUj2HVNigzuR2QN9ePJ4YfKw76w1NM__peTgDUI508JK1EZoBWqH-GW2o_qGXvblftrqlyaH6DcVsNfrGQN7dFPVBxNtG5I88i-osH2VEBxjJ3sDpAConMwSHRngdSYKnSxmnor4XThlRH1Tr6nD-7A3nNd8f5mU4pt4WY23w1-WcqntAvZm0CmKu0-906UL5JSm6vP_82JZnCLej2gBeZJ2DWSD8sFwfxr--N97GWpSvLSRDG18" alt="Engine detail">
+</div>
+</section>
+
+<!-- Inner Circle -->
+<section class="py-32 px-margin-mobile md:px-margin-desktop bg-white text-black relative overflow-hidden reveal-up">
+<div class="absolute -right-20 top-0 opacity-10">
+<span class="text-[20rem] font-headline-xl leading-none italic outline-text !-webkit-text-stroke-black" style="-webkit-text-stroke:1px #000;color:transparent;">JOIN</span>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h2 class="text-7xl md:text-9xl font-headline-xl tracking-tighter leading-none mb-12 uppercase">THE INNER<br>CIRCLE</h2>
+<p class="text-2xl font-medium mb-12 max-w-xl">Early access to limited drops, build logs, and technical specs. No spam, just substance.</p>
+<form class="flex flex-col md:flex-row gap-4 w-full">
+<input class="flex-1 bg-transparent border-b-4 border-black py-6 text-2xl font-headline-md focus:outline-none placeholder:text-black/30" placeholder="YOUR EMAIL ADDRESS" type="email">
+<button class="bg-black text-white px-12 py-6 font-headline-md text-2xl tracking-tight hover:italic transition-all">SUBSCRIBE</button>
+</form>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-black border-t-2 border-white pt-24 pb-12 px-margin-mobile md:px-margin-desktop">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24">
+<div class="lg:col-span-6 flex flex-col items-start gap-8">
+<a class="flex items-center gap-4 hover:opacity-80 transition-opacity" href="home page.html">
+<svg class="h-[72px] w-auto" viewBox="0 0 666.66669 666.66669" xmlns="http://www.w3.org/2000/svg">
+  {{DATA:DOCUMENT:DOCUMENT_8}}
+</svg>
+<span class="text-6xl font-headline-xl tracking-tighter">1123</span>
+</a>
+<p class="max-w-md text-on-surface-variant font-medium">
+                    Automotive precision translated into textile form. Engineered for those who build the future with their own hands.
+                </p>
+</div>
+<div class="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">NAVIGATION</span>
+<a class="font-bold hover:italic" href="galeri.html">BUILDS</a>
+<a class="font-bold hover:italic" href="shop.html">MERCH</a>
+<a class="font-bold hover:italic" href="home page.html">ABOUT</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SOCIAL</span>
+<a class="font-bold hover:italic" href="#">INSTAGRAM</a>
+<a class="font-bold hover:italic" href="#">YOUTUBE</a>
+<a class="font-bold hover:italic" href="#">TIKTOK</a>
+</div>
+<div class="flex flex-col gap-6">
+<span class="text-label-caps font-bold text-white/40">SUPPORT</span>
+<a class="font-bold hover:italic" href="contact person.html">CONTACT</a>
+<a class="font-bold hover:italic" href="#">SHIPPING</a>
+<a class="font-bold hover:italic" href="#">LEGAL</a>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/10 text-xs font-bold tracking-widest text-white/40">
+<span class="">©2024 1123 WORKSHOP. ALL RIGHTS RESERVED.</span>
+<div class="flex gap-8 mt-4 md:mt-0">
+<span class="">PRIVACY POLICY</span>
+<span class="">TERMS OF SERVICE</span>
+</div>
+</div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+const projects = [
+  {
+    name: 'THE IRON<br>SHADOW', label: 'PROJECT 001', price: 425000000,
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4Ndl-qgo-9wzptug_GGZGOCVwjLfbBkf0WMDUKQ0zjemAHzUvYwekf-aKtjQoHRx7piaflgmp-elAm2-HDm5NGJFmgvYDMBIGX1LC-lVGXFrL18XZuSlBoUnDK40iTJx3xKmDHakeBhrzC5QwRceiaASSJs3OriYYAYvqkCqDNPn-HhL6wU8_4d2EKELJww7IUI90bGl77s6PSfqSUYe80cmZW25CKqXiAqV6AGfbWTi_JZfy2cBus3LJtRheHynXXIgrTP6dSNs',
+    desc: 'A stripped-back 1200cc monster designed for the urban void. Carbon fiber meets cold-rolled steel. Every weld exposed, every component selected for purpose over decoration.',
+    engine: '1200CC V-TWIN', frame: 'REINFORCED TRESTLE', suspension: 'ÖHLINS BLACK LINE',
+    exhaust: 'SC-PROJECT 2-INTO-1', tires: 'PIRELLI DIABLO IV', weight: '178 KG DRY', power: '118 HP @ 9500 RPM',
+    components: [
+      ['BRAKING SYSTEM', 'Brembo M50 Monoblock calipers with carbon-ceramic discs.'],
+      ['COCKPIT', 'Motogadget Motoscope Pro digital display integrated into triple tree.'],
+      ['LIGHTING', 'Vertical stacked LED projector units with CNC-machined aluminum housing.'],
+      ['SEATING', 'Hand-stitched Alcantara and perforated leather solo seat unit.'],
+      ['TRANSMISSION', '5-speed manual with heavy-duty clutch and reinforced chain drive.']
+    ]
+  },
+  {
+    name: 'CARBON<br>GHOST', label: 'PROJECT 002', price: 550000000,
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCp_8BvYTCO1IcwaH72Optw8fOOYBQgMb-bQsowd1xybDeQrpIZL2PWeVGF0MaLgJHpia1fmVJP4NzCPVQEhlZdYHzsRKSaoUqp3e6Q2pOgeWgJVOgs8ctFdavWtUpfj18grLt0YTksj7pQjmo8bfanrShP0zqpFrW18FThDmzbvOYaf1Kcx4WgtHM18N66Cx76emOhuwxmg9_NJScwGNEDHs8SzrESJ3zHSZ2fkYvMwcpHOvZfbKanidN32pPOIJI23edgwn6KhJo',
+    desc: 'Structural honesty at 160mph. Featuring a bespoke titanium subframe and integrated aero elements. Every gram justified, every surface functional. Top speed limited only by your nerve.',
+    engine: '1450CC V-TWIN', frame: 'CARBON MONOCOQUE', suspension: 'ÖHLINS RACING',
+    exhaust: 'AKRAPOVIC TITANIUM', tires: 'PIRELLI SUPERCORSA', weight: '162 KG DRY', power: '142 HP @ 10500 RPM',
+    components: [
+      ['BRAKING SYSTEM', 'Brembo Stylema radial calipers with 330mm floating discs.'],
+      ['COCKPIT', 'Motogadget Chronoclassic analog-digital hybrid display.'],
+      ['LIGHTING', 'Matrix LED array with adaptive cornering function.'],
+      ['SEATING', 'Carbon-fiber reinforced bucket seat with Alcantara trim.'],
+      ['TRANSMISSION', '6-speed close-ratio gearbox with quickshifter.']
+    ]
+  },
+  {
+    name: 'RAW<br>V-TWIN', label: 'PROJECT 003', price: 480000000,
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB80ts_QZea4YixnSUjLcx91N9bHdrTFB2UI2AJNDQz4HgRnPO7rOXHq_mfAYI8q4RhvYSZBuZSUDmqKNO3nkC7iSc8EX64wYlc44Kn95P1XAabzFZlvF3jXBkQ1qK2dKaoSApqHcYd_5AiHNXi95y4-0rJw1FPbM6AGYSLn4AYhIR8FvxaCMNE4RndODwdKADBm5NXyrLZe2THkZXPnXZQQVqZ_F7gmH5U6OaA3eqlijveOx6E90-jIwJ-UQMmEIqQhca1c8exnds',
+    desc: 'An exercise in reduction. No electronics, no plastics. Just fuel, air, and iron. Carbureted V-Twin, kick-start only. Built for riders who believe ABS is a character flaw.',
+    engine: '1200CC CARB V-TWIN', frame: 'HARDTAIL RIGID', suspension: 'SPRINGER FRONT',
+    exhaust: 'STRAIGHT PIPES', tires: 'AVON COBRA', weight: '195 KG DRY', power: '85 HP @ 7000 RPM',
+    components: [
+      ['BRAKING SYSTEM', 'Single 300mm disc with 4-piston caliper. No ABS.'],
+      ['COCKPIT', 'Minimalist speedometer. No tachometer. No dashboard.'],
+      ['LIGHTING', 'Halogen headlamp. LED tail light. No turn signals (hand signals).'],
+      ['SEATING', 'Raw leather sprung solo seat with brass rivets.'],
+      ['TRANSMISSION', '4-speed ratchet top transmission.']
+    ]
+  },
+  {
+    name: 'SILVER<br>BULLET', label: 'PROJECT 004', price: 780000000,
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBbE-lFl_cY51J0n_TmwLbON4ITEfth1yLy3iwLW5TAd5baH70rMPyhC4prYwkEcKveqB3G8q2N2XOcy0zHSGsVXEAQ7lBpAdDCuS4I2ZEtHaTmuxQD6eZBUZktewbrxSy6sz8Kaqess7B7h_erDNgWOklAm1LWXCxGMT6cnUebrLxwqCsWKoXkz92cgKHpfBIOut2NWHqyFMsA91BvJiuQs7WnXOwhvsfzAvnaSJ35nzG3eUnGyaUQ3HEL7q0HRBpn3hxrAVCr_Sw',
+    desc: 'A high-speed alloy projectile. Aerodynamic bodywork meets raw V-Twin power. Designed for the salt flats and the autobahn. 155 HP of precision-engineered velocity.',
+    engine: '1600CC TWIN CAM', frame: 'ALUMINUM TRESTLE', suspension: 'ÖHLINS RACING FULL',
+    exhaust: 'SC-PROJECT TITANIUM', tires: 'PIRELLI DIABLO SUPERCORSA', weight: '170 KG DRY', power: '155 HP @ 11000 RPM',
+    components: [
+      ['BRAKING SYSTEM', 'Brembo GP4-RX billet calipers with carbon-ceramic discs.'],
+      ['COCKPIT', 'Motogadget M-Unit digital interface with lap timer.'],
+      ['LIGHTING', 'Aerodynamic integrated LED system with DRL.'],
+      ['SEATING', 'Tapered tail section with integrated LED tail light.']
+    ]
+  },
+  {
+    name: 'THE<br>VOID', label: 'PROJECT 005', price: 325000000,
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAVg_XL7PeBBb7hLo9cYDCtOX_yF6OmqfyTqMAYxUOXIbFuD_A797e2l02SA4VfvaI7hWsX1duR9wzw1SYKKk-SAFrd1KHAFvM2YthviMMMJdxLFcBXZPSFf0DmH5loE3bwBRTFd7hWc4Zod1H7CrlzVdyrM57oSEhmCQwJDxy1iExIvOSrCCA_dOtnxEql3UB8SXC4ZC8MkS_ZDrprZP4HLpPUA9zLX0Kvc-IhbE3rjwZbv4HtjSVulunBbwv4s51JnNOV3xZXHho',
+    desc: 'Absolute darkness. A machine built for the night. Matte black from stem to stern, with zero reflective surfaces. Stealth, torque, and silence — the void welcomes you.',
+    engine: '883CC EVOLUTION', frame: 'RIGID HARDTAIL', suspension: 'COILOVER REAR',
+    exhaust: 'BLACKED 2-INTO-2', tires: 'DUNLOP K70', weight: '185 KG DRY', power: '65 HP @ 6000 RPM',
+    components: [
+      ['BRAKING SYSTEM', 'Single 280mm disc with blacked-out caliper.'],
+      ['COCKPIT', 'Stealth top clamp mount. No branding. No chrome.'],
+      ['LIGHTING', 'Black housing LED. Dark smoke lens. Minimal glow.'],
+      ['SEATING', 'Low-profile solo seat. Black leather, black stitching.']
+    ]
+  }
+];
+
+let currentProject = 0;
+const engineAdj = { '1200cc': 0, '1450cc': 51000000, '1100cc': -29000000, '1600cc': 95000000, '883cc': -68000000 };
+const frameAdj = { 'trestle': 0, 'carbon': 93000000, 'rigid': -19000000, 'aluminum': 42000000 };
+const addonPrices = [8000000, 24000000, 16000000, 5000000, 7000000];
+
+const fmt = (n) => 'Rp ' + n.toLocaleString('id-ID');
+
+function slideOut(cb) {
+  document.querySelectorAll('.hero-slide').forEach(el => {
+    el.classList.remove('in');
+    el.classList.add('out');
+  });
+  setTimeout(cb, 350);
+}
+
+function slideIn() {
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.hero-slide').forEach(el => {
+      el.classList.remove('out');
+      el.classList.add('in');
+    });
+  });
+}
+
+function selectProject(index) {
+  if (index === currentProject) return;
+  slideOut(() => {
+    currentProject = index;
+    const p = projects[index];
+    document.getElementById('hero-img').src = p.img;
+    document.getElementById('hero-label').textContent = p.label;
+    document.getElementById('hero-title').innerHTML = p.name;
+    document.getElementById('project-desc').textContent = p.desc;
+    document.getElementById('spec-engine').textContent = p.engine;
+    document.getElementById('spec-frame').textContent = p.frame;
+    document.getElementById('spec-suspension').textContent = p.suspension;
+    document.getElementById('spec-exhaust').textContent = p.exhaust;
+    document.getElementById('spec-tires').textContent = p.tires;
+    document.getElementById('spec-weight').textContent = p.weight;
+    document.getElementById('spec-power').textContent = p.power;
+    document.getElementById('pd-project').textContent = p.name.replace(/<br>/g, ' ');
+
+    const compList = document.getElementById('components-list');
+    compList.innerHTML = p.components.map(c =>
+      `<li><h3 class="font-label-caps text-label-caps text-primary">${c[0]}</h3><p class="font-body-md text-body-md text-on-surface-variant">${c[1]}</p></li>`
+    ).join('');
+
+    document.querySelectorAll('.project-btn').forEach((btn, i) => {
+      btn.className = i === index
+        ? 'project-btn border border-primary bg-primary/10 text-primary font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:bg-primary/20 transition-colors'
+        : 'project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors';
+    });
+    updatePrice();
+    slideIn();
+  });
+}
+
+function updatePrice() {
+  const p = projects[currentProject];
+  let engineVal = '1200cc';
+  document.querySelectorAll('input[name="engine"]').forEach(r => { if (r.checked) { engineVal = r.value; } });
+  let frameVal = 'trestle';
+  document.querySelectorAll('input[name="frame"]').forEach(r => { if (r.checked) { frameVal = r.value; } });
+
+  const eAdj = engineAdj[engineVal] || 0;
+  const fAdj = frameAdj[frameVal] || 0;
+  let addons = 0;
+  document.querySelectorAll('.addon-option.checked').forEach(el => {
+    addons += addonPrices[parseInt(el.dataset.index)] || 0;
+  });
+
+  const total = p.price + eAdj + fAdj + addons;
+  document.getElementById('pd-base').textContent = fmt(p.price);
+  document.getElementById('pd-engine').textContent = eAdj >= 0 ? '+' + fmt(eAdj) : '-' + fmt(Math.abs(eAdj));
+  document.getElementById('pd-frame').textContent = fAdj >= 0 ? '+' + fmt(fAdj) : '-' + fmt(Math.abs(fAdj));
+  document.getElementById('pd-addons').textContent = addons > 0 ? '+' + fmt(addons) : 'Rp 0';
+  document.getElementById('total-price').textContent = fmt(total);
+  document.getElementById('hero-price').textContent = fmt(total);
+}
+
+// Option card click — update visual state only, price via change event
+document.querySelectorAll('.option-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    const parent = this.parentElement;
+    parent.querySelectorAll('.option-card').forEach(c => {
+      c.classList.remove('selected', 'border-primary', 'bg-primary/5');
+      c.classList.add('border-outline-variant');
+    });
+    this.classList.add('selected', 'border-primary', 'bg-primary/5');
+    this.classList.remove('border-outline-variant');
+  });
+});
+
+document.querySelectorAll('.project-btn').forEach(btn => {
+  btn.addEventListener('click', () => selectProject(parseInt(btn.dataset.project)));
+});
+document.querySelectorAll('input[name="engine"], input[name="frame"]').forEach(r => {
+  r.addEventListener('change', updatePrice);
+});
+document.querySelectorAll('.addon-option').forEach(el => {
+  el.addEventListener('click', function() {
+    this.classList.toggle('checked');
+    updatePrice();
+  });
+});
+
+// Notification sound — caveman style
+function playNotifySound() {
+  try {
+    var ctx = new (window.AudioContext || window.webkitAudioContext)();
+    // Metallic hit
+    var bufSize = ctx.sampleRate * 0.15;
+    var buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+    var data = buffer.getChannelData(0);
+    for (var i = 0; i < bufSize; i++) {
+      var t = i / ctx.sampleRate;
+      data[i] = Math.sin(2 * Math.PI * 800 * t) * Math.exp(-t * 25) * 0.3
+             + Math.sin(2 * Math.PI * 1200 * t) * Math.exp(-t * 30) * 0.15
+             + (Math.random() * 2 - 1) * Math.exp(-t * 40) * 0.08;
+    }
+    var source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.connect(ctx.destination);
+    source.start();
+    // Auto-close after done
+    setTimeout(function(){ ctx.close(); }, 500);
+  } catch(e) {}
+}
+
+// Checkout build — redirect to deposit page
+function checkoutBuild() {
+  if (localStorage.getItem('userLoggedIn') !== 'true') {
+    document.body.style.transition = 'opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+    document.body.style.opacity = '0';
+    setTimeout(function() { window.location.href = 'account.html?redirect=build'; }, 350);
+    return;
+  }
+  const p = projects[currentProject];
+  let engineVal = '1200cc';
+  let frameVal = 'trestle';
+  document.querySelectorAll('input[name="engine"]').forEach(r => { if (r.checked) { engineVal = r.value; } });
+  document.querySelectorAll('input[name="frame"]').forEach(r => { if (r.checked) { frameVal = r.value; } });
+  let addonNames = [];
+  document.querySelectorAll('.addon-option.checked').forEach(el => {
+    var label = el.querySelector('.font-body-md.text-primary');
+    if (label) addonNames.push(label.textContent);
+  });
+
+  const order = {
+    projectName: p.name.replace(/<br>/g, ' ').trim(),
+    projectIndex: currentProject,
+    engine: engineVal,
+    frame: frameVal,
+    addons: addonNames,
+    total: document.getElementById('total-price').textContent,
+    priceNum: parseInt(document.getElementById('total-price').textContent.replace(/[^\d]/g, '')),
+    date: new Date().toISOString().split('T')[0]
+  };
+
+  localStorage.setItem('checkoutBuildData', JSON.stringify(order));
+
+  try { playNotifySound(); } catch(e) { console.error(e); }
+
+  // Navigate to build checkout
+  document.body.style.transition = 'opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+  document.body.style.opacity = '0';
+  setTimeout(function() { window.location.href = 'checkout-build.html'; }, 350);
+}
+
+function updateCartBadge() {
+  if (window.updateCartBadge) { window.updateCartBadge(); return; }
+}
+
+// Init — read project index from URL hash (e.g. build-order.html#1)
+let startIdx = 0;
+const hash = window.location.hash;
+if (hash && hash.length > 1) {
+  const idx = parseInt(hash.substring(1));
+  if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
+    startIdx = idx;
+  }
+}
+if (startIdx !== 0) {
+  currentProject = startIdx;
+  const p = projects[startIdx];
+  document.getElementById('hero-img').src = p.img;
+  document.getElementById('hero-label').textContent = p.label;
+  document.getElementById('hero-title').innerHTML = p.name;
+  document.getElementById('hero-price').textContent = fmt(p.price);
+  document.getElementById('project-desc').textContent = p.desc;
+  document.getElementById('spec-engine').textContent = p.engine;
+  document.getElementById('spec-frame').textContent = p.frame;
+  document.getElementById('spec-suspension').textContent = p.suspension;
+  document.getElementById('spec-exhaust').textContent = p.exhaust;
+  document.getElementById('spec-tires').textContent = p.tires;
+  document.getElementById('spec-weight').textContent = p.weight;
+  document.getElementById('spec-power').textContent = p.power;
+  document.getElementById('pd-project').textContent = p.name.replace(/<br>/g, ' ');
+  document.getElementById('pd-base').textContent = fmt(p.price);
+  document.getElementById('pd-engine').textContent = 'Rp 0';
+  document.getElementById('pd-frame').textContent = 'Rp 0';
+  document.getElementById('pd-addons').textContent = 'Rp 0';
+  document.getElementById('total-price').textContent = fmt(p.price);
+  document.querySelectorAll('.project-btn').forEach((btn, i) => {
+    btn.className = i === startIdx
+      ? 'project-btn border border-primary bg-primary/10 text-primary font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:bg-primary/20 transition-colors'
+      : 'project-btn border border-outline-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-colors';
+  });
+  const compList = document.getElementById('components-list');
+  compList.innerHTML = p.components.map(c =>
+    `<li><h3 class="font-label-caps text-label-caps text-primary">${c[0]}</h3><p class="font-body-md text-body-md text-on-surface-variant">${c[1]}</p></li>`
+  ).join('');
+}
+setTimeout(slideIn, 100);
+updateCartBadge();
+</script>
+</body>
+</html>
