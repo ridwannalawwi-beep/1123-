@@ -430,7 +430,14 @@ html {
           fetch('/.netlify/functions/rajaongkir?action=provinces')
             .then(function(r) { return r.json(); })
             .then(function(data) {
-              if (!data.success || !data.data) return;
+              if (data.limited) {
+                sel.innerHTML = '<option value="">RATE LIMIT — COBA BESOK</option>';
+                return;
+              }
+              if (!data.success || !data.data) {
+                sel.innerHTML = '<option value="">GAGAL LOAD PROVINSI</option>';
+                return;
+              }
               sel.innerHTML = '<option value="">PILIH PROVINSI</option>';
               data.data.forEach(function(p) {
                 var o = document.createElement('option');

@@ -84,8 +84,8 @@ exports.handler = async function(event) {
       if (res && res.meta && res.meta.status === 'success' && res.data) {
         return { statusCode: 200, headers, body: JSON.stringify({ success: true, data: res.data }) };
       }
-      var msg = (res && res.meta) ? res.meta.message : 'no response';
-      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed', detail: msg }) };
+      var isLimit = (res && res.meta && res.meta.message && res.meta.message.toLowerCase().indexOf('limit') !== -1);
+      return { statusCode: 200, headers, body: JSON.stringify({ error: 'failed', limited: !!isLimit }) };
     }
 
     // City list for a province
